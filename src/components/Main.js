@@ -12,7 +12,7 @@ const Main = () => {
   // API 호출하여 배너 영화 가져오기
   const fetchFeaturedMovie = async () => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
       const randomMovie = response.data.results[Math.floor(Math.random() * response.data.results.length)];
       setBannerMovie(randomMovie);
     } catch (error) {
@@ -23,7 +23,7 @@ const Main = () => {
   // API 호출하여 인기 영화 가져오기
   const fetchPopularMovies = async () => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${1}`);
       setPopularMovies(response.data.results);
     } catch (error) {
       console.error('Error fetching popular movies:', error);
@@ -33,8 +33,8 @@ const Main = () => {
   // API 호출하여 최신 영화 가져오기
   const fetchLatestMovies = async () => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/latest?api_key=${apiKey}`);
-      setLatestMovies([response.data]); // 최신 영화는 단일 객체
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR&page=${2}`);
+      setLatestMovies(response.data.results); 
     } catch (error) {
       console.error('Error fetching latest movies:', error);
     }
@@ -43,7 +43,7 @@ const Main = () => {
   // API 호출하여 액션 영화 가져오기
   const fetchActionMovies = async () => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28`);
+      const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ko-KR`);
       setActionMovies(response.data.results);
     } catch (error) {
       console.error('Error fetching action movies:', error);
@@ -109,16 +109,18 @@ const Main = () => {
       {/* 최신 영화 목록 */}
       <div>
         <h2>최신 영화</h2>
-        {latestMovies.length > 0 && latestMovies[0].poster_path && (
-          <div style={{ margin: '10px' }}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${latestMovies[0].poster_path}`}
-              alt={latestMovies[0].title}
-              style={{ width: '150px', height: '225px', objectFit: 'cover' }}
-            />
-            <p>{latestMovies[0].title}</p>
-          </div>
-        )}
+        <div style={{ display: 'flex', overflowX: 'scroll' }}>
+          {latestMovies.map((movie) => (
+            <div key={movie.id} style={{ margin: '10px' }}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                style={{ width: '150px', height: '225px', objectFit: 'cover' }}
+              />
+              <p>{movie.title}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* 액션 영화 목록 */}
