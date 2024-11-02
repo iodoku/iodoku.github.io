@@ -10,11 +10,11 @@ const Main = () => {
   const [actionMovies, setActionMovies] = useState([]); // 액션 영화 목록
 
   // API 호출하여 배너 영화 가져오기
-  const fetchFeaturedMovie = async () => {
+  const fetchFeaturedMovie = async (apiKey) => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
-      const randomMovie = response.data.results[Math.floor(Math.random() * response.data.results.length)];
-      setBannerMovie(randomMovie);
+      console.log(response.data.results[0]);
+      setFeaturedMovie(response.data.results[0]);
     } catch (error) {
       console.error('Error fetching featured movie:', error);
     }
