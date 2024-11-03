@@ -1,0 +1,8 @@
+.scroll-container {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox 전용 */
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera 전용 */
+}
