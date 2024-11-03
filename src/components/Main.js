@@ -146,6 +146,12 @@ const Main = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .movie-image:hover {
+          transform: scale(1.1); // 마우스 오버 시 확대 효과
+        }
+      `}</style>
     </div>
 
   );
