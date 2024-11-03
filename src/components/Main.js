@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useHorizontalScroll } from "./Scroll";
+import './Image.css';
 
 const Main = () => {
   const apiKey = localStorage.getItem('TMDb-Key') || '';
@@ -66,26 +67,28 @@ const Main = () => {
 
   if (!bannerMovie) return null;
 
+  
+
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#E0FFF4'}}>
       {/* 배너 */}
-      <div style={{ position: 'relative', height: '600px' }}>
+      <div style={{ position: 'relative', height: '750px', padding: '0 50px'}}>
         <img
           src={`https://image.tmdb.org/t/p/original${bannerMovie.backdrop_path}`}
           alt={bannerMovie.title}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
-        <h1 style={{ position: 'absolute', bottom: '200px', left: '30px', color: 'white', fontSize: '2rem' }}>
+        <h1 style={{ position: 'absolute', bottom: '200px', left: '30px', color: 'white', fontSize: '2.5rem' ,padding: '0 50px' }}>
           {bannerMovie.title}
         </h1>
-        <p style={{ position: 'absolute', bottom: '100px', left: '30px', color: 'white', maxWidth: '400px', lineHeight: '1.5', fontSize: '0.8rem' }}>
+        <p style={{ position: 'absolute', bottom: '100px', left: '30px', color: 'white', maxWidth: '400px', lineHeight: '1.5', fontSize: '1rem', padding: '0 50px'  }}>
           {bannerMovie.overview}
         </p>
       </div>
 
       {/* 인기 영화 목록 */}
-      <div>
+      <div style={{ flex: 1, marginTop: '2px', borderRadius: '8px', padding: '0 50px' }}>
         <h2>인기 영화</h2>
         <div className="scroll-container" ref={scrollRef1}>
           <div style={{ display: 'flex' }}>
@@ -94,7 +97,7 @@ const Main = () => {
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
-                  style={{ width: '150px', height: '225px', objectFit: 'cover', transition: 'transform 0.3s' }}
+                  style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
                 />
                 <p>{movie.title}</p>
@@ -105,16 +108,16 @@ const Main = () => {
       </div>
 
       {/* 최신 영화 목록 */}
-      <div>
+      <div style={{ flex: 1, marginTop: '2px', borderRadius: '8px', padding: '0 50px' }}>
         <h2>최신 영화</h2>
-        <div className="scroll-container" ref={scrollRef1}>
+        <div className="scroll-container" ref={scrollRef2}>
           <div style={{ display: 'flex' }}>
             {latestMovies.map((movie) => (
-              <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
+              <div key={movie.id} style={{ margin: '5px', position: 'relative' }}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
-                  style={{ width: '150px', height: '225px', objectFit: 'cover', transition: 'transform 0.3s' }}
+                  style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
                 />
                 <p>{movie.title}</p>
@@ -125,36 +128,26 @@ const Main = () => {
       </div>
 
       {/* 액션 영화 목록 */}
-      <div>
+      <div style={{ flex: 1, marginTop: '2px', borderRadius: '8px', padding: '0 50px' }}>
         <h2>액션 영화</h2>
-        <div
-          ref={scrollRef3} 
-          style={{ 
-            display: 'flex', 
-            overflowX: 'auto', 
-            cursor: 'grab' 
-          }}
-        >
-          {actionMovies.map((movie) => (
-            <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                style={{ width: '150px', height: '225px', objectFit: 'cover', transition: 'transform 0.3s' }}
-                className="movie-image"
-              />
-              <p>{movie.title}</p>
-            </div>
-          ))}
+        <div className="scroll-container" ref={scrollRef3}>
+          <div style={{ display: 'flex' }}>
+            {actionMovies.map((movie) => (
+              <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
+                  className="movie-image"
+                />
+                <p>{movie.title}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <style jsx>{`
-        .movie-image:hover {
-          transform: scale(1.1); // 마우스 오버 시 확대 효과
-        }
-      `}</style>
+      </div>      
     </div>
+
   );
 };
 

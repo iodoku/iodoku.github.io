@@ -11,7 +11,7 @@ export const useHorizontalScroll = () => {
                 if (event.deltaY !== 0) {
                     event.preventDefault();
                     element.scrollBy({
-                        left: event.deltaY * 10, // 스크롤 속도 조정
+                        left: event.deltaY * 20, // 스크롤 속도 조정
                         behavior: 'smooth',
                     });
                 }
