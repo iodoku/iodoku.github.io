@@ -1,28 +1,12 @@
-import React, { useRef, useEffect } from 'react';
-import './Scroll.css'; 
+import './Scroll.css';
+import { useCallback } from 'react';
 
 export const useHorizontalScroll = () => {
-    const ref = useRef();
+  const onWheel = useCallback((e) => {
+    const scrollContainer = e.currentTarget;
+    scrollContainer.scrollLeft += e.deltaY*25; // 수직 휠 이동에 따라 수평 스크롤
+    e.preventDefault(); // 기본 스크롤 동작 방지
+  }, []);
 
-    useEffect(() => {
-        const element = ref.current;
-        if (element) {
-            const onWheel = (event) => {
-                if (event.deltaY !== 0) {
-                    event.preventDefault();
-                    element.scrollBy({
-                        left: event.deltaY * 20, // 스크롤 속도 조정
-                        behavior: 'smooth',
-                    });
-                }
-            };
-            element.addEventListener('wheel', onWheel);
-
-            return () => {
-                element.removeEventListener('wheel', onWheel);
-            };
-        }
-    }, []);
-
-    return ref;
+  return { onWheel }; // onWheel을 반환
 };

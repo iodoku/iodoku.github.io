@@ -1,8 +1,5 @@
-.scroll-container {
+.scroll-horizontal {
     overflow-x: auto;
     scrollbar-width: none; /* Firefox 전용 */
-}
-
-.scroll-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera 전용 */
+    scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
 }
