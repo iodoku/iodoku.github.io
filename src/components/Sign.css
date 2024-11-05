@@ -1,0 +1,21 @@
+.double-enter {
+    opacity: 0;
+    transform: scale(0.8) rotate(15deg);
+}
+
+.double-enter-active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+}
+
+.double-exit {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.double-exit-active {
+    opacity: 0;
+    transform: scale(0.8) rotate(-15deg);
+    transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+}
