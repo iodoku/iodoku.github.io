@@ -51,3 +51,8 @@
     z-index: 2; /* 로그인 창의 내용이 overlay 위에 보이도록 설정 */
     margin-left: -50px;
 }
+
+body {
+    overflow: hidden; /* 전체 스크롤을 숨김 */
+    margin: 0; /* 기본 여백 제거 */
+}
