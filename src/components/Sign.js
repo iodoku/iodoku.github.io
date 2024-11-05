@@ -106,18 +106,22 @@ const App = () => {
   };
 
   return (
-    <div style={styles.wrapper}>
-      <SwitchTransition mode="out-in">
-        <CSSTransition
-          key={isSignUp}
-          timeout={400}
-          classNames="double"
-        >
-          <div>
-            {isSignUp ? <SignUp toggleForm={toggleForm} /> : <SignIn toggleForm={toggleForm} />}
-          </div>
-        </CSSTransition>
-      </SwitchTransition>
+    <div>
+        <div className="bg-image"></div>
+        <div className="overlay"></div> {/* 어두운 레이어 추가 */}
+        <div className="wrapper">
+            <SwitchTransition mode="out-in">
+                <CSSTransition
+                    key={isSignUp}
+                    timeout={400}
+                    classNames="double"
+                >
+                    <div>
+                        {isSignUp ? <SignUp toggleForm={toggleForm} /> : <SignIn toggleForm={toggleForm} />}
+                    </div>
+                </CSSTransition>
+            </SwitchTransition>
+        </div>
     </div>
   );
 };
@@ -128,7 +132,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh', // 화면 높이를 100%로 설정하여 중앙 정렬
-    backgroundColor: '#E0F7FA',
     paddingRight: '70px',
   },
   container: {

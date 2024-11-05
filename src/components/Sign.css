@@ -19,3 +19,35 @@
     transform: scale(0.8) rotate(-15deg);
     transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
 }
+
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../images/space.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+    filter: brightness(0.5); /* 밝기를 50%로 낮춰 어둡게 설정 */
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 검정색 배경에 투명도 50% */
+    z-index: 1; /* 로그인 창보다 아래에 위치 */
+}
+
+.wrapper {
+    display: flex; /* flexbox를 사용하여 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100vh; /* 화면 전체 높이를 사용 */
+    position: relative; /* 위치를 상대적으로 설정 */
+    z-index: 2; /* 로그인 창의 내용이 overlay 위에 보이도록 설정 */
+    margin-left: -50px;
+}
