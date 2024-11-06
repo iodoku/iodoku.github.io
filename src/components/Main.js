@@ -4,8 +4,12 @@ import { useHorizontalScroll } from "./Scroll"; // 스크롤 훅 임포트
 import './Image.css'; // CSS 파일 임포트
 
 const Main = () => {
-  const apiKey = localStorage.getItem('users') || ''; // TMDb API 키 가져오기
-  console.log(apiKey);
+  let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+
+  if (localStorage.getItem('Remembercheck')) {
+    apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+  }
+  
 
   // 스크롤 참조
   const scrollRef1 = useRef(null);

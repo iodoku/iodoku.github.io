@@ -4,20 +4,25 @@ import './Sign.css'; // 애니메이션 효과를 위한 CSS 파일
 import { toast, ToastContainer } from 'react-toastify'; // toast와 ToastContainer를 가져옵니다.
 import 'react-toastify/dist/ReactToastify.css'; // ToastContainer 스타일을 가져옵니다.
 
+
+
 const SignUp = ({ toggleForm }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
+
   const handleSignUp = (event) => {
     event.preventDefault();
 
+    
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     
     // 기존의 모든 토스트 메시지를 먼저 제거
     toast.dismiss();
 
+    
     if (!emailPattern.test(username)) {
       toast.error(
         <div className="custom-toast-content">
@@ -273,7 +278,7 @@ const SignIn = ({ toggleForm }) => {
     }
 
     if (user) {
-      localStorage.setItem('CurEmail', password);
+      sessionStorage.setItem('CurEmail', password);
       toast.success(
         <div className="custom-toast-content">
           <div className="custom-toast-header">
@@ -291,9 +296,13 @@ const SignIn = ({ toggleForm }) => {
         }
       );
       if (rememberMe) {
-        localStorage.setItem('rememberedUser', username);
+        localStorage.setItem('Remembercheck', password);
+      }
+      else{
+        localStorage.setItem('Remembercheck', '');
       }
       window.location.href = '/'; // 로그인 성공 시 홈 화면으로 이동
+
     } else {
       toast.error(
         <div className="custom-toast-content">
