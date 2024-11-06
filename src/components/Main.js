@@ -4,7 +4,8 @@ import { useHorizontalScroll } from "./Scroll"; // 스크롤 훅 임포트
 import './Image.css'; // CSS 파일 임포트
 
 const Main = () => {
-  const apiKey = localStorage.getItem('TMDb-Key') || ''; // TMDb API 키 가져오기
+  const apiKey = localStorage.getItem('users') || ''; // TMDb API 키 가져오기
+  console.log(apiKey);
 
   // 스크롤 참조
   const scrollRef1 = useRef(null);
@@ -22,7 +23,7 @@ const Main = () => {
   const fetchFeaturedMovie = async (apiKey) => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
-      setBannerMovie(response.data.results[0]); // 첫 번째 결과를 배너 영화로 설정
+      setBannerMovie(response.data.results[1]); // 첫 번째 결과를 배너 영화로 설정
     } catch (error) {
       console.error('Error fetching featured movie:', error);
     }

@@ -273,6 +273,7 @@ const SignIn = ({ toggleForm }) => {
     }
 
     if (user) {
+      localStorage.setItem('CurEmail', password);
       toast.success(
         <div className="custom-toast-content">
           <div className="custom-toast-header">
