@@ -27,7 +27,7 @@ const Main = () => {
   const fetchFeaturedMovie = async (apiKey) => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
-      setBannerMovie(response.data.results[1]); // 첫 번째 결과를 배너 영화로 설정
+      setBannerMovie(response.data.results[0]); // 첫 번째 결과를 배너 영화로 설정
     } catch (error) {
       console.error('Error fetching featured movie:', error);
     }
@@ -97,7 +97,7 @@ const Main = () => {
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   return (
-    <div style={{display: 'flex',flexDirection: 'column', backgroundColor: '#E0FFF4'}}>
+    <div style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333'}}>
       {/* 배너 */}
       <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
         <img
