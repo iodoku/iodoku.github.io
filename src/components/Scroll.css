@@ -3,3 +3,9 @@
     scrollbar-width: none; /* Firefox 전용 */
     scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
 }
+
+.scroll-vertical {
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox 전용 */
+    scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
+}

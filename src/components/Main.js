@@ -27,7 +27,7 @@ const Main = () => {
   const fetchFeaturedMovie = async (apiKey) => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
-      setBannerMovie(response.data.results[1]); // 첫 번째 결과를 배너 영화로 설정
+      setBannerMovie(response.data.results[0]); // 첫 번째 결과를 배너 영화로 설정
     } catch (error) {
       console.error('Error fetching featured movie:', error);
     }
@@ -97,7 +97,7 @@ const Main = () => {
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   return (
-    <div style={{display: 'flex',flexDirection: 'column', backgroundColor: '#E0FFF4'}}>
+    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1260px'}}>
       {/* 배너 */}
       <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
         <img
@@ -105,7 +105,7 @@ const Main = () => {
           alt={bannerMovie.title}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
-        <h1 style={{ position: 'absolute', bottom: '200px', left: '30px', color: 'white', fontSize: '2.5rem', padding: '0 50px' }}>
+        <h1 style={{ position: 'absolute', bottom: '250px', left: '30px', color: 'white', fontSize: '2.5rem', padding: '0 50px' }}>
           {bannerMovie.title}
         </h1>
         <p style={{ position: 'absolute', bottom: '100px', left: '30px', color: 'white', maxWidth: '400px', lineHeight: '1.5', fontSize: '1rem', padding: '0 50px' }}>
@@ -114,7 +114,7 @@ const Main = () => {
       </div>
 
       {/* 인기 영화 목록 */}
-      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px'}}>
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white',}}>
         <h2>인기 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef1}>
           <div style={{ display: 'flex'}}>
@@ -134,7 +134,7 @@ const Main = () => {
       </div>
 
       {/* 최신 영화 목록 */}
-      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px' }}>
+      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
         <h2>최신 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef2}>
           <div style={{ display: 'flex' }}>
@@ -154,7 +154,7 @@ const Main = () => {
       </div>
 
       {/* 액션 영화 목록 */}
-      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px' }}>
+      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
         <h2>액션 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef3}>
           <div style={{ display: 'flex' }}>

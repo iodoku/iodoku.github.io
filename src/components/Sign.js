@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import './Sign.css'; // 애니메이션 효과를 위한 CSS 파일
+import './styles.css';
 import { toast, ToastContainer } from 'react-toastify'; // toast와 ToastContainer를 가져옵니다.
 import 'react-toastify/dist/ReactToastify.css'; // ToastContainer 스타일을 가져옵니다.
 
@@ -175,7 +176,7 @@ const SignUp = ({ toggleForm }) => {
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container_up}>
       <h2 style={styles.title}>Sign Up</h2>
       <form onSubmit={handleSignUp}>
         <div style={styles.inputGroup}>
@@ -329,7 +330,7 @@ const SignIn = ({ toggleForm }) => {
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container_in}>
       <h2 style={styles.title}>Sign In</h2>
       <form onSubmit={handleSignIn}>
         <div style={styles.inputGroup}>
@@ -400,45 +401,66 @@ const App = () => {
 
 // 스타일 설정
 const styles = {
-  container: {
-    width: '100%',
-    maxWidth: '400px',
+  container_up: {
+    minWidth: '600px', // 최소 너비 설정
+    minHeight: '400px', // 최소 높이 설정
+    height: '1vh', // 화면 높이의 100%로 설정 (필요에 따라 조정 가능)
     margin: '0 auto',
-    padding: '20px',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    padding: '100px',
+    backgroundColor: '#333333',
+    borderRadius: '24px',
+    marginTop: '-250px', 
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
+  },
+  container_in: {
+    minWidth: '600px', // 최소 너비 설정
+    minHeight: '300px', // 최소 높이 설정
+    height: '1vh', // 화면 높이의 100%로 설정 (필요에 따라 조정 가능)
+    margin: '0 auto',
+    padding: '100px',
+    backgroundColor: '#333333',
+    borderRadius: '24px',
+    marginTop: '-250px', 
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
   },
   title: {
-    fontSize: '24px',
-    marginBottom: '20px',
+    fontSize: '30px',
+    marginBottom: '30px',
+    marginTop: '-70px', // 음수 값을 사용해 위로 이동
     textAlign: 'center',
+    color: '#ffffff', // 글자색을 하얗게 설정
   },
   inputGroup: {
-    marginBottom: '15px',
+    marginLeft: '-60px', 
+    marginBottom: '30px',
   },
   input: {
     width: '100%',
-    padding: '10px',
-    borderRadius: '4px',
+    padding: '30px',
+    borderRadius: '12px',
     border: '1px solid #ccc',
+    backgroundColor: '#e8f0fe',
   },
   checkboxGroup: {
     marginBottom: '20px',
     textAlign: 'left',
+    marginLeft: '-50px', 
+    color: '#ffffff', // 글자색을 하얗게 설정
   },
   button: {
-    width: '100%',
-    padding: '10px',
-    borderRadius: '4px',
+    width: '100%', // 부모 컨테이너의 너비를 따라가도록 설정
+    padding: '20px',
+    borderRadius: '12px',
     border: 'none',
-    backgroundColor: '#007bff',
+    backgroundColor: '#808080',
     color: '#fff',
     cursor: 'pointer',
+    display: 'block', // 버튼이 부모의 전체 너비를 사용하도록 설정
   },
   switchText: {
-    marginTop: '15px',
+    marginTop: '20px',
     textAlign: 'center',
+    color: '#ffffff', // 글자색을 하얗게 설정
   },
   switchButton: {
     color: '#007bff',
@@ -448,5 +470,6 @@ const styles = {
     textDecoration: 'underline',
   },
 };
+
 
 export default App;
