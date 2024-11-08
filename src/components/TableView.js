@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons'; // 아이콘 추가
 import './Loading.css'; // CSS 파일 임포트
 
 const TableView = () => {
-    const apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    if (localStorage.getItem('Remembercheck')) {
+        apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+    }
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1); // 현재 페이지를 관리
     const [error, setError] = useState(null); // 에러 상태 추가
+    const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수 상태 추가
 
     // 페이지별 데이터를 가져오는 함수
     const fetchMovies = async (currentPage) => {
@@ -22,6 +24,9 @@ const TableView = () => {
             // 모든 페이지에서 가져온 데이터를 합침
             const newMovies = data.flatMap(pageData => pageData.results);
             setMovies(newMovies); // 새 데이터를 현재 페이지 영화로 설정
+
+            // 전체 페이지 수 업데이트
+            setTotalPages(data[0].total_pages);
         } catch (error) {
             console.error('영화 데이터를 불러오는 중 오류가 발생했습니다:', error);
             setError('영화 데이터를 불러오는 데 실패했습니다. 나중에 다시 시도해주세요.');
@@ -33,13 +38,21 @@ const TableView = () => {
     }, [page]);
 
     const handleNextPage = () => {
-        setPage((prevPage) => prevPage + 3); // 페이지를 3단위로 증가
+        if (page + 10 <= totalPages) {
+            setPage(prevPage => prevPage + 10); // 10개 단위로 페이지 증가
+        }
     };
 
     const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage((prevPage) => prevPage - 3); // 페이지를 3단위로 감소
+        if (page <= 10) {
+            setPage(1); // 10번 이하일 경우 첫 번째 페이지로 이동
+        } else {
+            setPage(prevPage => prevPage - 10); // 10개 단위로 페이지 감소
         }
+    };
+
+    const handlePageClick = (pageNumber) => {
+        setPage(pageNumber); // 사용자가 직접 페이지 번호를 클릭하면 해당 페이지로 이동
     };
 
     const scrollToTop = () => {
@@ -47,7 +60,7 @@ const TableView = () => {
     };
 
     return (
-        <div style={{ textAlign: 'center'}}>
+        <div style={{ textAlign: 'center' }}>
             <div
                 style={{
                     backgroundColor: '#333333',
@@ -109,11 +122,35 @@ const TableView = () => {
                     >
                         {"< 이전"}
                     </button>
-                    <span style={{ color: 'white', fontSize: '16px', margin: '0 10px' }}>
-                        {Math.ceil(page / 3)} 페이지
-                    </span>
+
+                    {/* 페이지 번호 표시 및 클릭 가능하도록 수정 */}
+                    {Array.from({ length: Math.min(10, totalPages) }).map((_, index) => {
+                        const pageNum = page + index;
+                        if (pageNum <= totalPages) {
+                            return (
+                                <button
+                                    key={pageNum}
+                                    onClick={() => handlePageClick(pageNum)}
+                                    style={{
+                                        padding: '10px 15px',
+                                        margin: '0 5px',
+                                        backgroundColor: page === pageNum ? '#ff6600' : '#555555',
+                                        color: '#fff',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    {pageNum}
+                                </button>
+                            );
+                        }
+                        return null;
+                    })}
+
                     <button
                         onClick={handleNextPage}
+                        disabled={page + 10 > totalPages}
                         style={{
                             padding: '10px 20px',
                             margin: '0 10px',
@@ -121,7 +158,7 @@ const TableView = () => {
                             color: '#fff',
                             border: 'none',
                             borderRadius: '5px',
-                            cursor: 'pointer',
+                            cursor: page + 10 > totalPages ? 'not-allowed' : 'pointer',
                         }}
                     >
                         {"다음 >"}

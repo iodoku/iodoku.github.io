@@ -4,7 +4,10 @@ import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons'; // 아
 import './Loading.css'; // CSS 파일 임포트
 
 const InfiniteScrollView = () => {
-    const apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    if (localStorage.getItem('Remembercheck')) {
+        apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+    }
     const [movies, setMovies] = useState([]);
     const [visibleMovies, setVisibleMovies] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
