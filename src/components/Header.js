@@ -10,7 +10,7 @@ const Header = () => {
             <Link to="/">홈</Link>
           </li>
           <li style={{ display: 'inline', marginRight: '20px' }}>
-            <Link to="/trending">대세 콘텐츠</Link>
+            <Link to="/popular">대세 콘텐츠</Link>
           </li>
           <li style={{ display: 'inline', marginRight: '20px' }}>
             <Link to="/browse">찾아보기</Link>

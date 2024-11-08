@@ -97,7 +97,7 @@ const Main = () => {
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   return (
-    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1260px'}}>
+    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1400px'}}>
       {/* 배너 */}
       <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
         <img
