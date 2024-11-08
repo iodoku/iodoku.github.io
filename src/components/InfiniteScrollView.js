@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons'; // 아이콘 추가
+import './Loading.css'; // CSS 파일 임포트
 
 const InfiniteScrollView = () => {
     const apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
@@ -6,13 +9,14 @@ const InfiniteScrollView = () => {
     const [visibleMovies, setVisibleMovies] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1); // 현재 페이지를 관리
+    const [error, setError] = useState(null); // 에러 상태 추가
     const scrollContainerRef = useRef(null);
 
     // 여러 페이지의 데이터를 가져오는 함수
     const fetchMovies = async (currentPage) => {
         try {
             const requests = []; // 여러 페이지 요청을 저장할 배열
-            for (let i = 0; i < 5; i++) { // 4개의 페이지를 요청
+            for (let i = 0; i < 3; i++) { // 5개의 페이지를 요청
                 requests.push(fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${currentPage + i}`));
             }
             const responses = await Promise.all(requests);
@@ -34,6 +38,7 @@ const InfiniteScrollView = () => {
             });
         } catch (error) {
             console.error('영화 데이터를 불러오는 중 오류가 발생했습니다:', error);
+            setError('영화 데이터를 불러오는 데 실패했습니다. 나중에 다시 시도해주세요.');
         }
     };
 
@@ -47,7 +52,7 @@ const InfiniteScrollView = () => {
     };
 
     const loadMoreMovies = () => {
-        setPage((prevPage) => prevPage + 5); // 페이지를 4단위로 증가시켜 다음 데이터를 로드
+        setPage((prevPage) => prevPage + 3); // 페이지를 5단위로 증가시켜 다음 데이터를 로드
         setIsFetching(false);
     };
 
@@ -78,45 +83,52 @@ const InfiniteScrollView = () => {
             <div
                 ref={scrollContainerRef}
                 style={{
-                    height: '1150px',
+                    height: '1170px',
                     overflowY: 'scroll',
                     border: '1px solid #ddd',
-                    padding: '30px',
-                    backgroundColor: '#333333'
+                    padding: '80px',
+                    backgroundColor: '#333333',
+                    border: 'none',
                 }}
             >
+                {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>} {/* 오류 메시지 */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(14, 1fr)', // 가로로 14개씩 배열
-                    gridTemplateRows: 'repeat(7, 1fr)', // 세로로 7개씩 배열
+                    gridTemplateColumns: 'repeat(10, 1fr)', // 가로로 14개씩 배열
+                    gridTemplateRows: 'repeat(6, 1fr)', // 세로로 7개씩 배열
                 }}>
                     {visibleMovies.map((movie, index) => (
                         <div key={`${movie.id}-${index}`} style={{ textAlign: 'center' }}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
-                                style={{ width: '130px', height: '130px' , margin:'0'}}
+                                style={{ width: '120px', height: '160px', margin: '0' }}
                             />
-                            <span style={{ display: 'block', fontSize: '14px' ,color: 'white' }}>{movie.title}</span>
+                            <span style={{ display: 'block', fontSize: '14px', color: 'white' }}>{movie.title}</span>
                         </div>
                     ))}
                 </div>
-                {isFetching && <p>더 많은 영화를 불러오는 중...</p>}
+
+                {/* 로딩 스피너 표시 */}
+                {isFetching && <div className="loader"></div>}
             </div>
 
             <button
                 onClick={scrollToTop}
                 style={{
-                    marginTop: '10px',
+                    position: 'absolute',
+                    bottom: '10px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
                     padding: '10px',
-                    backgroundColor: '#007bff',
-                    color: '#fff',
+                    backgroundColor: '#fff',
+                    color: 'blue',
                     border: 'none',
                     borderRadius: '5px',
                     cursor: 'pointer',
                 }}
             >
-                ↑ 맨 위로
+                <FontAwesomeIcon icon={faArrowUpFromBracket} />
             </button>
         </div>
     );
