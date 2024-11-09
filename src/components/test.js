@@ -1,329 +1,195 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
-import './Loading.css';
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { useHorizontalScroll } from "./Scroll"; // 스크롤 훅 임포트
+import './Image.css'; // CSS 파일 임포트
 
-const genreOptions = [
-    { id: 0, name: '전체' },
-    { id: 28, name: '액션' },
-    { id: 12, name: '모험' },
-    { id: 35, name: '코미디' },
-    { id: 80, name: '범죄' },
-    { id: 10751, name: '가족' },
-];
+const Main = () => {
+  let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
 
-const ratingOptions = ['전체', '9~10', '8~9', '7~8', '6~7', '5~6', '4~5','4점 이하'];
-const languageOptions = ['전체', '한국어', '영어', '일본어'];
+  if (localStorage.getItem('Remembercheck')) {
+    apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+  }
 
-const Search = () => {
-    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
-    if (localStorage.getItem('Remembercheck')) {
-        apiKey = localStorage.getItem('Remembercheck') || ''; 
+  // 스크롤 참조
+  const scrollRef1 = useRef(null);
+  const scrollRef2 = useRef(null);
+  const scrollRef3 = useRef(null);
+  const scrollProps = useHorizontalScroll(); // 수평 스크롤 훅
+
+  // 상태 변수 선언
+  const [bannerMovie, setBannerMovie] = useState(null);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [latestMovies, setLatestMovies] = useState([]);
+  const [actionMovies, setActionMovies] = useState([]);
+  const [likedMovies, setLikedMovies] = useState(() => {
+    // 페이지 새로 고침 시 좋아요 상태 불러오기
+    const savedLikes = localStorage.getItem('likedMovies');
+    return savedLikes ? JSON.parse(savedLikes) : [];
+  });
+
+  // API 호출하여 배너 영화 가져오기
+  const fetchFeaturedMovie = async (apiKey) => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
+      setBannerMovie(response.data.results[0]); // 첫 번째 결과를 배너 영화로 설정
+    } catch (error) {
+      console.error('Error fetching featured movie:', error);
     }
-    const [movies, setMovies] = useState([]);
-    const [visibleMovies, setVisibleMovies] = useState([]);
-    const [isFetching, setIsFetching] = useState(false);
-    const [isInfinite, setIsInfinite] = useState(false);
-    const [page, setPage] = useState(1);
-    const [error, setError] = useState(null);
-    const [genreFilter, setGenreFilter] = useState(0); // 장르 필터 상태
-    const [ratingFilter, setRatingFilter] = useState('전체'); // 평점 필터 상태
-    const [languageFilter, setLanguageFilter] = useState('전체'); // 언어 필터 상태
-    const [sortOrder, setSortOrder] = useState('none'); // 오름차순/내림차순 상태
-    const scrollContainerRef = useRef(null);
-    const [Otherfilter, setOtherfilter] = useState('none');  // 새로운 필터 상태 추가
+  };
 
-    const fetchMovies = async (currentPage) => {
-        try {
-            const requests = Array.from({ length: 3 }, (_, i) =>
-                fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${currentPage + i}`)
-            );
-            const responses = await Promise.all(requests);
-            const data = await Promise.all(responses.map(response => response.json()));
-            const newMovies = data.flatMap(pageData => pageData.results);
+  // API 호출하여 인기 영화 가져오기
+  const fetchPopularMovies = async () => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=1`);
+      setPopularMovies(response.data.results); // 인기 영화 목록 설정
+    } catch (error) {
+      console.error('Error fetching popular movies:', error);
+    }
+  };
 
-            setMovies((prevMovies) => [...prevMovies, ...newMovies]);
-            setVisibleMovies((prevVisibleMovies) => {
-                const uniqueMovies = [...prevVisibleMovies];
-                newMovies.forEach((movie) => {
-                    if (!uniqueMovies.some((m) => m.id === movie.id)) {
-                        uniqueMovies.push(movie);
-                    }
-                });
-                return uniqueMovies;
-            });
-        } catch (error) {
-            console.error('영화 데이터를 불러오는 중 오류가 발생했습니다:', error);
-            setError('영화 데이터를 불러오는 데 실패했습니다. 나중에 다시 시도해주세요.');
-        }
-    };
+  // API 호출하여 최신 영화 가져오기
+  const fetchLatestMovies = async () => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR&page=2`);
+      setLatestMovies(response.data.results); // 최신 영화 목록 설정
+    } catch (error) {
+      console.error('Error fetching latest movies:', error);
+    }
+  };
 
-    const handleScroll = () => {
-        if (!scrollContainerRef.current) return;
-        const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
-        if (scrollTop + clientHeight >= scrollHeight - 10 && !isFetching) {
-          setIsInfinite(true);
-        }
-    };
+  // API 호출하여 액션 영화 가져오기
+  const fetchActionMovies = async () => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ko-KR`);
+      setActionMovies(response.data.results); // 액션 영화 목록 설정
+    } catch (error) {
+      console.error('Error fetching action movies:', error);
+    }
+  };
 
-    const loadMoreMovies = () => {
-        setPage((prevPage) => prevPage + 3);
-        setIsFetching(false);
-    };
+  // 컴포넌트가 마운트될 때 API 호출
+  useEffect(() => {
+    if (apiKey) {
+      fetchFeaturedMovie(apiKey);
+      fetchPopularMovies();
+      fetchLatestMovies();
+      fetchActionMovies();
+    }
+  }, [apiKey]);
 
-    useEffect(() => {
-      if (genreFilter === 0 && ratingFilter === '전체' && languageFilter === '전체'&& sortOrder === 'none'&& Otherfilter === 'none') {
-          fetchMovies(page);
+  // 좋아요 추가 함수
+  const toggleLike = (movie) => {
+    const isLiked = likedMovies.some((likedMovie) => likedMovie.id === movie.id);
+    let updatedLikedMovies;
+
+    if (isLiked) {
+      // 좋아요 목록에서 제거
+      updatedLikedMovies = likedMovies.filter((likedMovie) => likedMovie.id !== movie.id);
+    } else {
+      // 좋아요 목록에 추가
+      updatedLikedMovies = [...likedMovies, movie];
+    }
+
+    // 업데이트된 좋아요 목록을 상태와 localStorage에 저장
+    setLikedMovies(updatedLikedMovies);
+    localStorage.setItem('likedMovies', JSON.stringify(updatedLikedMovies));
+  };
+
+  // 스크롤 이벤트 리스너 추가 및 제거
+  useEffect(() => {
+    const scrollContainers = [scrollRef1, scrollRef2, scrollRef3];
+    scrollContainers.forEach(scrollRef => {
+      const scrollContainer = scrollRef.current;
+      if (scrollContainer) {
+        scrollContainer.addEventListener('wheel', scrollProps.onWheel, { passive: false });
       }
-    }, [genreFilter, ratingFilter, languageFilter, sortOrder, Otherfilter,page]);
-
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        container.addEventListener('scroll', handleScroll);
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        if (isInfinite) {
-            loadMoreMovies();
-        }
-    }, [isInfinite]);
-
-    const scrollToTop = () => {
-        scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    const handleGenreChange = (genreId) => {
-        setIsFetching(true);
-        setGenreFilter(genreId);
-        setTimeout(() => {
-          setIsFetching(false);  // 로딩 완료 상태로 변경
-      }, 100); 
-    };
-
-    const handleRatingChange = (rating) => {
-      setIsFetching(true);
-      setRatingFilter(rating);
-      setTimeout(() => {
-        setIsFetching(false);  // 로딩 완료 상태로 변경
-      }, 100); 
-    };
-
-    const handleLanguageChange = (language) => {
-      setIsFetching(true);  
-      setLanguageFilter(language);
-      setTimeout(() => {
-        setIsFetching(false);  // 로딩 완료 상태로 변경
-      }, 100); 
-    };
-
-    const handleSortOrderChange = (order) => {
-      setIsFetching(true);
-      setSortOrder(order);
-      setTimeout(() => {
-        setIsFetching(false);  // 로딩 완료 상태로 변경
-      }, 100); 
-    };
-
-    const handleOtherfilterChange = (value) => {
-      setIsFetching(true);
-      setOtherfilter(value);
-      setTimeout(() => {
-        setIsFetching(false);  // 로딩 완료 상태로 변경
-      }, 100); 
-    };
-
-    const resetFilters = () => {
-        setGenreFilter(0);
-        setRatingFilter('전체');
-        setLanguageFilter('전체');
-        setSortOrder('none');
-        setOtherfilter('none');
-    };
-
-
-    const filteredMovies = visibleMovies.filter(movie => {
-      const matchesGenre = genreFilter === 0 || movie.genre_ids.includes(genreFilter);
-
-      let matchesLanguage;  // 바깥에서 선언하여 범위를 넓힘
-
-      if (languageFilter === '한국어') {
-          matchesLanguage = movie.original_language === 'ko';
-      } else if (languageFilter === '영어') {
-          matchesLanguage = movie.original_language === 'en';
-      } else if (languageFilter === '일본어') {
-          matchesLanguage = movie.original_language === 'ja';
-      } else {
-          matchesLanguage = languageFilter === '전체';
-      }
-      
-
-
-      // 평점 필터링
-      let matchesRating = false;
-      if (ratingFilter === '전체') {
-          matchesRating = true;
-      } else if (ratingFilter === '9~10') {
-          matchesRating = movie.vote_average >= 9 && movie.vote_average <= 10;
-      } else if (ratingFilter === '8~9') {
-          matchesRating = movie.vote_average >= 8 && movie.vote_average < 9;
-      } else if (ratingFilter === '7~8') {
-          matchesRating = movie.vote_average >= 7 && movie.vote_average < 8;
-      } else if (ratingFilter === '6~7') {
-          matchesRating = movie.vote_average >= 6 && movie.vote_average < 7;
-      } else if (ratingFilter === '5~6') {
-          matchesRating = movie.vote_average >= 5 && movie.vote_average < 6;
-      } else if (ratingFilter === '4~5') {
-          matchesRating = movie.vote_average >= 4 && movie.vote_average < 5;
-      } else if (ratingFilter === '4점 이하') {
-          matchesRating = movie.vote_average < 4;
-      }
-
-      return matchesGenre && matchesRating && matchesLanguage;
     });
 
-    // 오름차순/내림차순 정렬
-    const sortedMovies = (() => {
-      let moviesToSort = [...filteredMovies];  // 기존 배열을 복사하여 영향을 주지 않도록 함
-  
-      // Otherfilter에 따른 정렬
-      if (Otherfilter === 'popularity_asc') {
-          moviesToSort.sort((a, b) => b.popularity - a.popularity);  // 인기순 오름차순
-      } else if (Otherfilter === 'release_date_asc') {
-          moviesToSort.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));  // 개봉년도 빠른 순
-      } else if (Otherfilter === 'release_date_desc') {
-          moviesToSort.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));  // 개봉년도 느린 순
-      }
-  
-      // sortOrder에 따른 정렬
-      if (sortOrder === 'asc') {
-          moviesToSort.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));  // 오름차순
-      } else if (sortOrder === 'desc') {
-          moviesToSort.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));  // 내림차순
-      }
-  
-      return moviesToSort;
-    })();  
-      
-    return (
-        <div>
-            <div style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',  // 오른쪽 정렬
-                  alignItems: 'flex-end',      // 아래쪽 정렬
-                  backgroundColor: '#333',
-                  padding: '20px',
-                  position: 'relative',         // 아래쪽 여백 추가 (필요시 조정)
-                }}
-            >
-              <select
-                  value={genreFilter}
-                  onChange={(e) => handleGenreChange(Number(e.target.value))}
-                  style={buttonStyle}
-              >
-                  {genreOptions.map((genre) => (
-                      <option key={genre.id} value={genre.id}>
-                          {genre.name}
-                      </option>
-                  ))}
-              </select>
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      scrollContainers.forEach(scrollRef => {
+        const scrollContainer = scrollRef.current;
+        if (scrollContainer) {
+          scrollContainer.removeEventListener('wheel', scrollProps.onWheel);
+        }
+      });
+    };
+  }, [scrollProps]);
 
-              <select value={ratingFilter} onChange={(e) => handleRatingChange(e.target.value)} style={buttonStyle}>
-                  {ratingOptions.map((rating, index) => (
-                      <option key={index} value={rating}>{`평점 (${rating})`}</option>
-                  ))}
-              </select>
+  if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
-              <select value={languageFilter} onChange={(e) => handleLanguageChange(e.target.value)} style={buttonStyle}>
-                  {languageOptions.map((language, index) => (
-                      <option key={index} value={language}>{`언어 (${language})`}</option>
-                  ))}
-              </select>
+  return (
+    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1260px'}}>
+      {/* 배너 */}
+      <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
+        <img
+          src={`https://image.tmdb.org/t/p/original${bannerMovie.backdrop_path}`}
+          alt={bannerMovie.title}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        <h1 style={{ position: 'absolute', bottom: '250px', left: '30px', color: 'white', fontSize: '2.5rem', padding: '0 50px' }}>
+          {bannerMovie.title}
+        </h1>
+        <p style={{ position: 'absolute', bottom: '100px', left: '30px', color: 'white', maxWidth: '400px', lineHeight: '1.5', fontSize: '1rem', padding: '0 50px' }}>
+          {bannerMovie.overview}
+        </p>
+      </div>
 
-              <select value={sortOrder} onChange={(e) => handleSortOrderChange(e.target.value)} style={buttonStyle}>
-                  <option value="none">선택안함</option> {/* "선택안함" 옵션 추가 */}
-                  <option value="asc">오름차순</option>
-                  <option value="desc">내림차순</option>
-              </select>
-
-              <select value={Otherfilter} onChange={(e) => handleOtherfilterChange(e.target.value)} style={buttonStyle}>
-                  <option value="none">선택안함</option>
-                  <option value="popularity_asc">인기순</option> {/* 추가된 필터 */}
-                  <option value="release_date_asc">최신 개봉</option> {/* 추가된 필터 */}
-                  <option value="release_date_desc">오래된 개봉</option> {/* 추가된 필터 */}
-              </select>
-
-              <button onClick={resetFilters} style={buttonStyle}>초기화</button>
-          </div>
-
-            <div
-                ref={scrollContainerRef}
-                style={{
-                    height: '1190px',
-                    overflowY: 'auto',
-                    border: '1px solid #ddd',
-                    padding: '80px',
-                    backgroundColor: '#333333',
-                    border:'none'
-                }}
-            >
-                {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    gap: '20px'
-                }}>
-                    {isFetching && <div className="loader"></div>}
-                    {sortedMovies.map((movie) => (
-                        <div key={movie.id} style={{
-                            background: '#1e1e1e',
-                            borderRadius: '10px',
-                            color: '#fff',
-                            padding: '10px',
-                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-                            textAlign: 'center',
-                        }}>
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt={movie.title}
-                                style={{ width: '100%', borderRadius: '5px' }}
-                            />
-                            <h3 style={{ fontSize: '14px', marginTop: '10px' }}>{movie.title}</h3>
-                        </div>
-                    ))}
-                </div>
-                {isFetching && <div className="loader"></div>}
-            </div>
-
-            {visibleMovies.length > 0 && (
-                <div
-                    onClick={scrollToTop}
-                    style={{
-                        position: 'fixed',
-                        right: '30px',
-                        bottom: '30px',
-                        background: '#333',
-                        padding: '10px 15px',
-                        borderRadius: '50%',
-                        cursor: 'pointer',
-                        color: '#fff',
-                    }}
+      {/* 인기 영화 목록 */}
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+        <h2>인기 영화</h2>
+        <div className="scroll-horizontal" ref={scrollRef1}>
+          <div style={{ display: 'flex'}}>
+            {popularMovies.map((movie) => (
+              <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
+                  className="movie-image"
+                />
+                <p>{movie.title}</p>
+                {/* 좋아요 버튼 */}
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
                 >
-                    <FontAwesomeIcon icon={faArrowUpFromBracket} />
-                </div>
-            )}
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) ? '❤️' : '🤍'}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-    );
+      </div>
+
+      {/* 최신 영화 목록 */}
+      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+        <h2>최신 영화</h2>
+        <div className="scroll-horizontal" ref={scrollRef2}>
+          <div style={{ display: 'flex' }}>
+            {latestMovies.map((movie) => (
+              <div key={movie.id} style={{ margin: '5px', position: 'relative' }}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
+                  className="movie-image"
+                />
+                <p>{movie.title}</p>
+                {/* 좋아요 버튼 */}
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) ? '❤️' : '🤍'}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const buttonStyle = {
-    fontSize: '16px',
-    padding: '8px',
-    margin: '5px',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
-    backgroundColor: '#333',
-    color: '#fff',
-};
-
-export default Search;
+export default Main;

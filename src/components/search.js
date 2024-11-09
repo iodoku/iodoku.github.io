@@ -60,6 +60,10 @@ const Search = () => {
         }
     };
 
+    const [likedMovies, setLikedMovies] = useState(
+      JSON.parse(localStorage.getItem('likedMovies')) || []
+  );
+
     const handleScroll = () => {
         if (!scrollContainerRef.current) return;
         const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
@@ -268,44 +272,65 @@ const Search = () => {
               <button onClick={resetFilters} style={buttonStyle}>초기화</button>
           </div>
 
+          <div
+            ref={scrollContainerRef}
+            style={{
+                height: '1190px',
+                overflowY: 'auto',
+                border: '1px solid #ddd',
+                padding: '80px',
+                backgroundColor: '#333333',
+                border: 'none',
+            }}
+        >
+            {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
             <div
-                ref={scrollContainerRef}
                 style={{
-                    height: '1190px',
-                    overflowY: 'auto',
-                    border: '1px solid #ddd',
-                    padding: '80px',
-                    backgroundColor: '#333333',
-                    border:'none'
-                }}
-            >
-                {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
-                <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    gap: '20px'
-                }}>
-                    {isFetching && <div className="loader"></div>}
-                    {sortedMovies.map((movie) => (
-                        <div key={movie.id} style={{
+                    gap: '20px',
+                }}
+            >
+                {isFetching && <div className="loader"></div>}
+                {sortedMovies.map((movie) => (
+                    <div
+                        key={movie.id}
+                        style={{
                             background: '#1e1e1e',
                             borderRadius: '10px',
                             color: '#fff',
                             padding: '10px',
                             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                             textAlign: 'center',
-                        }}>
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt={movie.title}
-                                style={{ width: '100%', borderRadius: '5px' }}
-                            />
-                            <h3 style={{ fontSize: '14px', marginTop: '10px' }}>{movie.title}</h3>
-                        </div>
-                    ))}
-                </div>
-                {isFetching && <div className="loader"></div>}
+                            position: 'relative', // 포스터 이미지를 기준으로 하트 위치 설정
+                        }}
+                    >
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            alt={movie.title}
+                            style={{ width: '100%', borderRadius: '5px' }}
+                        />
+                        {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && (
+                            <span
+                                style={{
+                                    position: 'absolute',
+                                    top: '10px',  // 상단에서 10px
+                                    left: '180px', // 왼쪽에서 10px
+                                    color: 'red',
+                                    fontSize: '20px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                ❤️
+                            </span>
+                        )}
+                        <h3 style={{ fontSize: '14px', marginTop: '10px' }}>{movie.title}</h3>
+                    </div>
+                ))}
             </div>
+            {isFetching && <div className="loader"></div>}
+        </div>
+
 
             {visibleMovies.length > 0 && (
                 <div

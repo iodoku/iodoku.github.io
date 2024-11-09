@@ -21,6 +21,7 @@ const Main = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [latestMovies, setLatestMovies] = useState([]);
   const [actionMovies, setActionMovies] = useState([]);
+
   const [likedMovies, setLikedMovies] = useState(() => {
     // 페이지 새로 고침 시 좋아요 상태 불러오기
     const savedLikes = localStorage.getItem('likedMovies');
@@ -77,7 +78,6 @@ const Main = () => {
     }
   }, [apiKey]);
 
-  // 좋아요 추가 함수
   const toggleLike = (movie) => {
     const isLiked = likedMovies.some((likedMovie) => likedMovie.id === movie.id);
     let updatedLikedMovies;
@@ -116,10 +116,12 @@ const Main = () => {
     };
   }, [scrollProps]);
 
+  
+
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   return (
-    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1260px'}}>
+    <div className="scroll-vertical" style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#333333', overflowY: 'auto', height: '1260px' }}>
       {/* 배너 */}
       <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
         <img
@@ -136,10 +138,10 @@ const Main = () => {
       </div>
 
       {/* 인기 영화 목록 */}
-      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>인기 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef1}>
-          <div style={{ display: 'flex'}}>
+          <div style={{ display: 'flex' }}>
             {popularMovies.map((movie) => (
               <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
                 <img
@@ -147,12 +149,12 @@ const Main = () => {
                   alt={movie.title}
                   style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
+                  onClick={() => toggleLike(movie)} // 이미지 클릭 시 좋아요 토글
                 />
                 <p>{movie.title}</p>
-                {/* 좋아요 버튼: 클릭된 상태에서만 빨간 하트 표시 */}
                 <button 
                   onClick={() => toggleLike(movie)} 
-                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '30px' }}
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
                 >
                   {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
                 </button>
@@ -163,7 +165,7 @@ const Main = () => {
       </div>
 
       {/* 최신 영화 목록 */}
-      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>최신 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef2}>
           <div style={{ display: 'flex' }}>
@@ -174,12 +176,12 @@ const Main = () => {
                   alt={movie.title}
                   style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
+                  onClick={() => toggleLike(movie)} // 이미지 클릭 시 좋아요 토글
                 />
                 <p>{movie.title}</p>
-                {/* 좋아요 버튼: 클릭된 상태에서만 빨간 하트 표시 */}
                 <button 
                   onClick={() => toggleLike(movie)} 
-                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '30px' }}
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
                 >
                   {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
                 </button>
@@ -190,23 +192,23 @@ const Main = () => {
       </div>
 
       {/* 액션 영화 목록 */}
-      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>액션 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef3}>
           <div style={{ display: 'flex' }}>
             {actionMovies.map((movie) => (
-              <div key={movie.id} style={{ margin: '5px', position: 'relative' }}>
+              <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                   style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
+                  onClick={() => toggleLike(movie)} // 이미지 클릭 시 좋아요 토글
                 />
                 <p>{movie.title}</p>
-                {/* 좋아요 버튼: 클릭된 상태에서만 빨간 하트 표시 */}
                 <button 
                   onClick={() => toggleLike(movie)} 
-                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '30px' }}
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
                 >
                   {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
                 </button>
