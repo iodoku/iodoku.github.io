@@ -15,6 +15,9 @@ const InfiniteScrollView = () => {
     const [error, setError] = useState(null); // 에러 상태 추가
     const scrollContainerRef = useRef(null);
 
+
+    const [isLoading, setIsLoading] = useState(true);
+    
     // 여러 페이지의 데이터를 가져오는 함수
     const fetchMovies = async (currentPage) => {
         try {
@@ -56,11 +59,18 @@ const InfiniteScrollView = () => {
 
     const loadMoreMovies = () => {
         setPage((prevPage) => prevPage + 3); // 페이지를 5단위로 증가시켜 다음 데이터를 로드
-        setIsFetching(false);
+        setTimeout(() => {
+            setIsFetching(false);
+        }, 100);
     };
 
     useEffect(() => {
         fetchMovies(page);
+        if(isLoading){
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 100);
+        }
     }, [page]);
 
     useEffect(() => {
@@ -94,6 +104,7 @@ const InfiniteScrollView = () => {
                     border: 'none',
                 }}
             >
+                {isLoading && <div className="loader"></div>}
                 {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>} {/* 오류 메시지 */}
                 <div style={{
                     display: 'grid',

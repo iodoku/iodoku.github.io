@@ -9,7 +9,6 @@ const Main = () => {
   if (localStorage.getItem('Remembercheck')) {
     apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
   }
-  
 
   // 스크롤 참조
   const scrollRef1 = useRef(null);
@@ -22,6 +21,11 @@ const Main = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [latestMovies, setLatestMovies] = useState([]);
   const [actionMovies, setActionMovies] = useState([]);
+  const [likedMovies, setLikedMovies] = useState(() => {
+    // 페이지 새로 고침 시 좋아요 상태 불러오기
+    const savedLikes = localStorage.getItem('likedMovies');
+    return savedLikes ? JSON.parse(savedLikes) : [];
+  });
 
   // API 호출하여 배너 영화 가져오기
   const fetchFeaturedMovie = async (apiKey) => {
@@ -73,6 +77,24 @@ const Main = () => {
     }
   }, [apiKey]);
 
+  // 좋아요 추가 함수
+  const toggleLike = (movie) => {
+    const isLiked = likedMovies.some((likedMovie) => likedMovie.id === movie.id);
+    let updatedLikedMovies;
+
+    if (isLiked) {
+      // 좋아요 목록에서 제거
+      updatedLikedMovies = likedMovies.filter((likedMovie) => likedMovie.id !== movie.id);
+    } else {
+      // 좋아요 목록에 추가
+      updatedLikedMovies = [...likedMovies, movie];
+    }
+
+    // 업데이트된 좋아요 목록을 상태와 localStorage에 저장
+    setLikedMovies(updatedLikedMovies);
+    localStorage.setItem('likedMovies', JSON.stringify(updatedLikedMovies));
+  };
+
   // 스크롤 이벤트 리스너 추가 및 제거
   useEffect(() => {
     const scrollContainers = [scrollRef1, scrollRef2, scrollRef3];
@@ -97,7 +119,7 @@ const Main = () => {
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   return (
-    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1400px'}}>
+    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1260px'}}>
       {/* 배너 */}
       <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
         <img
@@ -114,7 +136,7 @@ const Main = () => {
       </div>
 
       {/* 인기 영화 목록 */}
-      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white',}}>
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
         <h2>인기 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef1}>
           <div style={{ display: 'flex'}}>
@@ -127,6 +149,13 @@ const Main = () => {
                   className="movie-image"
                 />
                 <p>{movie.title}</p>
+                {/* 좋아요 버튼: 클릭된 상태에서만 빨간 하트 표시 */}
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '30px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
+                </button>
               </div>
             ))}
           </div>
@@ -147,6 +176,13 @@ const Main = () => {
                   className="movie-image"
                 />
                 <p>{movie.title}</p>
+                {/* 좋아요 버튼: 클릭된 상태에서만 빨간 하트 표시 */}
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '30px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
+                </button>
               </div>
             ))}
           </div>
@@ -159,7 +195,7 @@ const Main = () => {
         <div className="scroll-horizontal" ref={scrollRef3}>
           <div style={{ display: 'flex' }}>
             {actionMovies.map((movie) => (
-              <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
+              <div key={movie.id} style={{ margin: '5px', position: 'relative' }}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
@@ -167,6 +203,13 @@ const Main = () => {
                   className="movie-image"
                 />
                 <p>{movie.title}</p>
+                {/* 좋아요 버튼: 클릭된 상태에서만 빨간 하트 표시 */}
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '30px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
+                </button>
               </div>
             ))}
           </div>

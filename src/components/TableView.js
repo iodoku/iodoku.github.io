@@ -10,6 +10,9 @@ const TableView = () => {
     const [page, setPage] = useState(1); // 현재 페이지를 관리
     const [error, setError] = useState(null); // 에러 상태 추가
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수 상태 추가
+    const [isFetching, setIsFetching] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(true);
 
     // 페이지별 데이터를 가져오는 함수
     const fetchMovies = async (currentPage) => {
@@ -35,24 +38,41 @@ const TableView = () => {
 
     useEffect(() => {
         fetchMovies(page);
+        if(isLoading){
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 100);
+        }
     }, [page]);
 
     const handleNextPage = () => {
+        setIsFetching(true);
         if (page + 10 <= totalPages) {
             setPage(prevPage => prevPage + 10); // 10개 단위로 페이지 증가
         }
+        setTimeout(() => {
+            setIsFetching(false);  // 로딩 완료 상태로 변경
+        }, 100); 
     };
 
     const handlePreviousPage = () => {
+        setIsFetching(true);
         if (page <= 10) {
             setPage(1); // 10번 이하일 경우 첫 번째 페이지로 이동
         } else {
             setPage(prevPage => prevPage - 10); // 10개 단위로 페이지 감소
         }
+        setTimeout(() => {
+            setIsFetching(false);  // 로딩 완료 상태로 변경
+        }, 100); 
     };
 
     const handlePageClick = (pageNumber) => {
+        setIsFetching(true);
         setPage(pageNumber); // 사용자가 직접 페이지 번호를 클릭하면 해당 페이지로 이동
+        setTimeout(() => {
+            setIsFetching(false);  // 로딩 완료 상태로 변경
+        }, 100); 
     };
 
     const scrollToTop = () => {
@@ -67,6 +87,7 @@ const TableView = () => {
                     padding: '30px',
                 }}
             >
+                {isLoading && <div className="loader"></div>}
                 {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>} {/* 오류 메시지 */}
                 <div
                     style={{
@@ -84,7 +105,7 @@ const TableView = () => {
                                 alt={movie.title}
                                 style={{
                                     width: '100px', // 이미지 너비를 줄임
-                                    height: '150px', // 이미지 높이를 줄임
+                                    height: '140px', // 이미지 높이를 줄임
                                     marginBottom: '10px',
                                     objectFit: 'cover', // 비율에 맞춰 이미지를 잘라서 보여줌
                                 }}
@@ -98,13 +119,13 @@ const TableView = () => {
                                     overflow: 'hidden',
                                     whiteSpace: 'nowrap',
                                     maxWidth: '100px', // 제목이 길어지면 자르도록 설정
-                                    marginBottom: '10px',
                                 }}
                             >
                                 {movie.title}
                             </span>
                         </div>
                     ))}
+                    {isFetching && <div className="loader"></div>}
                 </div>
                 <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <button
