@@ -10,6 +10,8 @@ const Main = () => {
     apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
   }
 
+  const [isLoading, setIsLoading] = useState(true);
+
   // 스크롤 참조
   const scrollRef1 = useRef(null);
   const scrollRef2 = useRef(null);
@@ -70,6 +72,11 @@ const Main = () => {
 
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+          setIsLoading(false);
+      }, 100);
+    }
     if (apiKey) {
       fetchFeaturedMovie(apiKey);
       fetchPopularMovies();
@@ -136,7 +143,7 @@ const Main = () => {
           {bannerMovie.overview}
         </p>
       </div>
-
+      {isLoading && <div className="loader"></div>}
       {/* 인기 영화 목록 */}
       <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>인기 영화</h2>
