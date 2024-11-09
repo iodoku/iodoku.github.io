@@ -1,31 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import './Loading.css'; // CSS 파일 임포트
+import './Image.css'; // CSS 파일 임포트
 
 const TableView = () => {
-    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    
+    let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+    let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
+
     if (localStorage.getItem('Remembercheck')) {
         apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+        IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
     }
-    const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1); // 현재 페이지를 관리
-    const [error, setError] = useState(null); // 에러 상태 추가
-    const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수 상태 추가
 
-    // 페이지별 데이터를 가져오는 함수
+    const [movies, setMovies] = useState([]);
+    const [page, setPage] = useState(1);
+    const [error, setError] = useState(null);
+    const [totalPages, setTotalPages] = useState(0);
+    const [isFetching, setIsFetching] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // 좋아요한 영화 목록을 관리하는 상태 (로컬 스토리지에서 불러옴)
+    const [likedMovies, setLikedMovies] = useState(
+        JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
+    );
+
     const fetchMovies = async (currentPage) => {
         try {
-            const requests = []; // 여러 페이지 요청을 저장할 배열
-            for (let i = 0; i < 3; i++) { // 3개의 페이지를 요청하여 60개의 영화를 가져옴
+            const requests = [];
+            for (let i = 0; i < 3; i++) {
                 requests.push(fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${currentPage + i}`));
             }
             const responses = await Promise.all(requests);
             const data = await Promise.all(responses.map(response => response.json()));
 
-            // 모든 페이지에서 가져온 데이터를 합침
             const newMovies = data.flatMap(pageData => pageData.results);
-            setMovies(newMovies); // 새 데이터를 현재 페이지 영화로 설정
-
-            // 전체 페이지 수 업데이트
+            setMovies(newMovies);
             setTotalPages(data[0].total_pages);
         } catch (error) {
             console.error('영화 데이터를 불러오는 중 오류가 발생했습니다:', error);
@@ -35,59 +44,70 @@ const TableView = () => {
 
     useEffect(() => {
         fetchMovies(page);
+        if (isLoading) {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 100);
+        }
     }, [page]);
 
     const handleNextPage = () => {
+        setIsFetching(true);
         if (page + 10 <= totalPages) {
-            setPage(prevPage => prevPage + 10); // 10개 단위로 페이지 증가
+            setPage(prevPage => prevPage + 10);
         }
+        setTimeout(() => {
+            setIsFetching(false);
+        }, 100);
     };
 
     const handlePreviousPage = () => {
+        setIsFetching(true);
         if (page <= 10) {
-            setPage(1); // 10번 이하일 경우 첫 번째 페이지로 이동
+            setPage(1);
         } else {
-            setPage(prevPage => prevPage - 10); // 10개 단위로 페이지 감소
+            setPage(prevPage => prevPage - 10);
         }
+        setTimeout(() => {
+            setIsFetching(false);
+        }, 100);
     };
 
     const handlePageClick = (pageNumber) => {
-        setPage(pageNumber); // 사용자가 직접 페이지 번호를 클릭하면 해당 페이지로 이동
+        setIsFetching(true);
+        setPage(pageNumber);
+        setTimeout(() => {
+            setIsFetching(false);
+        }, 100);
     };
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
 
     return (
         <div style={{ textAlign: 'center' }}>
-            <div
-                style={{
-                    backgroundColor: '#333333',
-                    padding: '30px',
-                }}
-            >
-                {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>} {/* 오류 메시지 */}
+            <div style={{ backgroundColor: '#333333', padding: '30px' }}>
+                {isLoading && <div className="loader"></div>}
+                {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(10, 1fr)', // 가로로 10개씩 배치
-                        gridTemplateRows: 'repeat(6, 1fr)', // 세로로 6개씩 배치
+                        gridTemplateColumns: 'repeat(10, 1fr)',
+                        gridTemplateRows: 'repeat(6, 1fr)',
                         gap: '10px',
                         justifyItems: 'center',
                     }}
                 >
                     {movies.map((movie, index) => (
-                        <div key={`${movie.id}-${index}`} style={{ textAlign: 'center' }}>
+                        <div key={`${movie.id}-${index}`} style={{ position: 'relative', textAlign: 'center' }}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
                                 style={{
-                                    width: '100px', // 이미지 너비를 줄임
-                                    height: '150px', // 이미지 높이를 줄임
+                                    width: '100px',
+                                    height: '140px',
                                     marginBottom: '10px',
-                                    objectFit: 'cover', // 비율에 맞춰 이미지를 잘라서 보여줌
+                                    objectFit: 'cover',
                                 }}
+                                className="movie-image"
                             />
                             <span
                                 style={{
@@ -97,14 +117,30 @@ const TableView = () => {
                                     textOverflow: 'ellipsis',
                                     overflow: 'hidden',
                                     whiteSpace: 'nowrap',
-                                    maxWidth: '100px', // 제목이 길어지면 자르도록 설정
-                                    marginBottom: '10px',
+                                    maxWidth: '100px',
                                 }}
                             >
                                 {movie.title}
                             </span>
+
+                            {/* 좋아요된 영화만 빨간색 하트 표시 */}
+                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (
+                                <span
+                                    style={{
+                                        position: 'absolute',
+                                        top: '5px',
+                                        right: '5px',
+                                        color: 'red',
+                                        fontSize: '20px',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    ❤️
+                                </span>
+                            )}
                         </div>
                     ))}
+                    {isFetching && <div className="loader"></div>}
                 </div>
                 <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <button
@@ -123,7 +159,6 @@ const TableView = () => {
                         {"< 이전"}
                     </button>
 
-                    {/* 페이지 번호 표시 및 클릭 가능하도록 수정 */}
                     {Array.from({ length: Math.min(10, totalPages) }).map((_, index) => {
                         const pageNum = page + index;
                         if (pageNum <= totalPages) {

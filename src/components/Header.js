@@ -13,10 +13,10 @@ const Header = () => {
             <Link to="/popular">대세 콘텐츠</Link>
           </li>
           <li style={{ display: 'inline', marginRight: '20px' }}>
-            <Link to="/browse">찾아보기</Link>
+            <Link to="/search">찾아보기</Link>
           </li>
           <li style={{ display: 'inline', marginRight: '20px' }}>
-            <Link to="/wishlist">내가 찜한 리스트</Link>
+            <Link to="/Wishlist">내가 찜한 리스트</Link>
           </li>
           <li style={{ display: 'inline', marginRight: '20px' }}>
             <Link to="/sign">회원가입</Link>

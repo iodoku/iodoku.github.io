@@ -5,11 +5,14 @@ import './Image.css'; // CSS 파일 임포트
 
 const Main = () => {
   let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+  let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
 
   if (localStorage.getItem('Remembercheck')) {
     apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+    IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
   }
-  
+
+  const [isLoading, setIsLoading] = useState(true);
 
   // 스크롤 참조
   const scrollRef1 = useRef(null);
@@ -22,6 +25,12 @@ const Main = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [latestMovies, setLatestMovies] = useState([]);
   const [actionMovies, setActionMovies] = useState([]);
+
+  const [likedMovies, setLikedMovies] = useState(() => {
+    // 페이지 새로 고침 시 좋아요 상태 불러오기
+    const savedLikes = localStorage.getItem(IDKey+'likedMovies');
+    return savedLikes ? JSON.parse(savedLikes) : [];
+  });
 
   // API 호출하여 배너 영화 가져오기
   const fetchFeaturedMovie = async (apiKey) => {
@@ -65,6 +74,11 @@ const Main = () => {
 
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+          setIsLoading(false);
+      }, 100);
+    }
     if (apiKey) {
       fetchFeaturedMovie(apiKey);
       fetchPopularMovies();
@@ -72,6 +86,23 @@ const Main = () => {
       fetchActionMovies();
     }
   }, [apiKey]);
+
+  const toggleLike = (movie) => {
+    const isLiked = likedMovies.some((likedMovie) => likedMovie.id === movie.id);
+    let updatedLikedMovies;
+
+    if (isLiked) {
+      // 좋아요 목록에서 제거
+      updatedLikedMovies = likedMovies.filter((likedMovie) => likedMovie.id !== movie.id);
+    } else {
+      // 좋아요 목록에 추가
+      updatedLikedMovies = [...likedMovies, movie];
+    }
+
+    // 업데이트된 좋아요 목록을 상태와 localStorage에 저장
+    setLikedMovies(updatedLikedMovies);
+    localStorage.setItem(IDKey+'likedMovies', JSON.stringify(updatedLikedMovies));
+  };
 
   // 스크롤 이벤트 리스너 추가 및 제거
   useEffect(() => {
@@ -94,10 +125,12 @@ const Main = () => {
     };
   }, [scrollProps]);
 
+  
+
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   return (
-    <div className="scroll-vertical" style={{display: 'flex',flexDirection: 'column', backgroundColor: '#333333',overflowY: 'auto',height: '1400px'}}>
+    <div className="scroll-vertical" style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#333333', overflowY: 'auto', height: '1260px' }}>
       {/* 배너 */}
       <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
         <img
@@ -112,12 +145,12 @@ const Main = () => {
           {bannerMovie.overview}
         </p>
       </div>
-
+      {isLoading && <div className="loader"></div>}
       {/* 인기 영화 목록 */}
-      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white',}}>
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>인기 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef1}>
-          <div style={{ display: 'flex'}}>
+          <div style={{ display: 'flex' }}>
             {popularMovies.map((movie) => (
               <div key={movie.id} style={{ margin: '10px', position: 'relative' }}>
                 <img
@@ -125,8 +158,15 @@ const Main = () => {
                   alt={movie.title}
                   style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
+                  onClick={() => toggleLike(movie)} // 이미지 클릭 시 좋아요 토글
                 />
                 <p>{movie.title}</p>
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
+                </button>
               </div>
             ))}
           </div>
@@ -134,7 +174,7 @@ const Main = () => {
       </div>
 
       {/* 최신 영화 목록 */}
-      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>최신 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef2}>
           <div style={{ display: 'flex' }}>
@@ -145,8 +185,15 @@ const Main = () => {
                   alt={movie.title}
                   style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
+                  onClick={() => toggleLike(movie)} // 이미지 클릭 시 좋아요 토글
                 />
                 <p>{movie.title}</p>
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
+                </button>
               </div>
             ))}
           </div>
@@ -154,7 +201,7 @@ const Main = () => {
       </div>
 
       {/* 액션 영화 목록 */}
-      <div style={{ flex: '0 0 auto', marginTop: '20px', borderRadius: '8px', padding: '0 50px',color: 'white', }}>
+      <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
         <h2>액션 영화</h2>
         <div className="scroll-horizontal" ref={scrollRef3}>
           <div style={{ display: 'flex' }}>
@@ -165,8 +212,15 @@ const Main = () => {
                   alt={movie.title}
                   style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }}
                   className="movie-image"
+                  onClick={() => toggleLike(movie)} // 이미지 클릭 시 좋아요 토글
                 />
                 <p>{movie.title}</p>
+                <button 
+                  onClick={() => toggleLike(movie)} 
+                  style={{ position: 'absolute', top: '5px', right: '5px', background: 'transparent', border: 'none', color: 'white', fontSize: '20px' }}
+                >
+                  {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && '❤️'}
+                </button>
               </div>
             ))}
           </div>
