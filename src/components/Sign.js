@@ -279,6 +279,7 @@ const SignIn = ({ toggleForm }) => {
 
     if (user) {
       sessionStorage.setItem('CurEmail', password);
+      sessionStorage.setItem('CurID', username);
       toast.success(
         <div className="custom-toast-content">
           <div className="custom-toast-header">
@@ -297,9 +298,11 @@ const SignIn = ({ toggleForm }) => {
       );
       if (rememberMe) {
         localStorage.setItem('Remembercheck', password);
+        localStorage.setItem('RemembercheckID', username);
       }
       else{
         localStorage.setItem('Remembercheck', '');
+        localStorage.setItem('RemembercheckID', '');
       }
       window.location.href = '/'; // 로그인 성공 시 홈 화면으로 이동
 
