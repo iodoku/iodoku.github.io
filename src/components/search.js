@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './Loading.css';
+import './Image.css'; // CSS 파일 임포트
 
 const genreOptions = [
     { id: 0, name: '전체' },
@@ -16,10 +17,15 @@ const ratingOptions = ['전체', '9~10', '8~9', '7~8', '6~7', '5~6', '4~5','4점
 const languageOptions = ['전체', '한국어', '영어', '일본어'];
 
 const Search = () => {
-    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    
+    let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+    let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
+
     if (localStorage.getItem('Remembercheck')) {
-        apiKey = localStorage.getItem('Remembercheck') || ''; 
+        apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+        IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
     }
+
     const [movies, setMovies] = useState([]);
     const [visibleMovies, setVisibleMovies] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -61,7 +67,7 @@ const Search = () => {
     };
 
     const [likedMovies, setLikedMovies] = useState(
-      JSON.parse(localStorage.getItem('likedMovies')) || []
+      JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
   );
 
     const handleScroll = () => {
@@ -309,6 +315,7 @@ const Search = () => {
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             alt={movie.title}
                             style={{ width: '100%', borderRadius: '5px' }}
+                            className="movie-image"
                         />
                         {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && (
                             <span

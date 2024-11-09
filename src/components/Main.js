@@ -5,9 +5,11 @@ import './Image.css'; // CSS 파일 임포트
 
 const Main = () => {
   let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+  let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
 
   if (localStorage.getItem('Remembercheck')) {
     apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+    IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
   }
 
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +28,7 @@ const Main = () => {
 
   const [likedMovies, setLikedMovies] = useState(() => {
     // 페이지 새로 고침 시 좋아요 상태 불러오기
-    const savedLikes = localStorage.getItem('likedMovies');
+    const savedLikes = localStorage.getItem(IDKey+'likedMovies');
     return savedLikes ? JSON.parse(savedLikes) : [];
   });
 
@@ -99,7 +101,7 @@ const Main = () => {
 
     // 업데이트된 좋아요 목록을 상태와 localStorage에 저장
     setLikedMovies(updatedLikedMovies);
-    localStorage.setItem('likedMovies', JSON.stringify(updatedLikedMovies));
+    localStorage.setItem(IDKey+'likedMovies', JSON.stringify(updatedLikedMovies));
   };
 
   // 스크롤 이벤트 리스너 추가 및 제거

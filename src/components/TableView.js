@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './Loading.css'; // CSS 파일 임포트
+import './Image.css'; // CSS 파일 임포트
 
 const TableView = () => {
-    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+    
+    let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+    let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
+
     if (localStorage.getItem('Remembercheck')) {
         apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+        IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
     }
+
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [error, setError] = useState(null);
@@ -15,7 +21,7 @@ const TableView = () => {
 
     // 좋아요한 영화 목록을 관리하는 상태 (로컬 스토리지에서 불러옴)
     const [likedMovies, setLikedMovies] = useState(
-        JSON.parse(localStorage.getItem('likedMovies')) || []
+        JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
     );
 
     const fetchMovies = async (currentPage) => {
@@ -101,6 +107,7 @@ const TableView = () => {
                                     marginBottom: '10px',
                                     objectFit: 'cover',
                                 }}
+                                className="movie-image"
                             />
                             <span
                                 style={{

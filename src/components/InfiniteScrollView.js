@@ -2,12 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'; // 하트 아이콘 추가
 import './Loading.css'; // CSS 파일 임포트
+import './Image.css'; // CSS 파일 임포트
 
 const InfiniteScrollView = () => {
-    let apiKey = sessionStorage.getItem('CurEmail') || 'your_api_key_here';
+
+    let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
+    let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
+
     if (localStorage.getItem('Remembercheck')) {
         apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
+        IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
     }
+
     const [movies, setMovies] = useState([]);
     const [visibleMovies, setVisibleMovies] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -18,7 +24,7 @@ const InfiniteScrollView = () => {
 
     // 좋아요한 영화 목록 가져오기
     const getLikedMovies = () => {
-        return JSON.parse(localStorage.getItem('likedMovies')) || [];
+        return JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || [];
     };
 
     // 여러 페이지의 데이터를 가져오는 함수
@@ -140,6 +146,7 @@ const InfiniteScrollView = () => {
                                         borderRadius: '8px',
                                         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                                     }}
+                                    className="movie-image"
                                 />
                                 {isLiked && ( // 좋아요한 영화에만 하트 아이콘을 표시
                                     <button
