@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import './Loading.css';
-import './Image.css';
-import './Scroll.css';
+import './CSS-File/Loading.css';
+import './CSS-File/Image.css';
+import './CSS-File/Scroll.css';
+import { getAPIData } from './SUB/API'; 
 
 const Wishlist = () => {
-  const IDKey = sessionStorage.getItem('CurID') || '';
+  const { apiKey, IDKey } = getAPIData();
   const [likedMovies, setLikedMovies] = useState([]); // 좋아요한 영화 전체 목록
   const [visibleMovies, setVisibleMovies] = useState([]); // 화면에 표시할 영화들
   const [page, setPage] = useState(1); // 페이지 상태
@@ -14,6 +13,7 @@ const Wishlist = () => {
   const containerRef = useRef(null); // 스크롤 컨테이너 참조
 
   const [isLoading, setIsLoading] = useState(true);
+
 
   // 좋아요한 영화 목록을 불러오기 위한 useEffect
   useEffect(() => {
@@ -107,15 +107,7 @@ const Wishlist = () => {
                               }}
                               className="movie-image"
                           />
-                          <span style={{
-                              position: 'absolute',
-                              top: '5px',
-                              right: '20px',
-                              color: 'red',
-                              fontSize: '20px',
-                          }}>
-                              <FontAwesomeIcon icon={faHeart} />
-                          </span>
+                          {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
                           <span style={{ display: 'block', fontSize: '14px', marginTop: '10px' }}>
                               {movie.title}
                           </span>

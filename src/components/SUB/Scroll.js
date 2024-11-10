@@ -1,4 +1,4 @@
-import './Scroll.css';
+import '../CSS-File//Scroll.css';
 import { useCallback } from 'react';
 
 export const useHorizontalScroll = () => {

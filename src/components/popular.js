@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import TableView from './TableView';
-import InfiniteScrollView from './InfiniteScrollView';
+import TableView from './SUB/TableView';
+import InfiniteScrollView from './SUB/InfiniteScrollView';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTable, faList } from '@fortawesome/free-solid-svg-icons';
 
