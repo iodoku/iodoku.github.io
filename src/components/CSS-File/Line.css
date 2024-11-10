@@ -1,0 +1,9 @@
+.link-style {
+    text-decoration: none;
+    color: white;
+    position: relative;  /* 밑줄을 위해 상대 위치 설정 */
+  }
+  
+  .link-style:hover {
+    text-decoration: underline;  /* 마우스를 올리면 밑줄 추가 */
+  }
