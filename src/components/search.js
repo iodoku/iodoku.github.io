@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
-import './Loading.css';
-import './Image.css'; // CSS 파일 임포트
+import './CSS-File/Loading.css';
+import './CSS-File/Image.css'; // CSS 파일 임포트
+import { getAPIData } from './SUB/API'; 
+import { handleMovieClick,  getLikedMovies } from './SUB/Like';
 
 const genreOptions = [
     { id: 0, name: '전체' },
@@ -18,13 +20,7 @@ const languageOptions = ['전체', '한국어', '영어', '일본어'];
 
 const Search = () => {
     
-    let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
-    let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
-
-    if (localStorage.getItem('Remembercheck')) {
-        apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
-        IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
-    }
+    const { apiKey, IDKey } = getAPIData();
 
     const [movies, setMovies] = useState([]);
     const [visibleMovies, setVisibleMovies] = useState([]);
@@ -66,9 +62,7 @@ const Search = () => {
         }
     };
 
-    const [likedMovies, setLikedMovies] = useState(
-      JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
-  );
+    const [likedMovies, setLikedMovies] = useState(getLikedMovies(IDKey));
 
     const handleScroll = () => {
         if (!scrollContainerRef.current) return;
@@ -161,7 +155,6 @@ const Search = () => {
         setSortOrder('none');
         setOtherfilter('none');
     };
-
 
     const filteredMovies = visibleMovies.filter(movie => {
       const matchesGenre = genreFilter === 0 || movie.genre_ids.includes(genreFilter);
@@ -310,6 +303,7 @@ const Search = () => {
                             textAlign: 'center',
                             position: 'relative', // 포스터 이미지를 기준으로 하트 위치 설정
                         }}
+                        onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}
                     >
                         <img
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -317,20 +311,7 @@ const Search = () => {
                             style={{ width: '100%', borderRadius: '5px' }}
                             className="movie-image"
                         />
-                        {likedMovies.some((likedMovie) => likedMovie.id === movie.id) && (
-                            <span
-                                style={{
-                                    position: 'absolute',
-                                    top: '10px',  // 상단에서 10px
-                                    left: '180px', // 왼쪽에서 10px
-                                    color: 'red',
-                                    fontSize: '20px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                ❤️
-                            </span>
-                        )}
+                        {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
                         <h3 style={{ fontSize: '14px', marginTop: '10px' }}>{movie.title}</h3>
                     </div>
                 ))}

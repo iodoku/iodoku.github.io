@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './Loading.css'; // CSS 파일 임포트
-import './Image.css'; // CSS 파일 임포트
+import '../CSS-File/Loading.css'; // CSS 파일 임포트
+import '../CSS-File/Image.css'; // CSS 파일 임포트
+import { getAPIData } from './API'; 
+import { handleMovieClick,  getLikedMovies } from './Like';
 
 const TableView = () => {
     
-    let apiKey = sessionStorage.getItem('CurEmail') || ''; // sessionStorage에서 값을 가져옴
-    let IDKey = sessionStorage.getItem('CurID') || ''; // sessionStorage에서 값을 가져옴
-
-    if (localStorage.getItem('Remembercheck')) {
-        apiKey = localStorage.getItem('Remembercheck') || ''; // Remembercheck 값으로 apiKey를 덮어씀
-        IDKey = localStorage.getItem('RemembercheckID') || ''; // Remembercheck 값으로 apiKey를 덮어씀
-    }
+    const { apiKey, IDKey } = getAPIData();
 
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
@@ -20,9 +16,8 @@ const TableView = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     // 좋아요한 영화 목록을 관리하는 상태 (로컬 스토리지에서 불러옴)
-    const [likedMovies, setLikedMovies] = useState(
-        JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
-    );
+    const [likedMovies, setLikedMovies] = useState(getLikedMovies(IDKey));
+
 
     const fetchMovies = async (currentPage) => {
         try {
@@ -97,7 +92,7 @@ const TableView = () => {
                     }}
                 >
                     {movies.map((movie, index) => (
-                        <div key={`${movie.id}-${index}`} style={{ position: 'relative', textAlign: 'center' }}>
+                        <div key={`${movie.id}-${index}`} style={{ position: 'relative', textAlign: 'center' }} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
@@ -124,20 +119,7 @@ const TableView = () => {
                             </span>
 
                             {/* 좋아요된 영화만 빨간색 하트 표시 */}
-                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (
-                                <span
-                                    style={{
-                                        position: 'absolute',
-                                        top: '5px',
-                                        right: '5px',
-                                        color: 'red',
-                                        fontSize: '20px',
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    ❤️
-                                </span>
-                            )}
+                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
                         </div>
                     ))}
                     {isFetching && <div className="loader"></div>}

@@ -26,7 +26,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../images/space.jpg');
+    background-image: url('../../images/space.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat; /* 배경 이미지 반복 방지 */

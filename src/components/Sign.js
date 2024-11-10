@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import './Sign.css'; // 애니메이션 효과를 위한 CSS 파일
+import './CSS-File/Sign.css'; // 애니메이션 효과를 위한 CSS 파일
 import { toast, ToastContainer } from 'react-toastify'; // toast와 ToastContainer를 가져옵니다.
 import 'react-toastify/dist/ReactToastify.css'; // ToastContainer 스타일을 가져옵니다.
 
