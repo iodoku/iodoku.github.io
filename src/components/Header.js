@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './CSS-File/Header.css'; // CSS 파일 임포트
 
 const Header = () => {
   return (

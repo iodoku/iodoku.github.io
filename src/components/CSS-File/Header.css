@@ -1,0 +1,15 @@
+header {
+    background-color: #fff; /* 기본 배경색 */
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #000; /* 기본 링크 색상 */
+    font-weight: bold;
+    padding: 10px 15px;
+  }
+  
+  nav ul li a:hover {
+    background-color: #007bff; /* 마우스를 올렸을 때 배경색 */
+    color: white; /* 마우스를 올렸을 때 텍스트 색상 */
+  }
