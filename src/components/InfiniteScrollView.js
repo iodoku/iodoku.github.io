@@ -23,8 +23,25 @@ const InfiniteScrollView = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     // 좋아요한 영화 목록 가져오기
-    const getLikedMovies = () => {
-        return JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || [];
+    const [likedMovies, setLikedMovies] = useState(
+        JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
+    );
+
+    const handleMovieClick = (movieId, movie) => {
+        // 영화가 좋아요 목록에 있는지 확인
+        const isMovieLiked = likedMovies.some((likedMovie) => likedMovie.id === movieId);
+    
+        if (isMovieLiked) {
+            // 영화가 좋아요 목록에 있으면 제거
+            const updatedMovies = likedMovies.filter((movie) => movie.id !== movieId);
+            setLikedMovies(updatedMovies); // 좋아요 목록에서 제거
+            localStorage.setItem(IDKey + 'likedMovies', JSON.stringify(updatedMovies)); // localStorage 업데이트
+        } else {
+            // 영화가 좋아요 목록에 없으면 추가
+            const updatedMovies = [...likedMovies, movie];
+            setLikedMovies(updatedMovies); // 좋아요 목록에 추가
+            localStorage.setItem(IDKey + 'likedMovies', JSON.stringify(updatedMovies)); // localStorage 업데이트
+        }
     };
 
     // 여러 페이지의 데이터를 가져오는 함수
@@ -100,19 +117,6 @@ const InfiniteScrollView = () => {
         }
     };
 
-    const handleLike = (movie) => {
-        const likedMovies = getLikedMovies();
-        if (likedMovies.some((likedMovie) => likedMovie.id === movie.id)) {
-            // 이미 좋아요가 눌린 영화라면 제거
-            const updatedMovies = likedMovies.filter((likedMovie) => likedMovie.id !== movie.id);
-            localStorage.setItem('likedMovies', JSON.stringify(updatedMovies));
-        } else {
-            // 좋아요를 눌렀다면 추가
-            likedMovies.push(movie);
-            localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
-        }
-    };
-
     return (
         <div>
             <div
@@ -134,9 +138,8 @@ const InfiniteScrollView = () => {
                     gridTemplateRows: 'repeat(6, 1fr)', // 세로로 6개씩 배열
                 }}>
                     {visibleMovies.map((movie, index) => {
-                        const isLiked = getLikedMovies().some((likedMovie) => likedMovie.id === movie.id);
                         return (
-                            <div key={`${movie.id}-${index}`} style={{ textAlign: 'center', position: 'relative' }}>                           
+                            <div key={`${movie.id}-${index}`} style={{ textAlign: 'center', position: 'relative' }} onClick={() => handleMovieClick(movie.id, movie)}>                           
                                 <img
                                     src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                     alt={movie.title}
@@ -148,22 +151,20 @@ const InfiniteScrollView = () => {
                                     }}
                                     className="movie-image"
                                 />
-                                {isLiked && ( // 좋아요한 영화에만 하트 아이콘을 표시
-                                    <button
-                                        onClick={() => handleLike(movie)}
+                                {/* 좋아요된 영화만 빨간색 하트 표시 */}
+                                {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (
+                                    <span
                                         style={{
                                             position: 'absolute',
-                                            top: '5px', 
-                                            right: '25px', 
-                                            background: 'transparent', 
-                                            border: 'none', 
+                                            top: '5px',
+                                            right: '20px',
                                             color: 'red',
                                             fontSize: '20px',
                                             cursor: 'pointer',
                                         }}
                                     >
-                                        <FontAwesomeIcon icon={faHeart} />
-                                    </button>
+                                        ❤️
+                                    </span>
                                 )}
                                 <span style={{ display: 'block', fontSize: '14px', color: 'white' }}>{movie.title}</span>
                             </div>

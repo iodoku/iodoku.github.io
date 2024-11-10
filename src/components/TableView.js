@@ -24,6 +24,24 @@ const TableView = () => {
         JSON.parse(localStorage.getItem(IDKey+'likedMovies')) || []
     );
 
+
+    const handleMovieClick = (movieId, movie) => {
+        // 영화가 좋아요 목록에 있는지 확인
+        const isMovieLiked = likedMovies.some((likedMovie) => likedMovie.id === movieId);
+    
+        if (isMovieLiked) {
+            // 영화가 좋아요 목록에 있으면 제거
+            const updatedMovies = likedMovies.filter((movie) => movie.id !== movieId);
+            setLikedMovies(updatedMovies); // 좋아요 목록에서 제거
+            localStorage.setItem(IDKey + 'likedMovies', JSON.stringify(updatedMovies)); // localStorage 업데이트
+        } else {
+            // 영화가 좋아요 목록에 없으면 추가
+            const updatedMovies = [...likedMovies, movie];
+            setLikedMovies(updatedMovies); // 좋아요 목록에 추가
+            localStorage.setItem(IDKey + 'likedMovies', JSON.stringify(updatedMovies)); // localStorage 업데이트
+        }
+    };
+
     const fetchMovies = async (currentPage) => {
         try {
             const requests = [];
@@ -97,7 +115,7 @@ const TableView = () => {
                     }}
                 >
                     {movies.map((movie, index) => (
-                        <div key={`${movie.id}-${index}`} style={{ position: 'relative', textAlign: 'center' }}>
+                        <div key={`${movie.id}-${index}`} style={{ position: 'relative', textAlign: 'center' }} onClick={() => handleMovieClick(movie.id, movie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
