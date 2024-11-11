@@ -8,4 +8,14 @@
     overflow-y: auto;
     scrollbar-width: none; /* Firefox 전용 */
     scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
+    height: 1260px
+}
+
+@media (max-width: 880px) {
+    .scroll-vertical {
+        overflow-y: auto;
+        scrollbar-width: none; /* Firefox 전용 */
+        scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
+        height: 350px
+    }
 }
