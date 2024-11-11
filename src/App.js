@@ -10,7 +10,7 @@ import Sign from './components/Sign';
 
 function App() {
   // 반응형 구분
-  const isMobile = useMediaQuery({ query: '(max-width: 480px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 300px)' });
 
   return (
     <Router>
