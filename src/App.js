@@ -1,23 +1,27 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import Header from './components/Header'; 
-import Main from './components/Main'; // 홈 컴포넌트
-import Popular from './components/popular'; // 대세 콘텐츠 컴포넌트
-import Wishlist from './components/wishlist'; // 내가 찜한 리스트 컴포넌트
-import Search from './components/search'; // 찾아보기 컴포넌트
-import Sign from './components/Sign'; // 내가 찜한 리스트 컴포넌트
+import Main from './components/Main';
+import Popular from './components/popular';
+import Wishlist from './components/wishlist';
+import Search from './components/search';
+import Sign from './components/Sign';
 
 function App() {
+  // 반응형 구분
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
   return (
     <Router>
-      <Header />
+      {/* 모바일과 데스크톱에서 다르게 Header를 렌더링 */}
+      {isMobile ? <Header mobile /> : <Header />}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/search" element={<Search />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/sign" element={<Sign />} />
-        {/* 다른 라우트 추가 */}
       </Routes>
     </Router>
   );
