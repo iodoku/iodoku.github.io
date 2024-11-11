@@ -4,6 +4,7 @@ import { useHorizontalScroll } from "./SUB/Scroll"; // 스크롤 훅 임포트
 import { getAPIData } from './SUB/API'; 
 import { handleMovieClick, getLikedMovies } from './SUB/Like';
 import './CSS-File/Image.css'; // CSS 파일 임포트
+import './CSS-File/Main.css'; // CSS 파일 임포트
 
 const Main = () => {
   const { apiKey, IDKey } = getAPIData();
@@ -70,15 +71,17 @@ const Main = () => {
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   const MovieList = ({ title, movies, scrollRef }) => (
-    <div style={{ marginTop: '20px', borderRadius: '8px', padding: '0 50px', color: 'white' }}>
+    <div className="movieList-container">
       <h2>{title}</h2>
       <div className="scroll-horizontal" ref={scrollRef}>
-        <div style={{ display: 'flex' }}>
+        <div className="movieList-display">
           {movies.map((movie) => (
-            <div key={movie.id} style={{ margin: '10px', position: 'relative' }} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ width: '180px', height: '250px', objectFit: 'cover', transition: 'transform 0.3s' }} className="movie-image"/>
+            <div key={movie.id} className="movieList-click" onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image"/>
               <p>{movie.title}</p>
-              {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (<span style={{position: 'absolute', top: '5px', right: '5px', color: 'red', fontSize: '20px', cursor: 'pointer',}}>❤️</span>)}
+              {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (
+                <span className="liked-icon">❤️</span>
+              )}
             </div>
           ))}
         </div>
@@ -87,20 +90,16 @@ const Main = () => {
   );
 
   return (
-    <div className="scroll-vertical" style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#333333', overflowY: 'auto', height: '1260px' }}>
-      {/* 배너 */}
-      <div style={{ position: 'relative', height: '750px', padding: '0 50px' }}>
+    <div className="scroll-vertical">
+    {/* 배너 */}
+      <div className="banner-container">
         <img
           src={`https://image.tmdb.org/t/p/original${bannerMovie.backdrop_path}`}
           alt={bannerMovie.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          className="banner-image"
         />
-        <h1 style={{ position: 'absolute', bottom: '250px', left: '30px', color: 'white', fontSize: '2.5rem', padding: '0 50px' }}>
-          {bannerMovie.title}
-        </h1>
-        <p style={{ position: 'absolute', bottom: '100px', left: '30px', color: 'white', maxWidth: '400px', lineHeight: '1.5', fontSize: '1rem', padding: '0 50px' }}>
-          {bannerMovie.overview}
-        </p>
+        <h1 className="banner-title">{bannerMovie.title}</h1>
+        <p className="banner-overview">{bannerMovie.overview}</p>
       </div>
       {isLoading && <div className="loader"></div>}
       <MovieList title="인기 영화" movies={popularMovies} scrollRef={scrollRefs[0]} />
