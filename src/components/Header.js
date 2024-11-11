@@ -18,10 +18,7 @@ const Header = () => {
 
   const handleMouseEnter = () => setBackgroundColor('#1a1a1a');
   const handleMouseLeave = () => setBackgroundColor('#333333');
-  const handleSignIn = () => {
-    setIsSignedIn(true);
-    setUserId('장동하');
-  };
+  
   const handleLogout = () => {
     setIsSignedIn(false);
     setUserId('');
