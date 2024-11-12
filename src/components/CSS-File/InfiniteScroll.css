@@ -1,0 +1,67 @@
+.scroll-container {
+    height: 1170px;
+    overflow-y: scroll;
+    padding: 80px;
+    background-color: #333;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.movie-item {
+    text-align: center;
+    position: relative;
+}
+
+.movie-image {
+    width: 200px;
+    height: 270px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 좋아요 하트 아이콘 */
+.liked-icon {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    color: red;
+    font-size: 20px;
+}
+
+.movie-title {
+    display: block;
+    font-size: 14px;
+    color: white;
+}
+
+/* 스크롤-탑 버튼 */
+.scroll-top-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: #fff;
+    color: blue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 880px) {
+    .movie-image {
+        width: 70px;
+        height: 100px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+}

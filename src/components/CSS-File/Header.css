@@ -1,15 +1,144 @@
-header {
-    background-color: #fff; /* 기본 배경색 */
+.movie-container {
+  list-style-type: none;
+  padding: 0;
+  background-color: #333333; /* 초기 배경 색상 */
+  transition: background-color 0.3s ease;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-container {
+  display: inline-block;
+  padding: 5px 70px;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+}
+
+.nav-item1 {
+  display: inline-block;
+  min-width: 60px;
+  font-size: 17px;
+}
+
+.nav-item2 {
+  display: inline-block;
+  min-width: 120px;
+  font-size: 17px;
+}
+.nav-item3 {
+  display: inline-block;
+  min-width: 100px;
+  font-size: 17px;
+}
+.nav-item4 {
+  display: inline-block;
+  min-width: 50px;
+  font-size: 17px;
+}
+.user-menu {
+  display: inline-block;
+  margin-left: auto;
+  padding: 15px 25px;
+  min-width: 150px;
+  position: relative;
+}
+
+.user-button {
+  background: none;
+  border: none;
+  color: white;
+}
+
+.user-icon {
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  background-color: #444;
+  color: white;
+  padding: 15px;
+  border-radius: 20px;
+  min-width: 300px;
+  z-index: 1000;
+  height: 400px;
+}
+
+.dropdown-logo {
+  width: 300px;
+  height: 300px;
+}
+
+.dropdown-text {
+  text-align: center;
+}
+
+.logout-link {
+  display: block;
+  width: 280px;
+  background-color: #555;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media (max-width: 880px) {
+  .logo-image {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
   }
   
-  nav ul li a {
-    text-decoration: none;
-    color: #000; /* 기본 링크 색상 */
-    font-weight: bold;
-    padding: 10px 15px;
+  .nav-item1 {
+    display: inline-block;
+    min-width: 60px;
+    font-size: 14px;
   }
   
-  nav ul li a:hover {
-    background-color: #007bff; /* 마우스를 올렸을 때 배경색 */
-    color: white; /* 마우스를 올렸을 때 텍스트 색상 */
+  .nav-item2 {
+    display: inline-block;
+    min-width: 120px;
+    font-size: 14px;
   }
+  .nav-item3 {
+    display: inline-block;
+    min-width: 100px;
+    font-size: 14px;
+  }
+  .nav-item4 {
+    display: inline-block;
+    min-width: 50px;
+    font-size: 14px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    background-color: #444;
+    color: white;
+    padding: 15px;
+    border-radius: 20px;
+    width: 200px;
+    z-index: 1000;
+    height: 250px;
+  }
+  
+  .dropdown-logo {
+    width: 150px;
+    height: 150px;
+    padding: 0 70px;
+  }
+}

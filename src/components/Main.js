@@ -77,7 +77,7 @@ const Main = () => {
         <div className="movieList-display">
           {movies.map((movie) => (
             <div key={movie.id} className="movieList-click" onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image"/>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image-feature movie-image"/>
               <p>{movie.title}</p>
               {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (
                 <span className="liked-icon">❤️</span>

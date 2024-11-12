@@ -3,6 +3,7 @@ import { getAPIData } from './API';
 import { handleMovieClick, getLikedMovies } from './Like';
 import '../CSS-File/Loading.css';
 import '../CSS-File/Image.css';
+import '../CSS-File/InfiniteScroll.css';
 
 const InfiniteScrollView = () => {
     const { apiKey, IDKey } = getAPIData();
@@ -61,7 +62,7 @@ const InfiniteScrollView = () => {
 
     return (
         <div>
-            <div ref={scrollContainerRef} style={{ height: '1170px', overflowY: 'scroll', padding: '80px', backgroundColor: '#333' }}>
+            <div ref={scrollContainerRef} className='scroll-container'>
                 {isLoading && <div className="loader" />}
                 {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gridTemplateRows: 'repeat(6, 1fr)' }}>
