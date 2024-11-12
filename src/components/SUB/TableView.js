@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../CSS-File/Loading.css'; // CSS 파일 임포트
 import '../CSS-File/Image.css'; // CSS 파일 임포트
+import '../CSS-File/TableView.css'; // CSS 파일 임포트
 import { getAPIData } from './API'; 
-import { handleMovieClick,  getLikedMovies } from './Like';
+import { handleMovieClick, getLikedMovies } from './Like';
 
 const TableView = () => {
-    
     const { apiKey, IDKey } = getAPIData();
 
     const [movies, setMovies] = useState([]);
@@ -17,7 +17,6 @@ const TableView = () => {
 
     // 좋아요한 영화 목록을 관리하는 상태 (로컬 스토리지에서 불러옴)
     const [likedMovies, setLikedMovies] = useState(getLikedMovies(IDKey));
-
 
     const fetchMovies = async (currentPage) => {
         try {
@@ -49,7 +48,7 @@ const TableView = () => {
     const handleNextPage = () => {
         setIsFetching(true);
         if (page + 10 <= totalPages) {
-            setPage(prevPage => prevPage + 10);
+            setPage(prevPage => prevPage + 10); // 다음 10페이지로 이동
         }
         setTimeout(() => {
             setIsFetching(false);
@@ -58,10 +57,10 @@ const TableView = () => {
 
     const handlePreviousPage = () => {
         setIsFetching(true);
-        if (page <= 10) {
-            setPage(1);
+        if (page > 10) {
+            setPage(prevPage => prevPage - 10); // 이전 10페이지로 이동
         } else {
-            setPage(prevPage => prevPage - 10);
+            setPage(1); // 첫 번째 페이지로 돌아가기
         }
         setTimeout(() => {
             setIsFetching(false);
@@ -76,108 +75,58 @@ const TableView = () => {
         }, 100);
     };
 
+    // 페이지 번호를 항상 10개씩 묶어서 표시
+    const getPageNumbers = () => {
+        const startPage = Math.floor((page - 1) / 10) * 10 + 1;
+        const endPage = Math.min(startPage + 9, totalPages);
+        return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+    };
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <div style={{ backgroundColor: '#333333', padding: '30px' }}>
+        <div className='container'>
+            <div className='background'>
                 {isLoading && <div className="loader"></div>}
-                {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>{error}</div>}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(10, 1fr)',
-                        gridTemplateRows: 'repeat(6, 1fr)',
-                        gap: '10px',
-                        justifyItems: 'center',
-                    }}
-                >
+                {error && <div className='error-message'>{error}</div>}
+                <div className='movie-grid'>
                     {movies.map((movie, index) => (
-                        <div key={`${movie.id}-${index}`} style={{ position: 'relative', textAlign: 'center' }} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
+                        <div key={`${movie.id}-${index}`} className='movie-item' onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
-                                style={{
-                                    width: '100px',
-                                    height: '140px',
-                                    marginBottom: '10px',
-                                    objectFit: 'cover',
-                                }}
-                                className="movie-image"
+                                className="movie-imagestyle movie-image"
                             />
-                            <span
-                                style={{
-                                    display: 'block',
-                                    fontSize: '14px',
-                                    color: 'white',
-                                    textOverflow: 'ellipsis',
-                                    overflow: 'hidden',
-                                    whiteSpace: 'nowrap',
-                                    maxWidth: '100px',
-                                }}
-                            >
+                            <span className="movie-title">
                                 {movie.title}
                             </span>
 
                             {/* 좋아요된 영화만 빨간색 하트 표시 */}
-                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
+                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
                         </div>
                     ))}
                     {isFetching && <div className="loader"></div>}
                 </div>
-                <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className='pagination-container'>
                     <button
                         onClick={handlePreviousPage}
                         disabled={page === 1}
-                        style={{
-                            padding: '10px 20px',
-                            margin: '0 10px',
-                            backgroundColor: '#555555',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: page === 1 ? 'not-allowed' : 'pointer',
-                        }}
-                    >
+                        className='pagination-button'>
                         {"< 이전"}
                     </button>
 
-                    {Array.from({ length: Math.min(10, totalPages) }).map((_, index) => {
-                        const pageNum = page + index;
-                        if (pageNum <= totalPages) {
-                            return (
-                                <button
-                                    key={pageNum}
-                                    onClick={() => handlePageClick(pageNum)}
-                                    style={{
-                                        padding: '10px 15px',
-                                        margin: '0 5px',
-                                        backgroundColor: page === pageNum ? '#ff6600' : '#555555',
-                                        color: '#fff',
-                                        border: 'none',
-                                        borderRadius: '5px',
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    {pageNum}
-                                </button>
-                            );
-                        }
-                        return null;
-                    })}
+                    {getPageNumbers().map((pageNum) => (
+                        <button
+                            key={pageNum}
+                            onClick={() => handlePageClick(pageNum)}
+                            className={`page-number ${page === pageNum ? 'active' : ''}`}
+                        >
+                            {pageNum}
+                        </button>
+                    ))}
 
                     <button
                         onClick={handleNextPage}
                         disabled={page + 10 > totalPages}
-                        style={{
-                            padding: '10px 20px',
-                            margin: '0 10px',
-                            backgroundColor: '#555555',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: page + 10 > totalPages ? 'not-allowed' : 'pointer',
-                        }}
-                    >
+                        className='pagination-button'>
                         {"다음 >"}
                     </button>
                 </div>
