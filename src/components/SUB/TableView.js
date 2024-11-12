@@ -21,8 +21,12 @@ const TableView = () => {
     const fetchMovies = async (currentPage) => {
         try {
             const requests = [];
-            for (let i = 0; i < 3; i++) {
-                requests.push(fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${currentPage + i}`));
+            // 각 페이지마다 API 요청 범위 지정
+            const startPage = (currentPage - 1) * 2 + 1;
+            const endPage = startPage + 1;
+
+            for (let i = startPage; i <= endPage; i++) {
+                requests.push(fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${i}`));
             }
             const responses = await Promise.all(requests);
             const data = await Promise.all(responses.map(response => response.json()));
@@ -47,8 +51,8 @@ const TableView = () => {
 
     const handleNextPage = () => {
         setIsFetching(true);
-        if (page + 10 <= totalPages) {
-            setPage(prevPage => prevPage + 10); // 다음 10페이지로 이동
+        if (page + 2 <= totalPages) {
+            setPage(prevPage => prevPage + 2); // 다음 2페이지로 이동
         }
         setTimeout(() => {
             setIsFetching(false);
@@ -57,8 +61,8 @@ const TableView = () => {
 
     const handlePreviousPage = () => {
         setIsFetching(true);
-        if (page > 10) {
-            setPage(prevPage => prevPage - 10); // 이전 10페이지로 이동
+        if (page > 2) {
+            setPage(prevPage => prevPage - 2); // 이전 2페이지로 이동
         } else {
             setPage(1); // 첫 번째 페이지로 돌아가기
         }
@@ -93,7 +97,7 @@ const TableView = () => {
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
-                                className="movie-imagestyle movie-image"
+                                className="movie-imagestyle movie-image-feature"
                             />
                             <span className="movie-title">
                                 {movie.title}
@@ -125,7 +129,7 @@ const TableView = () => {
 
                     <button
                         onClick={handleNextPage}
-                        disabled={page + 10 > totalPages}
+                        disabled={page + 2 > totalPages}
                         className='pagination-button'>
                         {"다음 >"}
                     </button>

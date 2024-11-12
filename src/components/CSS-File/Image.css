@@ -7,9 +7,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.movie-image {
-  width: 180px;
-  height: 250px;
+.movie-image-feature{
   object-fit: cover;
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
@@ -17,7 +15,7 @@
 }
 
 /* 호버 효과 */
-.movie-image:hover {
+.movie-image-feature:hover {
   transform: scale(1.1) rotate(5deg);
   filter: brightness(1.15);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);

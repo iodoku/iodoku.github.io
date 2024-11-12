@@ -112,7 +112,7 @@
       }
 
     .movie-image {
-        width: 130px;
+        width: 140px;
         height: 160px;
         object-fit: cover;
         transition: transform 0.3s;
@@ -128,7 +128,7 @@
       }
 
     .movieList-click p {
-        font-size: 0.75rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+        font-size: 0.6rem; /* 원하는 크기로 설정 (예: 0.9rem) */
         margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
     }
   }
