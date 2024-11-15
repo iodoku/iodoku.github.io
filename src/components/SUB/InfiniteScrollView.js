@@ -64,19 +64,19 @@ const InfiniteScrollView = () => {
         <div>
             <div ref={scrollContainerRef} className='scroll-container'>
                 {isLoading && <div className="loader" />}
-                {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gridTemplateRows: 'repeat(6, 1fr)' }}>
+                {error && <div className="error-message">{error}</div>}
+                <div className="movie-grid">
                     {visibleMovies.map(movie => (
-                        <div key={movie.id} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)} style={{ textAlign: 'center', position: 'relative' }}>
-                            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} style={{ width: '200px', height: '270px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }} />
-                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
-                            <span style={{ display: 'block', fontSize: '14px', color: 'white' }}>{movie.title}</span>
+                        <div key={movie.id} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)} className="movie-item">
+                            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} className="movie-image movie-image-feature"/>
+                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
+                            <span className="movie-title">{movie.title}</span>
                         </div>
                     ))}
                 </div>
                 {isFetching && <div className="loader" />}
             </div>
-            <button onClick={scrollToTop} style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', padding: '10px', backgroundColor: '#fff', color: 'blue', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>↑</button>
+            <button onClick={scrollToTop} className="scroll-top-button">↑</button>
         </div>
     );
 };

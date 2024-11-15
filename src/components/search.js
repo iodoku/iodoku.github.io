@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './CSS-File/Loading.css';
 import './CSS-File/Image.css'; // CSS 파일 임포트
+import './CSS-File/Search.css'; // CSS 파일 임포트
 import { getAPIData } from './SUB/API'; 
 import { handleMovieClick,  getLikedMovies } from './SUB/Like';
 
@@ -221,21 +222,9 @@ const Search = () => {
       
     return (
         <div>
-            <div style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',  // 오른쪽 정렬
-                  alignItems: 'flex-end',      // 아래쪽 정렬
-                  backgroundColor: '#333',
-                  padding: '20px',
-                  position: 'relative',         // 아래쪽 여백 추가 (필요시 조정)
-                }}
-            >
+            <div className="filter-container">
               {isLoading && <div className="loader"></div>}
-              <select
-                  value={genreFilter}
-                  onChange={(e) => handleGenreChange(Number(e.target.value))}
-                  style={buttonStyle}
-              >
+              <select value={genreFilter} onChange={(e) => handleGenreChange(Number(e.target.value))}className='button-style'>
                   {genreOptions.map((genre) => (
                       <option key={genre.id} value={genre.id}>
                           {genre.name}
@@ -243,76 +232,45 @@ const Search = () => {
                   ))}
               </select>
 
-              <select value={ratingFilter} onChange={(e) => handleRatingChange(e.target.value)} style={buttonStyle}>
+              <select value={ratingFilter} onChange={(e) => handleRatingChange(e.target.value)} className='button-style'>
                   {ratingOptions.map((rating, index) => (
                       <option key={index} value={rating}>{`평점 (${rating})`}</option>
                   ))}
               </select>
 
-              <select value={languageFilter} onChange={(e) => handleLanguageChange(e.target.value)} style={buttonStyle}>
+              <select value={languageFilter} onChange={(e) => handleLanguageChange(e.target.value)} className='button-style'>
                   {languageOptions.map((language, index) => (
                       <option key={index} value={language}>{`언어 (${language})`}</option>
                   ))}
               </select>
 
-              <select value={sortOrder} onChange={(e) => handleSortOrderChange(e.target.value)} style={buttonStyle}>
+              <select value={sortOrder} onChange={(e) => handleSortOrderChange(e.target.value)} className='button-style'>
                   <option value="none">선택안함</option> {/* "선택안함" 옵션 추가 */}
                   <option value="asc">오름차순</option>
                   <option value="desc">내림차순</option>
               </select>
 
-              <select value={Otherfilter} onChange={(e) => handleOtherfilterChange(e.target.value)} style={buttonStyle}>
+              <select value={Otherfilter} onChange={(e) => handleOtherfilterChange(e.target.value)} className='button-style'>
                   <option value="none">선택안함</option>
                   <option value="popularity_asc">인기순</option> {/* 추가된 필터 */}
                   <option value="release_date_asc">최신 개봉</option> {/* 추가된 필터 */}
                   <option value="release_date_desc">오래된 개봉</option> {/* 추가된 필터 */}
               </select>
 
-              <button onClick={resetFilters} style={buttonStyle}>초기화</button>
+              <button onClick={resetFilters} className='button-style'>초기화</button>
           </div>
 
           <div
             ref={scrollContainerRef}
-            style={{
-                height: '1190px',
-                overflowY: 'auto',
-                border: '1px solid #ddd',
-                padding: '80px',
-                backgroundColor: '#333333',
-                border: 'none',
-            }}
-        >
-            {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
-            <div
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    gap: '20px',
-                }}
-            >
+            className="scroll-container">
+            {error && <div className="error-message">{error}</div>}
+            <div className="movie-grid">
                 {isFetching && <div className="loader"></div>}
                 {sortedMovies.map((movie) => (
-                    <div
-                        key={movie.id}
-                        style={{
-                            background: '#1e1e1e',
-                            borderRadius: '10px',
-                            color: '#fff',
-                            padding: '10px',
-                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-                            textAlign: 'center',
-                            position: 'relative', // 포스터 이미지를 기준으로 하트 위치 설정
-                        }}
-                        onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}
-                    >
-                        <img
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                            alt={movie.title}
-                            style={{ width: '100%', borderRadius: '5px' }}
-                            className="movie-image"
-                        />
-                        {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
-                        <h3 style={{ fontSize: '14px', marginTop: '10px' }}>{movie.title}</h3>
+                    <div key={movie.id} className="movie-card" onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
+                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image-feature movie-card-img "/>
+                        {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
+                        <h3 className="movie-card-h3">{movie.title}</h3>
                     </div>
                 ))}
             </div>
@@ -323,32 +281,12 @@ const Search = () => {
             {visibleMovies.length > 0 && (
                 <div
                     onClick={scrollToTop}
-                    style={{
-                        position: 'fixed',
-                        right: '30px',
-                        bottom: '30px',
-                        background: '#333',
-                        padding: '10px 15px',
-                        borderRadius: '50%',
-                        cursor: 'pointer',
-                        color: '#fff',
-                    }}
-                >
+                    className="scroll-to-top">
                     <FontAwesomeIcon icon={faArrowUpFromBracket} />
                 </div>
             )}
         </div>
     );
-};
-
-const buttonStyle = {
-    fontSize: '16px',
-    padding: '8px',
-    margin: '5px',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
-    backgroundColor: '#333',
-    color: '#fff',
 };
 
 export default Search;
