@@ -1,11 +1,13 @@
 /* 전체 div 스타일 */
 .container {
     text-align: center;
+    height: 1170px;
   }
 
 .background{
     background-Color: #333333;
     padding: 20px;
+    height: 100%;
 }
   
 /* 에러 메시지 스타일 */
@@ -16,7 +18,7 @@
 }
 
 /* 영화 목록 그리드 스타일 */
-.movie-grid {
+.container .background .movie-grid {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -62,7 +64,7 @@
     align-items: center;
     justify-content: center;
     position: relative; /* 요소를 기준으로 top을 조정하기 위해 position 추가 */
-    bottom: 400px; /* 단위 px 추가 */
+    bottom: -100px; /* 단위 px 추가 */
     gap: 10px; /* 버튼 사이의 간격을 주기 위해 gap 추가 */
 }
 
@@ -104,11 +106,12 @@
     .movie-title {
         display: block;
         font-size: 10px; /* 기본적으로 읽을 수 있는 크기 */
+        margin-bottom: -5px;
         color: white;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        max-width: 70px;
+        max-width: 60px;
         transform: scale(0.8); /* 1/10 크기로 줄이기 */
         transform-origin: left center;
     }
@@ -141,11 +144,11 @@
         cursor: pointer;
     }
 
-    .movie-grid {
+    .container .background .movie-grid .movie-grid {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        grid-template-rows: repeat(6, 1fr);
-        gap: 3px;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 1px;
         justify-items: center;
     }
 
@@ -159,7 +162,7 @@
         align-items: center;
         justify-content: center;
         position: relative; /* 요소를 기준으로 top을 조정하기 위해 position 추가 */
-        bottom: 120px; /* 단위 px 추가 */
+        bottom: -10px; /* 단위 px 추가 */
         gap: 10px; /* 버튼 사이의 간격을 주기 위해 gap 추가 */
     }
 }
