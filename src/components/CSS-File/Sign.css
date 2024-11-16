@@ -147,7 +147,7 @@ body {
     text-decoration: underline;
   }
 
-  @media (max-width: 880px) {
+  @media (max-width: 880px)and (orientation: landscape) {
     .container-up {
         min-width: 50px; /* 최소 너비 설정 */
         min-height: 200px; /* 최소 높이 설정 */
@@ -213,4 +213,73 @@ body {
         margin-left: -30px;
     }
   }
+
+  @media (max-width: 880px)and (orientation: portrait) {
+    .container-up {
+        min-width: 10px; /* 최소 너비 설정 */
+        min-height: 200px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        margin-right: -335px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .input-group-up {
+        margin-left: -30px;
+        margin-bottom: 20px;
+    }
+
+    .title-up {
+        font-size: 25px;
+        margin-bottom: 30px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .input {
+        width: 450px;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        background-color: #e8f0fe;
+        margin-top: -10px; /* 음수 값을 사용해 위로 이동 */
+      }
+    
+    .checkbox-group {
+        margin-bottom: 10px;
+        margin-top: -10px;
+        text-align: left;
+        margin-left: -30px;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .container-in {
+        min-width: 50px; /* 최소 너비 설정 */
+        min-height: 200px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        margin-right: -335px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .title-in {
+        font-size: 25px;
+        padding: 10px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+    .input-group-in{
+        margin-left: -30px;
+    }
+  }
+
+
   

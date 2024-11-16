@@ -1,5 +1,5 @@
 .main-container {
-    display: flex;
+    height:1250px;
     flex-direction: column;
     background-color: #333333;
     overflow-y: auto;
@@ -82,7 +82,14 @@
 
   
   /* 반응형 스타일 */
-  @media (max-width: 880px) {
+  @media (max-width: 880px)and (orientation: landscape) {
+    .main-container {
+      height:360px;
+      flex-direction: column;
+      background-color: #333333;
+      overflow-y: auto;
+    }
+
     .main-banner-container {
       height: 300px;
       padding: 0 20px;
@@ -96,6 +103,66 @@
   
     .banner-overview {
       font-size: 0.8rem;
+      bottom: 20px;
+      padding: 0 20px;
+    }
+
+    .movieList-container-main{
+        margin-top: 20px;
+        border-radius: 8px;
+        padding: '0 50px';
+        color: 'white' 
+    }
+
+    .movieList-container-main h2 {
+        font-size: 1.2rem; /* 원하는 크기로 설정 (예: 1.5rem) */
+      }
+
+    .movie-image-main{
+        width: 140px;
+        height: 160px;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    .liked-icon-main {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: red;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+    .movieList-click-main p {
+        font-size: 0.7rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+        margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
+    }
+  }
+
+  @media (max-width: 880px)and (orientation: portrait) {
+    .main-container {
+      height:1650px;
+      width: 800px;
+      flex-direction: column;
+      background-color: #333333;
+      overflow-y: auto;
+    }
+
+    .main-banner-container {
+      height: 480px;
+      width: 760px;
+      padding: 0 20px;
+    }
+  
+    .banner-title {
+      font-size: 1.3rem;
+      bottom: 140px;
+      padding: 0 20px;
+    }
+  
+    .banner-overview {
+      font-size: 0.9rem;
       bottom: 20px;
       padding: 0 20px;
     }

@@ -1,4 +1,4 @@
-.movie-container {
+.movie-container-header {
   list-style-type: none;
   padding: 0;
   background-color: #333333; /* 초기 배경 색상 */
@@ -95,7 +95,70 @@
   text-align: center;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 880px)and (orientation: landscape) {
+  .logo-image {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+  }
+  
+  .nav-item1 {
+    display: inline-block;
+    min-width: 60px;
+    font-size: 14px;
+  }
+  
+  .nav-item2 {
+    display: inline-block;
+    min-width: 120px;
+    font-size: 14px;
+  }
+  .nav-item3 {
+    display: inline-block;
+    min-width: 100px;
+    font-size: 14px;
+  }
+  .nav-item4 {
+    display: inline-block;
+    min-width: 50px;
+    font-size: 14px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background-color: #444;
+    color: white;
+    padding: 15px;
+    border-radius: 20px;
+    width: 200px;
+    z-index: 1000;
+    height: 250px;
+  }
+  
+  .dropdown-logo {
+    width: 150px;
+    height: 150px;
+    padding: 0 70px;
+  }
+}
+
+@media (max-width: 880px)and (orientation: portrait) {
+
+  .movie-container-header {
+    list-style-type: none;
+    padding: 0;
+    background-color: #333333; /* 초기 배경 색상 */
+    transition: background-color 0.3s ease;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 800px;
+    z-index: 1000;
+  }
+
   .logo-image {
     width: 30px;
     height: 30px;
