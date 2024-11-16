@@ -42,10 +42,7 @@ const Main = () => {
     if (isLoading) {
       setTimeout(() => setIsLoading(false), 100);
     }
-    if (!apiKey) {
-      // API 키가 없으면 회원가입 페이지로 강제 이동
-      window.location.href = "/sign";
-    }
+
     if (apiKey) {
       fetchFeaturedMovie(apiKey); // 배너 영화
       fetchMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=1`, setPopularMovies); // 인기 영화
