@@ -1,10 +1,10 @@
 /* 전체 div 스타일 */
-.container {
+.container-table {
     text-align: center;
     height: 1170px;
   }
 
-.background{
+.background-table{
     background-Color: #333333;
     padding: 20px;
     height: 100%;
@@ -18,7 +18,7 @@
 }
 
 /* 영화 목록 그리드 스타일 */
-.container .background .movie-grid {
+.movie-set-talbe{
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -32,7 +32,7 @@
     text-align: center;
 }
 
-.movie-imagestyle {
+.movie-image-table {
     width: 140px;
     height: 200px;
     margin-bottom: 10px;
@@ -40,7 +40,7 @@
 }
 
 /* 영화 제목 스타일 */
-.movie-title {
+.movie-title-table {
     display: block;
     font-size: 14px;
     color: white;
@@ -51,9 +51,9 @@
 }
 
 /* 좋아요 표시 아이콘 */
-.liked-icon {
+.liked-icon-table {
     position: absolute;
-    margin: 0 -15px;
+    margin: -230px 35px;
     color: red;
     font-size: 20px;
 }
@@ -96,32 +96,36 @@
 
 
 @media (max-width: 880px) {
-    .movie-imagestyle {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 0px;
+
+    .container-table {
+        text-align: center;
+        height: 330px;
+    }
+
+    .movie-image-table {
+        width: 60px;
+        height: 55px;
         object-fit: cover;
     }
 
-    .movie-title {
+    .movie-title-table {
         display: block;
         font-size: 10px; /* 기본적으로 읽을 수 있는 크기 */
-        margin-bottom: -5px;
+        margin-bottom: -8px;
+        margin-top: -8px;
         color: white;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
         max-width: 60px;
-        transform: scale(0.8); /* 1/10 크기로 줄이기 */
         transform-origin: left center;
     }
 
-    .liked-icon {
+    .liked-icon-table {
         position: absolute;
         color: red;
-        font-size: 4px;
-        margin: -10px -10px;
-        transform: scale(0.6); /* 1/10 크기로 줄이기 */
+        font-size: 10px;
+        margin: -65px 15px;
     }
 
     .pagination-button {
@@ -144,17 +148,16 @@
         cursor: pointer;
     }
 
-    .container .background .movie-grid .movie-grid {
+    .movie-set-talbe{
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         grid-template-rows: repeat(4, 1fr);
-        gap: 1px;
         justify-items: center;
     }
 
-    .background{
+    .background-table{
         background-Color: #333333;
-        padding: 35px 70px;
+        padding: 10px 70px;
     }
 
     .pagination-container {

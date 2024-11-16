@@ -20,9 +20,3 @@
   filter: brightness(1.15);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
-
-@media (max-width: 768px) {
-  .wishlist-container {
-    background-color: #222222; /* 모바일 전용 배경색 */
-  }
-}

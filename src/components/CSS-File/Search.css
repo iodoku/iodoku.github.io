@@ -20,7 +20,7 @@
 }
 
 /* 스크롤 컨테이너 */
-.scroll-container {
+.search-container {
     height: 1190px;
     overflow-y: auto;
     border: none;
@@ -35,35 +35,33 @@
 }
 
 /* 그리드 스타일 */
-.movie-grid {
+.movie-grid-search {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
 /* 영화 카드 스타일 */
-.movie-card {
-    background: #1e1e1e;
+.movie-card-search  {
     border-radius: 10px;
     color: #fff;
     padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     position: relative;
 }
 
-.movie-card-img {
+.movie-card-img-search {
     width: 100%;
     border-radius: 5px;
 }
 
-.movie-card-h3 {
+.movie-card-h3-search  {
     font-size: 14px;
     margin-top: 10px;
 }
 
 /* 좋아요 아이콘 */
-.liked-icon {
+.liked-icon-search  {
     position: absolute;
     top: 5px;
     right:25px;
@@ -94,8 +92,7 @@
         color: #fff;
     }
 
-    .movie-card {
-        background: #1e1e1e;
+    .movie-card-search  {
         border-radius: 10px;
         color: #fff;
         padding: 0px 5px;
@@ -104,27 +101,27 @@
         position: relative;
     }
 
-    .movie-card-h3 {
+    .movie-card-h3-search  {
         font-size: 10px;
         margin-top: 8px;
     }
 
-    .movie-card-img {
+    .movie-card-img-search  {
         width: 100px;
         height: 130px;
         border-radius: 5px;
     }
 
-    .movie-grid {
+    .movie-grid-search {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 
-    .liked-icon {
+    .liked-icon-search  {
         position: absolute;
         top: 5px;
-        right:15px;
+        right:0px;
         color: red;
-        font-size: 20px;
+        font-size: 15px;
     }
 }

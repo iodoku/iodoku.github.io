@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './CSS-File/Loading.css';
 import './CSS-File/Image.css';
 import './CSS-File/Scroll.css';
+import './CSS-File/Wishlist.css';
 import { getAPIData } from './SUB/API'; 
 
 const Wishlist = () => {
@@ -68,47 +69,25 @@ const Wishlist = () => {
   }, []);
 
   return (
-      <div style={{
-          padding: '40px',
-          backgroundColor: '#333333',
-          minHeight: '100vh',
-          color: 'white',
-      }}>
+      <div className="container-wishlist">
           <div
               ref={containerRef}
-              className="scroll-horizontal"
-              style={{
-                  height: '70vh',
-                  overflowY: 'scroll',
-                  padding: '20px',
-                  backgroundColor: '#333333',
-              }}
-          >
+              className="scroll-horizontal scroll-wishlist">
               {isLoading && <div className="loader"></div>}
-              <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                  gap: '20px',
-              }}>
+              <div className="movie-grid-wishlist">
                   {visibleMovies.map((movie) => (
                       <div
                           key={movie.id}
-                          style={{ position: 'relative', textAlign: 'center' }}
+                          className="movie-item-wishlist"
                           onClick={() => handleMovieClick(movie.id)} // 클릭 시 좋아요 해제
                       >
                           <img
                               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                               alt={movie.title}
-                              style={{
-                                  width: '200px',
-                                  height: '270px',
-                                  borderRadius: '8px',
-                                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                              }}
-                              className="movie-image"
+                              className="movie-image-wishlist movie-image-feature"
                           />
-                          {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span style={{ position: 'absolute', top: '5px', right: '20px', color: 'red', fontSize: '20px' }}>❤️</span>}
-                          <span style={{ display: 'block', fontSize: '14px', marginTop: '10px' }}>
+                          {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span  className='movie-like-wishlist'>❤️</span>}
+                          <span className='movie-title-wishlist'>
                               {movie.title}
                           </span>
                       </div>
