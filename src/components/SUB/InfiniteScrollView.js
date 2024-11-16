@@ -62,15 +62,15 @@ const InfiniteScrollView = () => {
 
     return (
         <div>
-            <div ref={scrollContainerRef} className='scroll-container'>
+            <div ref={scrollContainerRef} className='container-infinite'>
                 {isLoading && <div className="loader" />}
                 {error && <div className="error-message">{error}</div>}
-                <div className="movie-grid">
+                <div className="movie-grid-infinite">
                     {visibleMovies.map(movie => (
                         <div key={movie.id} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)} className="movie-item">
                             <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} className="movie-image-infinite movie-image-feature"/>
-                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
-                            <span className="movie-title">{movie.title}</span>
+                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon-infinite">❤️</span>}
+                            <span className="movie-title-infinite">{movie.title}</span>
                         </div>
                     ))}
                 </div>

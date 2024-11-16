@@ -262,15 +262,15 @@ const Search = () => {
 
           <div
             ref={scrollContainerRef}
-            className="scroll-container">
+            className="search-container">
             {error && <div className="error-message">{error}</div>}
-            <div className="movie-grid">
+            <div className="movie-grid-search">
                 {isFetching && <div className="loader"></div>}
                 {sortedMovies.map((movie) => (
-                    <div key={movie.id} className="movie-card" onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image-feature movie-card-img "/>
-                        {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
-                        <h3 className="movie-card-h3">{movie.title}</h3>
+                    <div key={movie.id} className="movie-card-search " onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
+                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image-feature movie-card-img-search  "/>
+                        {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon-search ">❤️</span>}
+                        <h3 className="movie-card-h3-search ">{movie.title}</h3>
                     </div>
                 ))}
             </div>

@@ -71,16 +71,16 @@ const Main = () => {
   if (!bannerMovie) return null; // 배너 영화가 없으면 아무것도 렌더링하지 않음
 
   const MovieList = ({ title, movies, scrollRef }) => (
-    <div className="movieList-container">
+    <div className="movieList-container-main">
       <h2>{title}</h2>
       <div className="scroll-horizontal" ref={scrollRef}>
         <div className="movieList-display">
           {movies.map((movie) => (
-            <div key={movie.id} className="movieList-click" onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image-feature movie-image"/>
+            <div key={movie.id} className="movieList-click-main" onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-image-feature movie-image-main"/>
               <p>{movie.title}</p>
               {likedMovies.some(likedMovie => likedMovie.id === movie.id) && (
-                <span className="liked-icon">❤️</span>
+                <span className="liked-icon-main">❤️</span>
               )}
             </div>
           ))}
@@ -90,9 +90,9 @@ const Main = () => {
   );
 
   return (
-    <div className="scroll-vertical">
+    <div className="scroll-vertical main-container">
     {/* 배너 */}
-      <div className="banner-container">
+      <div className="main-banner-container ">
         <img
           src={`https://image.tmdb.org/t/p/original${bannerMovie.backdrop_path}`}
           alt={bannerMovie.title}

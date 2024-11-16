@@ -1,4 +1,4 @@
-.scroll-container {
+.container-infinite{
     height: 1170px;
     overflow-y: scroll;
     padding: 80px;
@@ -10,7 +10,7 @@
     text-align: center;
 }
 
-.movie-grid {
+.movie-grid-infinite {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -29,7 +29,7 @@
 }
 
 /* 좋아요 하트 아이콘 */
-.liked-icon {
+.liked-icon-infinite{
     position: absolute;
     top: 5px;
     right: 20px;
@@ -37,7 +37,7 @@
     font-size: 20px;
 }
 
-.movie-title {
+.movie-title-infinite {
     display: block;
     font-size: 14px;
     color: white;
@@ -58,18 +58,37 @@
 }
 
 @media (max-width: 880px) {
-    .movie-image-infinite {
-        width: 70px;
-        height: 100px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .container-infinite {
+        height: 300px;
+        overflow-y: scroll;
     }
 
-    .liked-icon {
+    .movie-image-infinite {
+        width: 100px;
+        height: 130px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: -10px;
+    }
+
+    .liked-icon-infinite {
         position: absolute;
-        top: 5px;
+        top: -10px;
         right: 10px;
         color: red;
-        font-size: 20px;
+        font-size: 15px;
+    }
+
+    .movie-grid-infinite {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    .movie-title-infinite {
+        display: block;
+        font-size: 12px;
+        color: white;
     }
 }

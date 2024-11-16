@@ -69,25 +69,25 @@ const Wishlist = () => {
   }, []);
 
   return (
-      <div className="container">
+      <div className="container-wishlist">
           <div
               ref={containerRef}
-              className="scroll-horizontal scroll">
+              className="scroll-horizontal scroll-wishlist">
               {isLoading && <div className="loader"></div>}
-              <div className="movie-grid">
+              <div className="movie-grid-wishlist">
                   {visibleMovies.map((movie) => (
                       <div
                           key={movie.id}
-                          className="movie-item"
+                          className="movie-item-wishlist"
                           onClick={() => handleMovieClick(movie.id)} // 클릭 시 좋아요 해제
                       >
                           <img
                               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                               alt={movie.title}
-                              className="movie-image movie-image-feature"
+                              className="movie-image-wishlist movie-image-feature"
                           />
-                          {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span  className='movie-like'>❤️</span>}
-                          <span className='movie-title'>
+                          {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span  className='movie-like-wishlist'>❤️</span>}
+                          <span className='movie-title-wishlist'>
                               {movie.title}
                           </span>
                       </div>

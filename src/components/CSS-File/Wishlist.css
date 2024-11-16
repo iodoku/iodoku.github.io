@@ -1,13 +1,13 @@
 /* styles.css */
 
-.container {
+.container-wishlist {
     padding: 40px;
     background-color: #333333;
     min-height: 100vh;
     color: white;
   }
   
-  .scroll{
+  .scroll-wishlist{
     height: 70vh;
     overflow-y: scroll;
     padding: 20px;
@@ -15,26 +15,26 @@
   }
   
 
-  .movie-grid {
+  .movie-grid-wishlist {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
   }
   
-  .movie-item {
+  .movie-item-wishlist {
     position: relative;
     cursor: pointer;
     text-align: center;
   }
   
-  .movie-image {
+  .movie-image-wishlist {
     width: 200px;
     height: 270px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .movie-like {
+  .movie-like-wishlist {
     position: absolute;
     top: 5px;
     right: 20px;
@@ -42,7 +42,7 @@
     font-size: 20px;
   }
   
-  .movie-title {
+  .movie-title-wishlist {
     display: inline-block;
     text-align: center;
     font-size: 14px;
@@ -50,29 +50,30 @@
   }
   
 @media (max-width: 880px) {
-    .movie-image {
+    .movie-image-wishlist {
         width: 100px;
         height: 130px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .movie-title {
+    .movie-title-wishlist {
         display: inline-block;
         text-align: center;
         font-size: 12px;
         margin-top: 5px;
       }
 
-    .movie-grid {
+    .movie-grid-wishlist {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: 20px;
     }
-    .movie-like {
+    .movie-like-wishlist {
         position: absolute;
         top: 2px;
         right: 5px;
+        font-size: 15px;
         color: red;
     }
 }

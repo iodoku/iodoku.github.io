@@ -1,11 +1,11 @@
-.scroll-vertical {
+.main-container {
     display: flex;
     flex-direction: column;
     background-color: #333333;
     overflow-y: auto;
   }
   
-  .banner-container {
+  .main-banner-container {
     position: relative;
     height: 750px;
     padding: 0 50px;
@@ -37,14 +37,14 @@
     padding: 0 50px;
   }
 
-  .movieList-container{
+  .movieList-container-main{
     margin-top: 20px;
     border-radius: 8px;
     padding: 0 50px;
     color: white;
   }
 
-  .movieList-container h2 {
+  .movieList-container-main h2 {
     font-size: 1.5rem; /* 원하는 크기로 설정 (예: 1.5rem) */
   }
 
@@ -52,26 +52,26 @@
     display: flex;
   }
 
-  .movieList-click{
+  .movieList-click-main{
     margin: 10px;
     position: relative;
   }
 
-  .movie-image {
+  .movie-image-main {
     width: 180px;
     height: 250px;
     object-fit: cover;
     transition: transform 0.3s;
   }
 
-  .movieList-click p {
+  .movieList-click-main p {
     font-size: 1rem; /* 원하는 크기로 설정 (예: 0.9rem) */
     margin-top: 5px;   /* 글자와 이미지 사이에 간격을 조정 */
     text-align: center;
     }
   
   /* 좋아요 아이콘 스타일 */
-  .liked-icon {
+  .liked-icon-main {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -83,7 +83,7 @@
   
   /* 반응형 스타일 */
   @media (max-width: 880px) {
-    .banner-container {
+    .main-banner-container {
       height: 300px;
       padding: 0 20px;
     }
@@ -100,25 +100,25 @@
       padding: 0 20px;
     }
 
-    .movieList-container{
+    .movieList-container-main{
         margin-top: 20px;
         border-radius: 8px;
         padding: '0 50px';
         color: 'white' 
     }
 
-    .movieList-container h2 {
+    .movieList-container-main h2 {
         font-size: 1.2rem; /* 원하는 크기로 설정 (예: 1.5rem) */
       }
 
-    .movie-image {
+    .movie-image-main{
         width: 140px;
         height: 160px;
         object-fit: cover;
         transition: transform 0.3s;
     }
 
-    .liked-icon {
+    .liked-icon-main {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -127,8 +127,8 @@
         cursor: pointer;
       }
 
-    .movieList-click p {
-        font-size: 0.6rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+    .movieList-click-main p {
+        font-size: 0.7rem; /* 원하는 크기로 설정 (예: 0.9rem) */
         margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
     }
   }
