@@ -42,7 +42,6 @@ const Main = () => {
     if (isLoading) {
       setTimeout(() => setIsLoading(false), 100);
     }
-
     if (apiKey) {
       fetchFeaturedMovie(apiKey); // 배너 영화
       fetchMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=1`, setPopularMovies); // 인기 영화

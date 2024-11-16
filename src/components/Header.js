@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // useHistory 대신 useNavigate 사용
 import logoImage from '../images/icon.png';
 import { getAPIData } from './SUB/API';
 import './CSS-File/Line.css';
@@ -17,16 +17,20 @@ const Header = () => {
 
   const handleMouseEnter = () => setBackgroundColor('#1a1a1a');
   const handleMouseLeave = () => setBackgroundColor('#333333');
-  
+
   const handleLogout = () => {
     setIsSignedIn(false);
     setUserId('');
     setIsMenuOpen(false);
   };
 
-  const toggleDropdown = () => setIsMenuOpen((prev) => !prev);
-
-
+  const toggleDropdown = () => {
+    if (!IDKey) {
+      window.location.href = "/sign";
+    } else {
+      setIsMenuOpen((prev) => !prev);  // 로그인 상태이면 드롭다운 메뉴 토글
+    }
+  };
 
   return (
     <header>
@@ -50,10 +54,10 @@ const Header = () => {
             <Link to="/wishlist" className="link-style">내가 찜한 리스트</Link>
           </li>   
           <li className='user-menu'>
-            <button className='user-button'onClick={toggleDropdown}>
+            <button className='user-button' onClick={toggleDropdown}>
               <FontAwesomeIcon icon={faUser} className='user-icon'/>
             </button>
-            {isMenuOpen && (
+            {isMenuOpen && IDKey !== null && (
               <div className='dropdown-menu'>
                 <img src={logoImage} className='dropdown-logo' />
                 <p className='dropdown-text'>{IDKey}님 반갑습니다!</p>
