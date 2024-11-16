@@ -13,6 +13,8 @@ const Header = () => {
   const [userId, setUserId] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navigate = useNavigate();  // useNavigate 훅 사용
+
   const { apiKey, IDKey } = getAPIData();
 
   const handleMouseEnter = () => setBackgroundColor('#1a1a1a');
@@ -26,7 +28,7 @@ const Header = () => {
 
   const toggleDropdown = () => {
     if (!IDKey) {
-      window.location.href = "/sign";
+      navigate('/sign');
     } else {
       setIsMenuOpen((prev) => !prev);  // 로그인 상태이면 드롭다운 메뉴 토글
     }
