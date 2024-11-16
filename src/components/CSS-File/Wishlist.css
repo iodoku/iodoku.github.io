@@ -1,0 +1,78 @@
+/* styles.css */
+
+.container {
+    padding: 40px;
+    background-color: #333333;
+    min-height: 100vh;
+    color: white;
+  }
+  
+  .scroll{
+    height: 70vh;
+    overflow-y: scroll;
+    padding: 20px;
+    background-color: #333333;
+  }
+  
+
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .movie-item {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .movie-image {
+    width: 200px;
+    height: 270px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .movie-like {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    color: red;
+    font-size: 20px;
+  }
+  
+  .movie-title {
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+@media (max-width: 880px) {
+    .movie-image {
+        width: 100px;
+        height: 130px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-title {
+        display: inline-block;
+        text-align: center;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
+    }
+    .movie-like {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        color: red;
+    }
+}

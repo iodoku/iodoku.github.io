@@ -68,7 +68,7 @@ const InfiniteScrollView = () => {
                 <div className="movie-grid">
                     {visibleMovies.map(movie => (
                         <div key={movie.id} onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)} className="movie-item">
-                            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} className="movie-image movie-image-feature"/>
+                            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} className="movie-image-infinite movie-image-feature"/>
                             {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
                             <span className="movie-title">{movie.title}</span>
                         </div>

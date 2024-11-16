@@ -39,7 +39,7 @@
 
     .popular-container {
         background-color: #333333; /* 배경 색 */
-        padding: 2px 5px; /* 여백 설정 */
+        padding: 0px 5px; /* 여백 설정 */
         display: flex; /* flexbox 레이아웃 설정 */
         justify-content: center; /* 가로 정렬 */
         align-items: center; /* 세로 정렬 */

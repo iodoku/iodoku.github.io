@@ -87,24 +87,24 @@ const TableView = () => {
     };
 
     return (
-        <div className='container'>
-            <div className='background'>
+        <div className='container-table '>
+            <div className='background-table'>
                 {isLoading && <div className="loader"></div>}
                 {error && <div className='error-message'>{error}</div>}
-                <div className='movie-grid'>
+                <div className='movie-set-talbe'>
                     {movies.map((movie, index) => (
                         <div key={`${movie.id}-${index}`} className='movie-item' onClick={() => handleMovieClick(movie.id, movie, likedMovies, setLikedMovies, IDKey)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                 alt={movie.title}
-                                className="movie-imagestyle movie-image-feature"
+                                className="movie-image-table movie-image-feature"
                             />
-                            <span className="movie-title">
+                            <span className="movie-title-table">
                                 {movie.title}
                             </span>
 
                             {/* 좋아요된 영화만 빨간색 하트 표시 */}
-                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon">❤️</span>}
+                            {likedMovies.some(likedMovie => likedMovie.id === movie.id) && <span className="liked-icon-table">❤️</span>}
                         </div>
                     ))}
                     {isFetching && <div className="loader"></div>}

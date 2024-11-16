@@ -21,7 +21,7 @@
     position: relative;
 }
 
-.movie-image {
+.movie-image-infinite {
     width: 200px;
     height: 270px;
     border-radius: 8px;
@@ -58,7 +58,7 @@
 }
 
 @media (max-width: 880px) {
-    .movie-image {
+    .movie-image-infinite {
         width: 70px;
         height: 100px;
         border-radius: 8px;
