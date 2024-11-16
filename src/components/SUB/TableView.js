@@ -51,8 +51,8 @@ const TableView = () => {
 
     const handleNextPage = () => {
         setIsFetching(true);
-        if (page + 2 <= totalPages) {
-            setPage(prevPage => prevPage + 2); // 다음 2페이지로 이동
+        if (page + 10 <= totalPages) {
+            setPage(prevPage => prevPage + 10); // 다음 10페이지로 이동
         }
         setTimeout(() => {
             setIsFetching(false);
@@ -61,8 +61,8 @@ const TableView = () => {
 
     const handlePreviousPage = () => {
         setIsFetching(true);
-        if (page > 2) {
-            setPage(prevPage => prevPage - 2); // 이전 2페이지로 이동
+        if (page > 10) {
+            setPage(prevPage => prevPage - 10); // 이전 2페이지로 이동
         } else {
             setPage(1); // 첫 번째 페이지로 돌아가기
         }
@@ -129,7 +129,7 @@ const TableView = () => {
 
                     <button
                         onClick={handleNextPage}
-                        disabled={page + 2 > totalPages}
+                        disabled={page + 10 > totalPages}
                         className='pagination-button'>
                         {"다음 >"}
                     </button>
