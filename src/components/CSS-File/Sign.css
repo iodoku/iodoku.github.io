@@ -57,3 +57,158 @@ body {
     margin: 0; /* 기본 여백 제거 */
 }
 
+.container-up {
+    min-width: 600px; /* 최소 너비 설정 */
+    min-height: 400px; /* 최소 높이 설정 */
+    height: 1vh; /* 화면 높이의 100%로 설정 (필요에 따라 조정 가능) */
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #333333;
+    border-radius: 24px;
+    margin-top: -250px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container-in {
+    min-width: 500px; /* 최소 너비 설정 */
+    min-height: 300px; /* 최소 높이 설정 */
+    height: 1vh; /* 화면 높이의 100%로 설정 (필요에 따라 조정 가능) */
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #333333;
+    border-radius: 24px;
+    margin-top: -250px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title-up {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: -70px; /* 음수 값을 사용해 위로 이동 */
+    text-align: center;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+
+  .title-in {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: -70px; /* 음수 값을 사용해 위로 이동 */
+    text-align: center;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+  
+  .input-group-up {
+    margin-left: -60px;
+    margin-bottom: 30px;
+  }
+
+  .input-group-in {
+    margin-left: -60px;
+    margin-bottom: 30px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #e8f0fe;
+  }
+  
+  .checkbox-group {
+    margin-bottom: 20px;
+    text-align: left;
+    margin-left: -50px;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+  
+  .button {
+    width: 100%; /* 부모 컨테이너의 너비를 따라가도록 설정 */
+    padding: 20px;
+    border-radius: 12px;
+    border: none;
+    background-color: #808080;
+    color: #fff;
+    cursor: pointer;
+    display: block; /* 버튼이 부모의 전체 너비를 사용하도록 설정 */
+  }
+  
+  .switch-text {
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+  
+  .switch-button {
+    color: #007bff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 880px) {
+    .container-up {
+        min-width: 50px; /* 최소 너비 설정 */
+        min-height: 200px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .input-group-up {
+        margin-left: -30px;
+        margin-bottom: 20px;
+    }
+
+    .title-up {
+        font-size: 25px;
+        margin-bottom: 30px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .input {
+        width: 450px;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        background-color: #e8f0fe;
+        margin-top: -10px; /* 음수 값을 사용해 위로 이동 */
+      }
+    
+    .checkbox-group {
+        margin-bottom: 10px;
+        margin-top: -10px;
+        text-align: left;
+        margin-left: -30px;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .container-in {
+        min-width: 50px; /* 최소 너비 설정 */
+        min-height: 200px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .title-in {
+        font-size: 25px;
+        padding: 10px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+    .input-group-in{
+        margin-left: -30px;
+    }
+  }
+  

@@ -175,40 +175,40 @@ const SignUp = ({ toggleForm }) => {
   };
 
   return (
-    <div style={styles.container_up}>
-      <h2 style={styles.title}>Sign Up</h2>
+    <div className="container-up">
+      <h2 className="title-up">Sign Up</h2>
       <form onSubmit={handleSignUp}>
-        <div style={styles.inputGroup}>
+        <div className="input-group-up">
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={styles.input}
+            className="input"
             placeholder="Email"
           />
         </div>
-        <div style={styles.inputGroup}>
+        <div className="input-group-up">
           <input
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
+            className="input"
             placeholder="Password"
           />
         </div>
-        <div style={styles.inputGroup}>
+        <div className="input-group-up">
           <input
             type="password"
             id="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            style={styles.input}
+            className="input"
             placeholder="Confirm Password"
           />
         </div>
-        <div style={styles.checkboxGroup}>
+        <div className="checkbox-group">
           <input
             type="checkbox"
             id="terms"
@@ -217,12 +217,15 @@ const SignUp = ({ toggleForm }) => {
           />
           <label htmlFor="terms">I have read Terms and Conditions</label>
         </div>
-        <button type="submit" style={styles.button}>Register</button>
+        <button type="submit" className="button">Register</button>
       </form>
-      <p style={styles.switchText}>Already an account?<button onClick={toggleForm} style={styles.switchButton}>Sign In</button></p>
+      <p className="switch-text">
+        Already an account?
+        <button onClick={toggleForm} className="switch-button">Sign In</button>
+      </p>
     </div>
   );
-};
+}  
 
 const SignIn = ({ toggleForm }) => {
   const [username, setUsername] = useState('');
@@ -332,30 +335,30 @@ const SignIn = ({ toggleForm }) => {
   };
 
   return (
-    <div style={styles.container_in}>
-      <h2 style={styles.title}>Sign In</h2>
+    <div className="container-in">
+      <h2 className="title-in">Sign In</h2>
       <form onSubmit={handleSignIn}>
-        <div style={styles.inputGroup}>
+        <div className="input-group-in ">
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={styles.input}
+            className="input"
             placeholder="Email"
           />
         </div>
-        <div style={styles.inputGroup}>
+        <div className="input-group-in ">
           <input
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
+            className="input"
             placeholder="Password"
           />
         </div>
-        <div style={styles.checkboxGroup}>
+        <div className="checkbox-group">
           <input
             type="checkbox"
             id="rememberMe"
@@ -364,9 +367,12 @@ const SignIn = ({ toggleForm }) => {
           />
           <label htmlFor="rememberMe">Remember me</label>
         </div>
-        <button type="submit" style={styles.button}>Login</button>
+        <button type="submit" className="button">Login</button>
       </form>
-      <p style={styles.switchText}>Don't have an account? <button onClick={toggleForm} style={styles.switchButton}>Sign up</button></p>
+      <p className="switch-text">
+        Don't have an account? 
+        <button onClick={toggleForm} className="switch-button">Sign up</button>
+      </p>
     </div>
   );
 };
@@ -401,77 +407,6 @@ const App = () => {
   );
 };
 
-// 스타일 설정
-const styles = {
-  container_up: {
-    minWidth: '600px', // 최소 너비 설정
-    minHeight: '400px', // 최소 높이 설정
-    height: '1vh', // 화면 높이의 100%로 설정 (필요에 따라 조정 가능)
-    margin: '0 auto',
-    padding: '100px',
-    backgroundColor: '#333333',
-    borderRadius: '24px',
-    marginTop: '-250px', 
-    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
-  },
-  container_in: {
-    minWidth: '600px', // 최소 너비 설정
-    minHeight: '300px', // 최소 높이 설정
-    height: '1vh', // 화면 높이의 100%로 설정 (필요에 따라 조정 가능)
-    margin: '0 auto',
-    padding: '100px',
-    backgroundColor: '#333333',
-    borderRadius: '24px',
-    marginTop: '-250px', 
-    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
-  },
-  title: {
-    fontSize: '30px',
-    marginBottom: '30px',
-    marginTop: '-70px', // 음수 값을 사용해 위로 이동
-    textAlign: 'center',
-    color: '#ffffff', // 글자색을 하얗게 설정
-  },
-  inputGroup: {
-    marginLeft: '-60px', 
-    marginBottom: '30px',
-  },
-  input: {
-    width: '100%',
-    padding: '30px',
-    borderRadius: '12px',
-    border: '1px solid #ccc',
-    backgroundColor: '#e8f0fe',
-  },
-  checkboxGroup: {
-    marginBottom: '20px',
-    textAlign: 'left',
-    marginLeft: '-50px', 
-    color: '#ffffff', // 글자색을 하얗게 설정
-  },
-  button: {
-    width: '100%', // 부모 컨테이너의 너비를 따라가도록 설정
-    padding: '20px',
-    borderRadius: '12px',
-    border: 'none',
-    backgroundColor: '#808080',
-    color: '#fff',
-    cursor: 'pointer',
-    display: 'block', // 버튼이 부모의 전체 너비를 사용하도록 설정
-  },
-  switchText: {
-    marginTop: '20px',
-    textAlign: 'center',
-    color: '#ffffff', // 글자색을 하얗게 설정
-  },
-  switchButton: {
-    color: '#007bff',
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    textDecoration: 'underline',
-  },
-};
 
 
 export default App;
