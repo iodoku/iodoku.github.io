@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import logoImage from '../images/icon.png';
 import { getAPIData } from './SUB/API';
 import './CSS-File/Line.css';
@@ -15,7 +14,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { apiKey, IDKey } = getAPIData();
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   const handleMouseEnter = () => setBackgroundColor('#1a1a1a');
   const handleMouseLeave = () => setBackgroundColor('#333333');
@@ -25,6 +23,10 @@ const Header = () => {
     setUserId('');
     setIsMenuOpen(false);
   };
+
+  const toggleDropdown = () => setIsMenuOpen((prev) => !prev);
+
+
 
   return (
     <header>
@@ -47,8 +49,8 @@ const Header = () => {
           <li className='nav-item4'>
             <Link to="/wishlist" className="link-style">내가 찜한 리스트</Link>
           </li>   
-          <li className='user-menu' onMouseEnter={() => setIsMenuOpen(true)} onMouseLeave={() => setIsMenuOpen(false)}>
-            <button className='user-button'>
+          <li className='user-menu'>
+            <button className='user-button'onClick={toggleDropdown}>
               <FontAwesomeIcon icon={faUser} className='user-icon'/>
             </button>
             {isMenuOpen && (
