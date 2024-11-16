@@ -37,7 +37,7 @@ const Header = () => {
   return (
     <header>
       <nav>
-        <ul className='movie-container' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{backgroundColor: backgroundColor,}}>
+        <ul className='movie-container-header' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{backgroundColor: backgroundColor,}}>
           <li className='logo-container'>
             <Link to="/">
               <img src={logoImage} className='logo-image '/>
