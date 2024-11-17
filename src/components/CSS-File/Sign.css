@@ -151,7 +151,7 @@ body {
 
   @media (max-width: 880px) and (orientation: portrait) {
     .container-up {
-        min-width: 10px; /* 최소 너비 설정 */
+        min-width: 400px; /* 최소 너비 설정 */
         min-height: 200px; /* 최소 높이 설정 */
         margin: 0 auto;
         padding: 100px;
@@ -170,13 +170,13 @@ body {
     .title-up {
         font-size: 25px;
         margin-bottom: 30px;
-        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        margin-top: -95px; /* 음수 값을 사용해 위로 이동 */
         text-align: center;
         color: #ffffff; /* 글자색을 하얗게 설정 */
     }
 
     .input {
-        width: 450px;
+        width: 400px;
         padding: 20px;
         border-radius: 12px;
         border: 1px solid #ccc;
