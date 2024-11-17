@@ -151,7 +151,7 @@ body {
 
   @media (max-width: 880px) and (orientation: portrait) {
     .container-up {
-        min-width: 400px; /* 최소 너비 설정 */
+        min-width: 300px; /* 최소 너비 설정 */
         min-height: 200px; /* 최소 높이 설정 */
         margin: 0 auto;
         padding: 100px;
@@ -176,7 +176,7 @@ body {
     }
 
     .input {
-        width: 400px;
+        width: 300px;
         padding: 20px;
         border-radius: 12px;
         border: 1px solid #ccc;
