@@ -1,18 +1,55 @@
-# Getting Started with Create React App
+# 프로젝트 정보
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+react를 이용해 영화 사이트를 구현하였고 API를 이용해 영화정보를 얻어오고 react의 local-storage를 이용해 회원가입 로그인을 구현하였습니다.
 
-## Available Scripts
+## 기술 스택 명시
 
-In the project directory, you can run:
+### `기본 프레임워크`
+React를 이용해 사용자 인터페이스 구축 및 React-Router를 이용해 페이지 간 탐색 및 라우팅 구현.\
 
-### `npm start`
+### `스타일링`
+CSS를 이용해 코드 간결화, 반응형 디자인 구현 및 UI개발.\
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `API데이터`
+TMBD API와 Axios를 사용해 영화의 정보를 받아옴.\
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `배포`
+GitHub Pages를 이용해 사이트 배포.\
+
+### `Fab-Icon`
+브라우저 탭에 표시될 아이콘 설정.\
+
+
+## 설치 및 실행 가이드
+
+### `npm install react-router-dom`
+
+라우팅 시스템 설치.\
+
+### `npm install axios`
+
+API 이용하기 위해 설치.\
+
+### `npm install react-draggable`
+
+드래그 스크롤 기능 구현 위해 설치.\
+
+### `npm install react-transition-group`
+
+애니메이션 이용 위해 설치.\
+
+### `npm install react-toastify`
+
+토스트 사용 위해 설치.\
+
+### `npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons`
+
+font-awesome 아이콘 사용 설치.\
+
+### `npm install react-responsive`
+
+반응형 웹 위해 설치.\
+
 
 ### `npm test`
 
