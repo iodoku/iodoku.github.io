@@ -60,8 +60,10 @@
 @media (max-width: 1640px) and (orientation: landscape){
 
     .container-infinite {
-        height: 500px;
+        height: 550px;
         overflow-y: scroll;
+        padding: 80px;
+        background-color: #333;
     }
 
     .movie-image-infinite {
@@ -83,7 +85,7 @@
     .movie-grid-infinite {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
     }
 
     .movie-title-infinite {
