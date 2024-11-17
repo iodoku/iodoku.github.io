@@ -113,6 +113,7 @@ body {
     border-radius: 12px;
     border: 1px solid #ccc;
     background-color: #e8f0fe;
+    font-size: 16px;
   }
   
   .checkbox-group {
@@ -181,6 +182,7 @@ body {
         border: 1px solid #ccc;
         background-color: #e8f0fe;
         margin-top: -10px; /* 음수 값을 사용해 위로 이동 */
+        font-size: 16px;
       }
     
     .checkbox-group {
@@ -247,6 +249,7 @@ body {
         border: 1px solid #ccc;
         background-color: #e8f0fe;
         margin-top: 10px; /* 음수 값을 사용해 위로 이동 */
+        font-size: 16px;
       }
     
     .checkbox-group {
