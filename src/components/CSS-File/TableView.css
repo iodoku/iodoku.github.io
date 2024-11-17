@@ -104,7 +104,7 @@
 
     .movie-image-table {
         width: 100px;
-        height: 130px;
+        height: 110px;
         object-fit: cover;
     }
 
@@ -125,7 +125,7 @@
         position: absolute;
         color: red;
         font-size: 17px;
-        margin: -145px 25px;
+        margin: -125px 25px;
     }
 
     .pagination-button {
