@@ -95,33 +95,33 @@
   text-align: center;
 }
 
-@media (max-width: 880px)and (orientation: landscape) {
+@media (max-width: 1640px)and (orientation: landscape) {
   .logo-image {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin-top: 10px;
   }
   
   .nav-item1 {
     display: inline-block;
     min-width: 60px;
-    font-size: 14px;
+    font-size: 16px;
   }
   
   .nav-item2 {
     display: inline-block;
     min-width: 120px;
-    font-size: 14px;
+    font-size: 16px;
   }
   .nav-item3 {
     display: inline-block;
     min-width: 100px;
-    font-size: 14px;
+    font-size: 16px;
   }
   .nav-item4 {
     display: inline-block;
     min-width: 50px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .dropdown-menu {
@@ -132,7 +132,7 @@
     color: white;
     padding: 15px;
     border-radius: 20px;
-    width: 200px;
+    width: 250px;
     z-index: 1000;
     height: 250px;
   }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import './CSS-File/Sign.css'; // 애니메이션 효과를 위한 CSS 파일
 import { toast, ToastContainer } from 'react-toastify'; // toast와 ToastContainer를 가져옵니다.
@@ -232,6 +233,8 @@ const SignIn = ({ toggleForm }) => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSignIn = (event) => {
     event.preventDefault();
     const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -307,7 +310,7 @@ const SignIn = ({ toggleForm }) => {
         localStorage.setItem('Remembercheck', '');
         localStorage.setItem('RemembercheckID', '');
       }
-      window.location.href = '/'; // 로그인 성공 시 홈 화면으로 이동
+      navigate('/');; // 로그인 성공 시 홈 화면으로 이동
 
     } else {
       toast.error(
