@@ -2,6 +2,8 @@
 
 react를 이용해 영화 사이트를 구현하였고 API를 이용해 영화정보를 얻어오고 react의 local-storage를 이용해 회원가입 로그인을 구현하였습니다.
 
+------------------------------------------------------------------------------------
+
 ## 기술 스택 명시
 
 ### `기본 프레임워크`
@@ -14,91 +16,42 @@ TMBD API와 Axios를 사용해 영화의 정보를 받아옴.
 GitHub Pages를 이용해 사이트 배포.
 ### `Fab-Icon`
 브라우저 탭에 표시될 아이콘 설정.
+
 ------------------------------------------------------------------------------------
 
+## 실행 가이드 
 
-## 설치 및 실행 가이드
+처음에 실행하면 메인 화면이 나오는데 아무런 정보도 나오지 않아(로그인 정보가 없기떄문) 우측 상단에 사람 모양의 버튼을 누르면 회원가입&로그인 창으로 이동(회원가입시에는 이메일@naver.com, daum.net등의 완전한 구조 및 비밀번호 입력 , 체크 필수)
+로그인 시 메인 창으로 이동하게 되며 다양한 영화들이 등장하고 영화를 클릭하면 좋아하는 영화로 등록 가능(좋아요 영화는 어느곳에서나 좋아요 여부를 파악할 수 있음) 그리고 좌측 상단에 대세 콘텐츠, 찾아보기, 찜한 리스트등 해당 글자를 누르면 해당 기능을 수행해주는 페이지로 이동
+
+------------------------------------------------------------------------------------
+
+## 설치 
 
 ### `npm install react-router-dom`
-
-라우팅 시스템 설치.\
-
+라우팅 시스템 설치.
 ### `npm install axios`
-
-API 이용하기 위해 설치.\
-
+API 이용하기 위해 설치.
 ### `npm install react-draggable`
-
-드래그 스크롤 기능 구현 위해 설치.\
-
+드래그 스크롤 기능 구현 위해 설치.
 ### `npm install react-transition-group`
-
-애니메이션 이용 위해 설치.\
-
+애니메이션 이용 위해 설치.
 ### `npm install react-toastify`
-
-토스트 사용 위해 설치.\
-
+토스트 사용 위해 설치.
 ### `npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons`
-
-font-awesome 아이콘 사용 설치.\
-
+font-awesome 아이콘 사용 설치.
 ### `npm install react-responsive`
+반응형 웹 위해 설치.
 
-반응형 웹 위해 설치.\
+------------------------------------------------------------------------------------
 
+## 구조 
 
-### `npm test`
+기본적으로 Routing 시스템을 이용해 Main, popular, search, wisilist, sign js파일을 연동
+Main - 가장 처음에 나오는 화면으로 로그인시 영화들의 정보를 스크롤로 볼 수 있음
+popular - 2개의 버튼을 통해 영화들의 정보를 InfiniteScroll(스크롤 내리며 영화정보 알 수 있음), TableView(하단에 있는 버튼을 클릭하여 20개의 영화 정보들을 페이지 별로 알 수 있음) js파일을 이동하며 볼 수 있음
+search - 우측 상단에 있는 필터를 통해 영화들을 해당 조건에 맞추어 검색해 볼 수 있음
+wishlist - 영화를 클릭하여 좋아요 한 영화들 리스트가 이곳에서 한번에 보여주고 Scroll형태로 볼 수 있음
+sign - 회원가입과 로그인을 구현하였고 조건에 맞지 않으면 회원가입, 로그인이 불가능하게 설정
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+폴더는 크게 Main폴더, Sub폴더, CSS폴더로 Image폴더로 이루어져 구성
