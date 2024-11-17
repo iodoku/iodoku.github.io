@@ -82,27 +82,27 @@
 
   
   /* 반응형 스타일 */
-  @media (max-width: 880px)and (orientation: landscape) {
+  @media (max-width: 1640px)and (orientation: landscape) {
     .main-container {
-      height:360px;
+      height:700px;
       flex-direction: column;
       background-color: #333333;
       overflow-y: auto;
     }
 
     .main-banner-container {
-      height: 300px;
+      height: 400px;
       padding: 0 20px;
     }
   
     .banner-title {
-      font-size: 1rem;
-      bottom: 110px;
+      font-size: 1.6rem;
+      bottom: 150px;
       padding: 0 20px;
     }
   
     .banner-overview {
-      font-size: 0.8rem;
+      font-size: 1rem;
       bottom: 20px;
       padding: 0 20px;
     }
@@ -135,14 +135,14 @@
       }
 
     .movieList-click-main p {
-        font-size: 0.7rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+        font-size: 0.9rem; /* 원하는 크기로 설정 (예: 0.9rem) */
         margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
     }
   }
 
   @media (max-width: 880px)and (orientation: portrait) {
     .main-container {
-      height:1650px;
+      height:1640px;
       width: 800px;
       flex-direction: column;
       background-color: #333333;
@@ -150,19 +150,19 @@
     }
 
     .main-banner-container {
-      height: 480px;
-      width: 760px;
+      height: 580px;
+      width: 740px;
       padding: 0 20px;
     }
   
     .banner-title {
-      font-size: 1.3rem;
-      bottom: 140px;
+      font-size: 1.5rem;
+      bottom: 150px;
       padding: 0 20px;
     }
   
     .banner-overview {
-      font-size: 0.9rem;
+      font-size: 1rem;
       bottom: 20px;
       padding: 0 20px;
     }
@@ -175,7 +175,7 @@
     }
 
     .movieList-container-main h2 {
-        font-size: 1.2rem; /* 원하는 크기로 설정 (예: 1.5rem) */
+        font-size: 1.3rem; /* 원하는 크기로 설정 (예: 1.5rem) */
       }
 
     .movie-image-main{
@@ -195,7 +195,7 @@
       }
 
     .movieList-click-main p {
-        font-size: 0.7rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+        font-size: 0.9rem; /* 원하는 크기로 설정 (예: 0.9rem) */
         margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
     }
   }

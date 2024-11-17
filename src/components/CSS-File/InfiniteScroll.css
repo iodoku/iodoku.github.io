@@ -57,33 +57,69 @@
     cursor: pointer;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1640px) and (orientation: landscape){
 
     .container-infinite {
-        height: 300px;
+        height: 500px;
         overflow-y: scroll;
     }
 
     .movie-image-infinite {
-        width: 100px;
-        height: 130px;
+        width: 140px;
+        height: 160px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-top: -10px;
+        margin-top: 20px;
     }
 
     .liked-icon-infinite {
         position: absolute;
-        top: -10px;
-        right: 10px;
+        top: 20px;
+        right: 40px;
         color: red;
-        font-size: 15px;
+        font-size: 20px;
     }
 
     .movie-grid-infinite {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         grid-template-rows: repeat(4, 1fr);
+    }
+
+    .movie-title-infinite {
+        display: block;
+        font-size: 12px;
+        color: white;
+    }
+}
+
+@media (max-width: 880px) and (orientation: portrait){
+
+    .container-infinite {
+        height: 1380px;
+        overflow-y: scroll;
+    }
+
+    .movie-image-infinite {
+        width: 140px;
+        height: 160px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .liked-icon-infinite {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        color: red;
+        font-size: 20px;
+    }
+
+    .movie-grid-infinite {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(7, 1fr);
     }
 
     .movie-title-infinite {
