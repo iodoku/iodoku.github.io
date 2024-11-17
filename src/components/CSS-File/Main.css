@@ -84,7 +84,7 @@
   /* 반응형 스타일 */
   @media (max-width: 1640px)and (orientation: landscape) {
     .main-container {
-      height:880px;
+      height:720px;
       flex-direction: column;
       background-color: #333333;
       overflow-y: auto;
