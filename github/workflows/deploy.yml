@@ -30,6 +30,9 @@ jobs:
           cp -r build docs
           touch docs/.nojekyll
 
+      - name: Add 404.html
+        run: cp public/404.html docs/404.html
+
       - name: Commit and push changes
         run: |
           git config --global user.name 'GitHub Actions'
