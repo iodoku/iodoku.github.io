@@ -10,7 +10,7 @@ import KakaoInfo from './components/kakaoinfo';
 
 function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename={process.env.PUBLIC_URL || '/iodoku.github.io'}>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -19,6 +19,7 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/sign" element={<Sign />} />
         <Route path="/kakaoinfo" element={<KakaoInfo />} />
+        <Route path="*" element={<Main />} /> {/* 모든 예외 경로는 메인으로 */}
       </Routes>
     </Router>
   );

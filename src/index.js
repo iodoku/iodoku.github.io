@@ -16,5 +16,4 @@ root.render(
   </React.StrictMode>
 );
 
-// 성능 측정을 위한 설정 (옵션)
 reportWebVitals();
