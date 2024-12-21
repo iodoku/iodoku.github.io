@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 if (window.Kakao && !window.Kakao.isInitialized()) {
   window.Kakao.init(process.env.REACT_APP_KAKAO_REST_API_KEY);
@@ -12,9 +12,9 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename="/iodoku.github.io">
+  <HashRouter>
     <App />
-  </BrowserRouter>
+  </HashRouter>
 );
 
 reportWebVitals();

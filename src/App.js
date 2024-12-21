@@ -19,7 +19,6 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/sign" element={<Sign />} />
         <Route path="/kakaoinfo" element={<KakaoInfo />} />
-        {/* 추가 라우트 */}
       </Routes>
     </>
   );
