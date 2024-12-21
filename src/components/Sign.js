@@ -271,7 +271,6 @@ const SignIn = ({ toggleForm }) => {
     }
 
     if (code) {
-      console.log('✅ Received Auth Code:', code);
 
       // Access Token 요청
       fetch('https://kauth.kakao.com/oauth/token', {
@@ -284,22 +283,37 @@ const SignIn = ({ toggleForm }) => {
           code: code,
         }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`❌ Access Token 요청 실패 (Status: ${response.status})`);
+          }
+          return response.json();
+        })
         .then((data) => {
-          console.log('🔑 Token Response:', data);
           if (data.access_token) {
-            // 사용자 정보 요청
             return fetch('https://kapi.kakao.com/v2/user/me', {
               method: 'GET',
               headers: { Authorization: `Bearer ${data.access_token}` },
             });
           }
-          throw new Error('❌ Access token not received');
+          throw new Error('❌ Access Token이 존재하지 않습니다.');
         })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`❌ 사용자 정보 요청 실패 (Status: ${res.status})`);
+          }
+          return res.json();
+        })
         .then((userInfo) => {
-          console.log('👤 카카오 회원정보:', userInfo);
+          console.log('🔹 ID:', userInfo.id);
+          console.log('🔹 닉네임:', userInfo.properties?.nickname || '없음');
+          console.log('🔹 프로필 이미지:', userInfo.properties?.profile_image || '없음');
+          console.log('🔹 썸네일 이미지:', userInfo.properties?.thumbnail_image || '없음');
+          console.log('🔹 이메일:', userInfo.kakao_account?.email || '없음');
+          console.log('🔹 연령대:', userInfo.kakao_account?.age_range || '없음');
+          console.log('🔹 생일:', userInfo.kakao_account?.birthday || '없음');
           sessionStorage.setItem('kakaoUserInfo', JSON.stringify(userInfo));
+          toast.success('✅ 카카오 로그인 성공!');
           navigate('/'); // 홈 화면으로 이동
 
           // URL에서 인증 코드 제거
@@ -307,6 +321,16 @@ const SignIn = ({ toggleForm }) => {
         })
         .catch((err) => {
           console.error('❌ Kakao login error:', err);
+
+          if (err.message.includes('NetworkError')) {
+            toast.error('🌐 네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          } else if (err.message.includes('Access Token')) {
+            toast.error('🔑 Access Token이 유효하지 않습니다.');
+          } else if (err.message.includes('사용자 정보')) {
+            toast.error('👤 사용자 정보를 불러오지 못했습니다.');
+          } else {
+            toast.error('⚠️ 알 수 없는 오류가 발생했습니다.');
+          }
         });
     }
   }, [navigate]);

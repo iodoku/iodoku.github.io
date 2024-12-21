@@ -43,6 +43,13 @@
   min-width: 50px;
   font-size: 17px;
 }
+
+.nav-item4 {
+  display: inline-block;
+  min-width: 50px;
+  margin-right: 1600px;
+  font-size: 17px;
+}
 .user-menu {
   display: inline-block;
   margin-left: auto;
