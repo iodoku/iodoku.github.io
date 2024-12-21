@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && shx rm -rf docs && shx mv build docs",
+    "build": "react-scripts build && shx rm -rf docs && shx mv build docs && touch docs/.nojekyll",
+    "build:win": "react-scripts build && rmdir /s /q docs && move build docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
