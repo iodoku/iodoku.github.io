@@ -33,3 +33,6 @@ jobs:
           git add docs
           git commit -m 'Deploy to GitHub Pages'
           git push
+
+      - name: Create .nojekyll
+        run: touch docs/.nojekyll
