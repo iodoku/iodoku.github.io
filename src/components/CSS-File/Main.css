@@ -1,0 +1,201 @@
+.main-container {
+    height:1250px;
+    flex-direction: column;
+    background-color: #333333;
+    overflow-y: auto;
+  }
+  
+  .main-banner-container {
+    position: relative;
+    height: 750px;
+    padding: 0 50px;
+  }
+  
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .banner-title {
+    position: absolute;
+    bottom: 250px;
+    left: 30px;
+    color: white;
+    font-size: 2.5rem;
+    padding: 0 50px;
+  }
+  
+  .banner-overview {
+    position: absolute;
+    bottom: 100px;
+    left: 30px;
+    color: white;
+    max-width: 400px;
+    line-height: 1.5;
+    font-size: 1rem;
+    padding: 0 50px;
+  }
+
+  .movieList-container-main{
+    margin-top: 20px;
+    border-radius: 8px;
+    padding: 0 50px;
+    color: white;
+  }
+
+  .movieList-container-main h2 {
+    font-size: 1.5rem; /* 원하는 크기로 설정 (예: 1.5rem) */
+  }
+
+  .movieList-display{
+    display: flex;
+  }
+
+  .movieList-click-main{
+    margin: 10px;
+    position: relative;
+  }
+
+  .movie-image-main {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .movieList-click-main p {
+    font-size: 1rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+    margin-top: 5px;   /* 글자와 이미지 사이에 간격을 조정 */
+    text-align: center;
+    }
+  
+  /* 좋아요 아이콘 스타일 */
+  .liked-icon-main {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  
+  /* 반응형 스타일 */
+  @media (max-width: 1640px)and (orientation: landscape) {
+    .main-container {
+      height:720px;
+      flex-direction: column;
+      background-color: #333333;
+      overflow-y: auto;
+    }
+
+    .main-banner-container {
+      height: 400px;
+      padding: 0 20px;
+    }
+  
+    .banner-title {
+      font-size: 1.6rem;
+      bottom: 150px;
+      padding: 0 20px;
+    }
+  
+    .banner-overview {
+      font-size: 1rem;
+      bottom: 20px;
+      padding: 0 20px;
+    }
+
+    .movieList-container-main{
+        margin-top: 20px;
+        border-radius: 8px;
+        padding: '0 50px';
+        color: 'white' 
+    }
+
+    .movieList-container-main h2 {
+        font-size: 1.2rem; /* 원하는 크기로 설정 (예: 1.5rem) */
+      }
+
+    .movie-image-main{
+        width: 140px;
+        height: 160px;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    .liked-icon-main {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: red;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+    .movieList-click-main p {
+        font-size: 0.9rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+        margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
+    }
+  }
+
+  @media (max-width: 880px)and (orientation: portrait) {
+    .main-container {
+      height:1400px;
+      width: 850px;
+      flex-direction: column;
+      background-color: #333333;
+      overflow-y: auto;
+    }
+
+    .main-banner-container {
+      height: 580px;
+      width: 810px;
+      padding: 0 20px;
+    }
+  
+    .banner-title {
+      font-size: 1.5rem;
+      bottom: 150px;
+      padding: 0 20px;
+    }
+  
+    .banner-overview {
+      font-size: 1rem;
+      bottom: 20px;
+      padding: 0 20px;
+    }
+
+    .movieList-container-main{
+        margin-top: 20px;
+        border-radius: 8px;
+        padding: '0 50px';
+        color: 'white' 
+    }
+
+    .movieList-container-main h2 {
+        font-size: 1.3rem; /* 원하는 크기로 설정 (예: 1.5rem) */
+      }
+
+    .movie-image-main{
+        width: 140px;
+        height: 160px;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    .liked-icon-main {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: red;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+    .movieList-click-main p {
+        font-size: 0.9rem; /* 원하는 크기로 설정 (예: 0.9rem) */
+        margin-top: 6px;   /* 글자와 이미지 사이에 간격을 조정 */
+    }
+  }

@@ -1,0 +1,192 @@
+/* 공통 버튼 스타일 */
+.button-style {
+    font-size: 16px;
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+}
+
+/* 필터 섹션 스타일 */
+.filter-container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: flex-end;    /* 아래쪽 정렬 */
+    background-color: #333;
+    padding: 20px;
+    position: relative;       /* 아래쪽 여백 추가 (필요시 조정) */
+}
+
+/* 스크롤 컨테이너 */
+.search-container {
+    height: 1190px;
+    overflow-y: auto;
+    border: none;
+    padding: 80px;
+    background-color: #333333;
+}
+
+/* 에러 메시지 */
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+/* 그리드 스타일 */
+.movie-grid-search {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* 영화 카드 스타일 */
+.movie-card-search  {
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.movie-card-img-search {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.movie-card-h3-search  {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 좋아요 아이콘 */
+.liked-icon-search  {
+    position: absolute;
+    top: 5px;
+    right:25px;
+    color: red;
+    font-size: 20px;
+}
+
+/* 스크롤 상단 이동 버튼 */
+.scroll-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: #333;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+}
+
+@media (max-width: 1640px) and (orientation: landscape){
+    .button-style {
+        font-size: 12px;
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #333;
+        color: #fff;
+    }
+
+    .movie-card-search  {
+        border-radius: 10px;
+        color: #fff;
+        padding: 0px 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+    }
+
+    .movie-card-h3-search  {
+        font-size: 10.6px;
+        margin-top: 8px;
+    }
+
+    .movie-card-img-search  {
+        width: 150px;
+        height: 180px;
+        border-radius: 5px;
+    }
+
+    .movie-grid-search {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .liked-icon-search  {
+        position: absolute;
+        top: 5px;
+        right:25px;
+        color: red;
+        font-size: 20px;
+    }
+    
+    .button-style {
+        font-size: 18px;
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #333;
+        color: #fff;
+    }
+}
+
+@media (max-width: 880px) and (orientation: portrait) {
+    .button-style {
+        font-size: 12px;
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #333;
+        color: #fff;
+    }
+
+    .movie-card-search  {
+        border-radius: 10px;
+        color: #fff;
+        padding: 0px 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+    }
+
+    .movie-card-h3-search  {
+        font-size: 8px;
+        margin-top: 8px;
+    }
+
+    .movie-card-img-search  {
+        width: 120px;
+        height: 150px;
+        border-radius: 5px;
+    }
+
+    .movie-grid-search {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .liked-icon-search  {
+        position: absolute;
+        top: 5px;
+        right:5px;
+        color: red;
+        font-size: 20px;
+    }
+    
+    .button-style {
+        font-size: 18px;
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #333;
+        color: #fff;
+    }
+}

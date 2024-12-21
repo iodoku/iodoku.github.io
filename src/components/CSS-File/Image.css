@@ -1,0 +1,22 @@
+/* 기본 스타일 (PC용) */
+.movie-image-container {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.movie-image-feature{
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 호버 효과 */
+.movie-image-feature:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: brightness(1.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}

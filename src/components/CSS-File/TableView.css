@@ -1,0 +1,247 @@
+/* 전체 div 스타일 */
+.container-table {
+    text-align: center;
+    height: 1170px;
+  }
+
+.background-table{
+    background-Color: #333333;
+    padding: 20px;
+    height: 100%;
+}
+  
+/* 에러 메시지 스타일 */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 영화 목록 그리드 스타일 */
+.movie-set-talbe{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+/* 각 영화 항목 스타일 */
+.movie-item {
+    position: relative;
+    text-align: center;
+}
+
+.movie-image-table {
+    width: 140px;
+    height: 200px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+/* 영화 제목 스타일 */
+.movie-title-table {
+    display: block;
+    font-size: 14px;
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 130px;
+}
+
+/* 좋아요 표시 아이콘 */
+.liked-icon-table {
+    position: absolute;
+    margin: -230px 35px;
+    color: red;
+    font-size: 20px;
+}
+
+/* 페이지 네비게이션 버튼 스타일 */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* 요소를 기준으로 top을 조정하기 위해 position 추가 */
+    bottom: -100px; /* 단위 px 추가 */
+    gap: 10px; /* 버튼 사이의 간격을 주기 위해 gap 추가 */
+}
+
+.pagination-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #555555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.page-number {
+    padding: 10px 15px;
+    margin: 0 5px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-color: #555555;
+    cursor: pointer;
+}
+
+.page-number.active {
+    background-color: #ff6600;
+}
+
+
+
+@media (max-width: 1640px) and (orientation: landscape) {
+
+    .container-table {
+        text-align: center;
+        height: 720px;
+    }
+
+    .movie-image-table {
+        width: 100px;
+        height: 110px;
+        object-fit: cover;
+    }
+
+    .movie-title-table {
+        display: block;
+        font-size: 14px; /* 기본적으로 읽을 수 있는 크기 */
+        margin-bottom: -8px;
+        margin-top: -8px;
+        color: white;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 132px;
+        transform-origin: left center;
+    }
+
+    .liked-icon-table {
+        position: absolute;
+        color: red;
+        font-size: 17px;
+        margin: -125px 25px;
+    }
+
+    .pagination-button {
+        padding: 10px 15px;
+        margin: 15px 3px;
+        background-color: #555555;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .page-number {
+        padding: 10px 15px;
+        margin: 15px 5px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        background-color: #555555;
+        cursor: pointer;
+    }
+
+    .movie-set-talbe{
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        justify-items: center;
+    }
+
+    .background-table{
+        background-Color: #333333;
+        padding: 10px 70px;
+    }
+
+    .pagination-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative; /* 요소를 기준으로 top을 조정하기 위해 position 추가 */
+        bottom: -10px; /* 단위 px 추가 */
+        gap: 10px; /* 버튼 사이의 간격을 주기 위해 gap 추가 */
+    }
+}
+
+@media (max-width: 880px) and (orientation: portrait) {
+
+    .container-table {
+        text-align: center;
+        height: 1320px;
+    }
+
+    .movie-image-table {
+        width: 110px;
+        height: 120px;
+        object-fit: cover;
+    }
+
+    .movie-title-table {
+        display: block;
+        font-size: 16px; /* 기본적으로 읽을 수 있는 크기 */
+        margin-bottom: -8px;
+        margin-top: -8px;
+        color: white;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 130px;
+        transform-origin: left center;
+    }
+
+    .liked-icon-table {
+        position: absolute;
+        color: red;
+        font-size: 20px;
+        margin: -140px 20px;
+    }
+
+    .pagination-button {
+        padding: 10px 15px;
+        margin: 40px 3px;
+        background-color: #555555;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .page-number {
+        padding: 10px 15px;
+        margin: 15px 5px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        background-color: #555555;
+        cursor: pointer;
+    }
+
+    .movie-set-talbe{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        justify-items: center;
+    }
+
+    .background-table{
+        background-Color: #333333;
+        padding: 10px 70px;
+    }
+
+    .pagination-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative; /* 요소를 기준으로 top을 조정하기 위해 position 추가 */
+        bottom: -10px; /* 단위 px 추가 */
+        gap: 10px; /* 버튼 사이의 간격을 주기 위해 gap 추가 */
+    }
+}

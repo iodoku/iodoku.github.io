@@ -1,0 +1,312 @@
+.double-enter {
+    opacity: 0;
+    transform: scale(0.8) rotate(15deg);
+}
+
+.double-enter-active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+}
+
+.double-exit {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.double-exit-active {
+    opacity: 0;
+    transform: scale(0.8) rotate(-15deg);
+    transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+}
+
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../images/space.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+    filter: brightness(0.5); /* 밝기를 50%로 낮춰 어둡게 설정 */
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 검정색 배경에 투명도 50% */
+    z-index: 1; /* 로그인 창보다 아래에 위치 */
+}
+
+.wrapper {
+    display: flex; /* flexbox를 사용하여 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100vh; /* 화면 전체 높이를 사용 */
+    position: relative; /* 위치를 상대적으로 설정 */
+    z-index: 2; /* 로그인 창의 내용이 overlay 위에 보이도록 설정 */
+    margin-left: -50px;
+}
+
+body {
+    overflow: hidden; /* 전체 스크롤을 숨김 */
+    margin: 0; /* 기본 여백 제거 */
+}
+
+.container-up {
+    min-width: 600px; /* 최소 너비 설정 */
+    min-height: 400px; /* 최소 높이 설정 */
+    height: 1vh; /* 화면 높이의 100%로 설정 (필요에 따라 조정 가능) */
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #333333;
+    border-radius: 24px;
+    margin-top: -250px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container-in {
+    min-width: 500px; /* 최소 너비 설정 */
+    min-height: 300px; /* 최소 높이 설정 */
+    height: 1vh; /* 화면 높이의 100%로 설정 (필요에 따라 조정 가능) */
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #333333;
+    border-radius: 24px;
+    margin-top: -250px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title-up {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: -70px; /* 음수 값을 사용해 위로 이동 */
+    text-align: center;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+
+  .title-in {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: -70px; /* 음수 값을 사용해 위로 이동 */
+    text-align: center;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+  
+  .input-group-up {
+    margin-left: -60px;
+    margin-bottom: 30px;
+  }
+
+  .input-group-in {
+    margin-left: -60px;
+    margin-bottom: 30px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #e8f0fe;
+    font-size: 16px;
+  }
+  
+  .checkbox-group {
+    margin-bottom: 20px;
+    text-align: left;
+    margin-left: -50px;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+  
+  .button {
+    width: 100%; /* 부모 컨테이너의 너비를 따라가도록 설정 */
+    padding: 20px;
+    border-radius: 12px;
+    border: none;
+    background-color: #808080;
+    color: #fff;
+    cursor: pointer;
+    display: block; /* 버튼이 부모의 전체 너비를 사용하도록 설정 */
+  }
+  
+  .switch-text {
+    margin-top: 3px;
+    text-align: center;
+    color: #ffffff; /* 글자색을 하얗게 설정 */
+  }
+  
+  .switch-button {
+    color: #007bff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+
+  .kakao-login {
+    background-color: #fee500;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .kakao-login:hover {
+    background-color: #ffd700;
+  }
+
+  .kakao-login-image {
+    display: block;
+    width: 100%; /* 이미지 크기를 부모에 맞게 설정 */
+    max-width: 200px; /* 이미지 최대 크기 */
+    height: auto; /* 이미지 비율 유지 */
+    margin-left: 150px;
+    margin-top: 10px;
+  }
+ 
+
+  @media (max-width: 880px) and (orientation: portrait) {
+    .container-up {
+        min-width: 300px; /* 최소 너비 설정 */
+        min-height: 200px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        margin-right: -50px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .input-group-up {
+        margin-left: -30px;
+        margin-bottom: 20px;
+    }
+
+    .title-up {
+        font-size: 25px;
+        margin-bottom: 30px;
+        margin-top: -95px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .input {
+        width: 300px;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        background-color: #e8f0fe;
+        margin-top: -10px; /* 음수 값을 사용해 위로 이동 */
+        font-size: 16px;
+      }
+    
+    .checkbox-group {
+        margin-bottom: 10px;
+        margin-top: -10px;
+        text-align: left;
+        margin-left: -30px;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .container-in {
+        min-width: 50px; /* 최소 너비 설정 */
+        min-height: 200px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        margin-right: -50px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .title-in {
+        font-size: 25px;
+        padding: 10px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+    .input-group-in{
+        margin-left: -30px;
+    }
+  }
+
+@media (max-width: 1640px) and (orientation: landscape) {
+    .container-up {
+        min-width: 800px; /* 최소 너비 설정 */
+        min-height: 300px; /* 최소 높이 설정 */
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        margin-right: -50px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .input-group-up {
+        margin-left: -30px;
+        margin-bottom: 20px;
+    }
+
+    .title-up {
+        font-size: 40px;
+        margin-bottom: 30px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .input {
+        width: 800px;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        background-color: #e8f0fe;
+        margin-top: 10px; /* 음수 값을 사용해 위로 이동 */
+        font-size: 16px;
+      }
+    
+    .checkbox-group {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        text-align: left;
+        margin-left: -30px;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+
+    .container-in {
+        min-width: 800px; /* 최소 너비 설정 */
+        min-height: 250px; /* 최소 높이 설정 */
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #333333;
+        border-radius: 24px;
+        margin-top: -100px;
+        margin-right: -50px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+
+    .title-in {
+        font-size: 25px;
+        padding: 10px;
+        margin-top: -100px; /* 음수 값을 사용해 위로 이동 */
+        text-align: center;
+        color: #ffffff; /* 글자색을 하얗게 설정 */
+    }
+    .input-group-in{
+        margin-left: -30px;
+    }
+  }
+
+
+  

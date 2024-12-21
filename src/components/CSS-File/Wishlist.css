@@ -1,0 +1,108 @@
+/* styles.css */
+
+.container-wishlist {
+    padding: 40px;
+    background-color: #333333;
+    min-height: 100vh;
+    color: white;
+  }
+  
+  .scroll-wishlist{
+    height: 70vh;
+    overflow-y: scroll;
+    padding: 20px;
+    background-color: #333333;
+  }
+  
+
+  .movie-grid-wishlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .movie-item-wishlist {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .movie-image-wishlist {
+    width: 200px;
+    height: 270px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .movie-like-wishlist {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    color: red;
+    font-size: 20px;
+  }
+  
+  .movie-title-wishlist {
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 1640px) and (orientation: landscape) {
+    .movie-image-wishlist {
+        width: 120px;
+        height: 140px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-title-wishlist {
+        display: inline-block;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+    .movie-grid-wishlist {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 20px;
+    }
+    .movie-like-wishlist {
+        position: absolute;
+        top: 2px;
+        right: 10px;
+        font-size: 15px;
+        color: red;
+    }
+}
+
+  @media (max-width: 880px) and (orientation: portrait) {
+    .movie-image-wishlist {
+        width: 100px;
+        height: 130px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-title-wishlist {
+        display: inline-block;
+        text-align: center;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+    .movie-grid-wishlist {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
+    }
+    .movie-like-wishlist {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        font-size: 15px;
+        color: red;
+    }
+}
