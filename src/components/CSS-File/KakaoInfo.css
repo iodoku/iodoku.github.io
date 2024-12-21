@@ -1,0 +1,78 @@
+.kakao-info-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(to bottom, #f9fafc, #e9ecef);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .kakao-info-container h2 {
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #2c3e50;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .kakao-info-container h2::before {
+    content: '👤';
+    font-size: 24px;
+    margin-right: 8px;
+  }
+  
+  .kakao-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .kakao-info-table th,
+  .kakao-info-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .kakao-info-table th {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .kakao-info-table td {
+    color: #555;
+  }
+  
+  .kakao-info-table img.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px auto;
+    display: block;
+    border: 2px solid #0078ff;
+  }
+  
+  .back-button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: #0078ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .back-button:hover {
+    background-color: #005fcc;
+  }
+  

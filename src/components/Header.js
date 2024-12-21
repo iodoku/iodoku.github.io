@@ -122,6 +122,13 @@ const Header = () => {
               내가 찜한 리스트
             </Link>
           </li>
+          <li className='nav-item5'>
+            {kakaoUserInfo?.properties?.nickname && (
+              <Link to='/kakaoinfo' className='link-style'>
+                {kakaoUserInfo.properties.nickname}님 반갑습니다!
+              </Link>
+            )}
+          </li>
           <li className='user-menu'>
             <button className='user-button' onClick={toggleDropdown}>
               <FontAwesomeIcon icon={faUser} className='user-icon' />
