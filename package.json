@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
+    "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-draggable": "^4.4.6",
@@ -20,10 +21,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && mv build docs",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "start": "react-scripts start",
+  "start:dev": "REACT_APP_ENV=development react-scripts start",
+  "start:prod": "REACT_APP_ENV=production react-scripts start",
+  "build": "react-scripts build && mv build docs",
+  "build:dev": "REACT_APP_ENV=development react-scripts build",
+  "build:prod": "REACT_APP_ENV=production react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import React, { useState,useEffect  } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import './CSS-File/Sign.css'; // 애니메이션 효과를 위한 CSS 파일
 import { toast, ToastContainer } from 'react-toastify'; // toast와 ToastContainer를 가져옵니다.
 import 'react-toastify/dist/ReactToastify.css'; // ToastContainer 스타일을 가져옵니다.
-
 
 
 const SignUp = ({ toggleForm }) => {
@@ -12,6 +11,19 @@ const SignUp = ({ toggleForm }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
+
+
+  const navigate = useNavigate();
+
+  const kakaoUserInfo = sessionStorage.getItem('kakaoUserInfo');
+
+  console.log(kakaoUserInfo)
+
+  if (kakaoUserInfo) {
+    console.log("User already logged in:", JSON.parse(kakaoUserInfo));
+    navigate('/'); // 홈 화면으로 리다이렉트
+    return;
+  }
 
 
   const handleSignUp = (event) => {
@@ -235,6 +247,74 @@ const SignIn = ({ toggleForm }) => {
 
   const navigate = useNavigate();
 
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+  // 강제 로그인 창 표시 설정
+  const kakaoToken = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&prompt=login`;
+
+  const handleKakaoLogin = () => {
+    window.location.href = kakaoToken; // 로그인 URL로 이동
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const kakaoUserInfo = sessionStorage.getItem('kakaoUserInfo');
+
+    console.log('Code from URL:', code);
+    console.log('Kakao User Info from Session:', kakaoUserInfo);
+
+    if (kakaoUserInfo) {
+      console.log('✅ User already logged in:', JSON.parse(kakaoUserInfo));
+      return;
+    }
+
+    if (code) {
+      console.log('✅ Received Auth Code:', code);
+
+      // Access Token 요청
+      fetch('https://kauth.kakao.com/oauth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          client_id: REST_API_KEY,
+          redirect_uri: REDIRECT_URI,
+          code: code,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('🔑 Token Response:', data);
+          if (data.access_token) {
+            // 사용자 정보 요청
+            return fetch('https://kapi.kakao.com/v2/user/me', {
+              method: 'GET',
+              headers: { Authorization: `Bearer ${data.access_token}` },
+            });
+          }
+          throw new Error('❌ Access token not received');
+        })
+        .then((res) => res.json())
+        .then((userInfo) => {
+          console.log('👤 User Info:', userInfo);
+          sessionStorage.setItem('kakaoUserInfo', JSON.stringify(userInfo));
+          alert('✅ 카카오 로그인 성공!');
+          navigate('/'); // 홈 화면으로 이동
+
+          // URL에서 인증 코드 제거
+          window.history.replaceState({}, document.title, '/sign');
+        })
+        .catch((err) => {
+          console.error('❌ Kakao login error:', err);
+          alert('❌ 카카오 로그인 중 오류가 발생했습니다.');
+        });
+    }
+  }, [navigate]);
+  
+
+
   const handleSignIn = (event) => {
     event.preventDefault();
     const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -337,6 +417,8 @@ const SignIn = ({ toggleForm }) => {
     setPassword('');
   };
 
+
+
   return (
     <div className="container-in">
       <h2 className="title-in">Sign In</h2>
@@ -371,6 +453,9 @@ const SignIn = ({ toggleForm }) => {
           <label htmlFor="rememberMe">Remember me</label>
         </div>
         <button type="submit" className="button">Login</button>
+        <a onClick={handleKakaoLogin} href={kakaoToken} className="kakao-login-link">
+          <img src="kakao_login_medium_narrow.png" alt="Kakao Login" className="kakao-login-image" />
+        </a>
       </form>
       <p className="switch-text">
         Don't have an account? 
@@ -382,10 +467,21 @@ const SignIn = ({ toggleForm }) => {
 
 const App = () => {
   const [isSignUp, setIsSignUp] = useState(true);
+  const location = useLocation(); 
 
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
   };
+
+  useEffect(() => {
+    const code = new URL(window.location.href).searchParams.get("code");
+    console.log('Code from URL:', code);
+
+    if (code) {
+      setIsSignUp(false); // 카카오 로그인 코드가 있을 경우 SignIn 화면으로 강제 이동
+    }
+  }, [location.search]);
+
 
   return (
     <div>
