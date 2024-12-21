@@ -40,7 +40,6 @@ const Header = () => {
       setKakaoUserInfo(null);
       setIsSignedIn(false);
       setIsMenuOpen(false);
-      alert('로그아웃 되었습니다.');
       navigate('/sign');
       return;
     }
@@ -62,12 +61,10 @@ const Header = () => {
           setIsSignedIn(false);
           setIsMenuOpen(false);
   
-          alert('✅ 카카오 연결이 완전히 해제되었습니다.');
           navigate('/sign');
         },
         fail: (err) => {
           console.error('❌ 카카오 연결 끊기 실패:', err);
-          alert('❌ 카카오 연결 끊기에 실패했습니다. 다시 시도해주세요.');
           navigate('/sign');
         },
       });

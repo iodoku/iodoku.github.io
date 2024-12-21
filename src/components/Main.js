@@ -12,8 +12,6 @@ const Main = () => {
 
   const envapiKey = process.env.REACT_APP_TMDB_API_KEY;
 
-  console.log("TMDB API Key:", envapiKey);
-
   const [isLoading, setIsLoading] = useState(true);
   const [bannerMovie, setBannerMovie] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
