@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 
 if (window.Kakao && !window.Kakao.isInitialized()) {
@@ -13,7 +13,9 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <BrowserRouter basename="/iodoku.github.io">
     <App />
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
