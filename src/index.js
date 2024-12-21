@@ -13,8 +13,9 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
 // 환경에 따라 basename 설정
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename="/iodoku.github.io">
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <App />
   </BrowserRouter>
 );
+
 reportWebVitals();
