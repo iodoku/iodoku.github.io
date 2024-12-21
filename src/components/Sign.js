@@ -266,7 +266,7 @@ const SignIn = ({ toggleForm }) => {
     console.log('Kakao User Info from Session:', kakaoUserInfo);
 
     if (kakaoUserInfo) {
-      console.log('✅ User already logged in:', JSON.parse(kakaoUserInfo));
+      console.log('✅ User already logged in:', JSON.parse(kakaoUserInfo))
       return;
     }
 
@@ -298,9 +298,8 @@ const SignIn = ({ toggleForm }) => {
         })
         .then((res) => res.json())
         .then((userInfo) => {
-          console.log('👤 User Info:', userInfo);
+          console.log('👤 카카오 회원정보:', userInfo);
           sessionStorage.setItem('kakaoUserInfo', JSON.stringify(userInfo));
-          alert('✅ 카카오 로그인 성공!');
           navigate('/'); // 홈 화면으로 이동
 
           // URL에서 인증 코드 제거
@@ -308,7 +307,6 @@ const SignIn = ({ toggleForm }) => {
         })
         .catch((err) => {
           console.error('❌ Kakao login error:', err);
-          alert('❌ 카카오 로그인 중 오류가 발생했습니다.');
         });
     }
   }, [navigate]);
