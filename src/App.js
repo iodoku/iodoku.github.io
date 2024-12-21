@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header'; 
 import Main from './components/Main'; // 홈 컴포넌트
@@ -8,6 +8,7 @@ import Search from './components/search'; // 찾아보기 컴포넌트
 import Sign from './components/Sign'; // 내가 찜한 리스트 컴포넌트
 
 function App() {
+
   return (
     <Router>
       <Header />

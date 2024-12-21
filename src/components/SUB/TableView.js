@@ -8,6 +8,8 @@ import { handleMovieClick, getLikedMovies } from './Like';
 const TableView = () => {
     const { apiKey, IDKey } = getAPIData();
 
+    const envapiKey = process.env.REACT_APP_TMDB_API_KEY;
+
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [error, setError] = useState(null);
@@ -26,7 +28,7 @@ const TableView = () => {
             const endPage = startPage + 1;
 
             for (let i = startPage; i <= endPage; i++) {
-                requests.push(fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${i}`));
+                requests.push(fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${envapiKey}&language=ko-KR&page=${i}`));
             }
             const responses = await Promise.all(requests);
             const data = await Promise.all(responses.map(response => response.json()));

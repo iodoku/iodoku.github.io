@@ -8,6 +8,12 @@ import './CSS-File/Main.css'; // CSS 파일 임포트
 
 const Main = () => {
   const { apiKey, IDKey } = getAPIData();
+
+
+  const envapiKey = process.env.REACT_APP_TMDB_API_KEY;
+
+  console.log("TMDB API Key:", envapiKey);
+
   const [isLoading, setIsLoading] = useState(true);
   const [bannerMovie, setBannerMovie] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
@@ -18,9 +24,9 @@ const Main = () => {
   const scrollRefs = [useRef(null), useRef(null), useRef(null)];
   const scrollProps = useHorizontalScroll(); // 수평 스크롤 훅
 
-  const fetchFeaturedMovie = async (apiKey) => {
+  const fetchFeaturedMovie = async (envapiKey) => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`);
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${envapiKey}&language=ko-KR`);
       setBannerMovie(response.data.results[0]); // 첫 번째 결과를 배너 영화로 설정
     } catch (error) {
       console.error('Error fetching featured movie:', error);
@@ -42,13 +48,13 @@ const Main = () => {
     if (isLoading) {
       setTimeout(() => setIsLoading(false), 100);
     }
-    if (apiKey) {
-      fetchFeaturedMovie(apiKey); // 배너 영화
-      fetchMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=1`, setPopularMovies); // 인기 영화
-      fetchMovies(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR&page=2`, setLatestMovies); // 최신 영화
-      fetchMovies(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ko-KR`, setActionMovies); // 액션 영화
+    if (envapiKey) {
+      fetchFeaturedMovie(envapiKey); // 배너 영화
+      fetchMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${envapiKey}&language=ko-KR&page=1`, setPopularMovies); // 인기 영화
+      fetchMovies(`https://api.themoviedb.org/3/movie/now_playing?api_key=${envapiKey}&language=ko-KR&page=2`, setLatestMovies); // 최신 영화
+      fetchMovies(`https://api.themoviedb.org/3/discover/movie?api_key=${envapiKey}&with_genres=28&language=ko-KR`, setActionMovies); // 액션 영화
     }
-  }, [apiKey, isLoading]);
+  }, [envapiKey, isLoading]);
 
   // 스크롤 이벤트 리스너 추가 및 제거
   useEffect(() => {

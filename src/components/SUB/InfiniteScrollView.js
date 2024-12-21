@@ -7,6 +7,9 @@ import '../CSS-File/InfiniteScroll.css';
 
 const InfiniteScrollView = () => {
     const { apiKey, IDKey } = getAPIData();
+
+    const envapiKey = process.env.REACT_APP_TMDB_API_KEY;
+
     const [movies, setMovies] = useState([]);
     const [visibleMovies, setVisibleMovies] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -20,7 +23,7 @@ const InfiniteScrollView = () => {
         try {
             const responses = await Promise.all(
                 Array.from({ length: 3 }, (_, i) => 
-                    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=${currentPage + i}`)
+                    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${envapiKey}&language=ko-KR&page=${currentPage + i}`)
                 )
             );
             const data = await Promise.all(responses.map(res => res.json()));
