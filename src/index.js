@@ -13,7 +13,7 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename={process.env.REACT_APP_API_BASE_URL}>
+  <BrowserRouter>
     <App />
   </BrowserRouter>
 );
