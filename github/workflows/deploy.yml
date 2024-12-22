@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,19 +24,16 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Prepare deployment folder
+      - name: Move build to docs
         run: |
           rm -rf docs
-          cp -r build docs
+          mv build docs
           touch docs/.nojekyll
-
-      - name: Add 404.html
-        run: cp public/404.html docs/404.html
 
       - name: Commit and push changes
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add docs
-          git commit -m 'Deploy to GitHub Pages'
+          git commit -m 'Deploy to GitHub Pages /docs'
           git push origin main
