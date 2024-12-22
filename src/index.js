@@ -13,9 +13,7 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename={'/'}>
-    <App />
-  </BrowserRouter>
+  <App />
 );
 
 reportWebVitals();

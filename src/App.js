@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Header from './components/Header'; 
 import Main from './components/Main'; 
 import Popular from './components/popular'; 
@@ -10,7 +10,7 @@ import KakaoInfo from './components/kakaoinfo';
 
 function App() {
   return (
-    <>
+    <BrowserRouter basename={'/'}>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -20,7 +20,7 @@ function App() {
         <Route path="/sign" element={<Sign />} />
         <Route path="/kakaoinfo" element={<KakaoInfo />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 }
 
