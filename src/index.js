@@ -10,7 +10,6 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
   console.log('✅ Kakao SDK Initialized:', window.Kakao.isInitialized());
 }
 
-// 환경에 따른 basename 설정
 const basename =
   process.env.NODE_ENV === 'production'
     ? process.env.REACT_APP_API_BASE_URL || '/iodoku.github.io'
