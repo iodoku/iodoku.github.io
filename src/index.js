@@ -13,7 +13,7 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
 // 환경에 따른 basename 설정
 const basename =
   process.env.NODE_ENV === 'production'
-    ? new URL(process.env.REACT_APP_API_BASE_URL).pathname || ''
+    ? process.env.REACT_APP_API_BASE_URL || '/iodoku.github.io'
     : '';
 
 console.log('📍 Basename:', basename);
