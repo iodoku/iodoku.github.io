@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header'; 
-import Main from './components/Main'; 
-import Popular from './components/popular'; 
-import Wishlist from './components/Wishlist'; 
-import Search from './components/search'; 
-import Sign from './components/Sign'; 
+import Main from './components/Main';
+import Popular from './components/popular';
+import Wishlist from './components/Wishlist';
+import Search from './components/search';
+import Sign from './components/Sign';
 import KakaoInfo from './components/kakaoinfo';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -19,8 +19,9 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/sign" element={<Sign />} />
         <Route path="/kakaoinfo" element={<KakaoInfo />} />
+        {/* 추가적인 라우트 */}
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
