@@ -10,7 +10,7 @@ import KakaoInfo from './components/kakaoinfo';
 
 function App() {
   return (
-    <BrowserRouter basename={'/'}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
