@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header'; 
 import Main from './components/Main'; 
@@ -9,6 +9,13 @@ import Sign from './components/Sign';
 import KakaoInfo from './components/kakaoinfo';
 
 function App() {
+  useEffect(() => {
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_REST_API_KEY);
+      console.log('✅ Kakao SDK Initialized:', window.Kakao.isInitialized());
+    }
+  }, []);
+
   return (
     <Router>
       <Header />
