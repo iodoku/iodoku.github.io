@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "https://iodoku.github.io/static/css/main.2ba6eb8f.css",
-    "main.js": "https://iodoku.github.io/static/js/main.97237802.js",
+    "main.js": "https://iodoku.github.io/static/js/main.3f8a23d7.js",
     "static/js/453.00672f01.chunk.js": "https://iodoku.github.io/static/js/453.00672f01.chunk.js",
     "static/media/icon.png": "https://iodoku.github.io/static/media/icon.588d14c91a788f2695ad.png",
     "static/media/space.jpg": "https://iodoku.github.io/static/media/space.a93d1e0bc6a37677334e.jpg",
     "index.html": "https://iodoku.github.io/index.html",
     "main.2ba6eb8f.css.map": "https://iodoku.github.io/static/css/main.2ba6eb8f.css.map",
-    "main.97237802.js.map": "https://iodoku.github.io/static/js/main.97237802.js.map",
+    "main.3f8a23d7.js.map": "https://iodoku.github.io/static/js/main.3f8a23d7.js.map",
     "453.00672f01.chunk.js.map": "https://iodoku.github.io/static/js/453.00672f01.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2ba6eb8f.css",
-    "static/js/main.97237802.js"
+    "static/js/main.3f8a23d7.js"
   ]
 }
