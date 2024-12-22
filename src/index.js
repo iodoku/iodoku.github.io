@@ -10,11 +10,14 @@ if (window.Kakao && !window.Kakao.isInitialized()) {
   console.log('✅ Kakao SDK Initialized:', window.Kakao.isInitialized());
 }
 
-// 환경에 따라 basename 설정
+// 환경에 따른 basename 설정
 const basename =
   process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_API_BASE_URL.replace(window.location.origin, '') || ''
+    ? new URL(process.env.REACT_APP_API_BASE_URL).pathname || ''
     : '';
+
+console.log('📍 Basename:', basename);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename={basename}>
