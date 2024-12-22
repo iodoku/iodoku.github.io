@@ -17,8 +17,8 @@
       // GitHub Pages SPA 라우팅 문제 해결
       const redirectToIndex = () => {
         const path = window.location.pathname;
-        if (!path.startsWith('/index.html') && !path.endsWith('/')) {
-          window.history.replaceState({}, '', '/');
+        if (window.location.pathname !== '/' && !window.location.pathname.startsWith('/index.html')) {
+          window.location.replace('/');
         }
       };
       redirectToIndex();
