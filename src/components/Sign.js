@@ -273,7 +273,7 @@ const SignIn = ({ toggleForm }) => {
     if (code) {
 
       window.history.replaceState({}, document.title, '/iodoku.github.io/sign');
-      
+
       // Access Token 요청
       fetch('https://kauth.kakao.com/oauth/token', {
         method: 'POST',
