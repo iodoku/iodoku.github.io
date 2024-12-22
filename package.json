@@ -1,5 +1,6 @@
 {
   "name": "hw2",
+  "homepage": "https://iodoku.github.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +21,6 @@
     "react-transition-group": "^4.4.5",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://iodoku.github.io/sign",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && shx rm -rf docs && shx mv build docs",
